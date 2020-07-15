@@ -19,7 +19,7 @@ const buildNavbar = () => {
             <a class="nav-link" href="#">Pricing</a>
           </li>
           <li class="nav-item">
-            <a style="color: #000;" class="nav-link disabled" href="#"><i class="fas fa-thermometer"></i></a>
+            <a class="nav-link disabled" href="#"><i class="fas fa-thermometer"></i></a>
           </li>
         </ul>
       </div>
