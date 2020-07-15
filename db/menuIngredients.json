@@ -1,0 +1,47 @@
+{
+  "menuIngre1": {
+    "ingredientId": "ingredient7",
+    "menuId": "menuItem1"
+  },
+  "menuIngre2": {
+    "ingredientId": "ingredient4",
+    "menuId": "menuItem1"
+  },
+  "menuIngre3": {
+    "ingredientId": "ingredient6",
+    "menuId": "menuItem2"
+  },
+  "menuIngre4": {
+    "ingredientId": "ingredient3",
+    "menuId": "menuItem2"
+  },
+  "menuIngre5": {
+    "ingredientId": "ingredient2",
+    "menuId": "menuItem3"
+  },
+  "menuIngre6": {
+    "ingredientId": "ingredient7",
+    "menuId": "menuItem3"
+  },
+  "menuIngre7": {
+    "ingredientId": "ingredient1",
+    "menuId": "menuItem4"
+  },
+  "menuIngre8": {
+    "ingredientId": "ingredient8",
+    "menuId": "menuItem4"
+  },
+  "menuIngre9": {
+    "ingredientId": "ingredient9",
+    "menuId": "menuItem5"
+  },
+  "menuIngre10": {
+    "ingredientId": "ingredient6",
+    "menuId": "menuItem5"
+  },
+  "menuIngre11": {
+    "ingredientId": "ingredient5",
+    "menuId": "menueItem6"
+  }
+
+}
