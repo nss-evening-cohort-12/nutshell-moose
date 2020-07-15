@@ -4,4 +4,9 @@
 
 body {
   background-color: $background-color;
+  font-family: $primary-font;
+}
+
+.hide {
+  display: none;
 }

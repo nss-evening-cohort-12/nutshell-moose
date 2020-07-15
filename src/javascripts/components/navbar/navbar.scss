@@ -2,14 +2,16 @@
 
 nav {
   padding: 25px !important;
+  font-size: 1.2em;
 
   .navbar-brand {
     margin-left: 10px;
+    font-size: 1.2em;
   }
 
   .fa-bread-slice {
     font-size: 2em;
-    color: $background-color !important;
+    color: $secondary-color !important;
   }
 
   #navbarNav {
@@ -26,6 +28,7 @@ nav {
     border-color: $primary-color;
     margin-left: 60px;
     margin-right: 10px;
+    font-size: 1em;
   }
 
   .btn-primary:hover {
@@ -35,8 +38,7 @@ nav {
 
   .nav-item {
     margin: 0px 20px;
-    font-size: 1.15em;
-    margin: 10px;
+    margin: 6px;
     padding: 0px 10px;
     border: 1px solid $font-color;
     border-radius: 2em;
@@ -47,10 +49,11 @@ nav {
     background-color: $primary-color !important;
     border: 1px solid $primary-color;
     border-radius: 2em;
+    cursor: pointer;
   }
 
   .nav-link {
-    color: #f2f2f2 !important;
+    color: #fff !important;
     transition: 100ms ease-in;
     padding: 5px;
   }
@@ -59,6 +62,6 @@ nav {
     background-color: $primary-color !important;
     border: 1px solid $primary-color;
     border-radius: 2em;
-    color: #f2f2f2 !important;
+    color: #fff !important;
   }
 }
