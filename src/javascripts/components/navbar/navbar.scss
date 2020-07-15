@@ -50,7 +50,7 @@ nav {
   }
 
   .nav-link {
-    color: $background-color !important;
+    color: #f2f2f2 !important;
     transition: 100ms ease-in;
     padding: 5px;
   }
@@ -59,5 +59,6 @@ nav {
     background-color: $primary-color !important;
     border: 1px solid $primary-color;
     border-radius: 2em;
+    color: #f2f2f2 !important;
   }
 }
