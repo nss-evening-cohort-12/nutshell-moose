@@ -1,0 +1,26 @@
+{
+  "reservations1": {
+    "name": "Amy",
+    "partySize": 6,
+    "date": "",
+    "time": 1900
+  },
+  "reservations2": {
+    "name": "John",
+    "partySize": 2,
+    "date": "",
+    "time": 2000
+  },
+  "reservations3": {
+    "name": "Laura",
+    "partySize": 8,
+    "date": "",
+    "time": 1700
+  },
+  "reservations4": {
+    "name": "Kristin",
+    "partySize": 4,
+    "date": "",
+    "time": 1800
+  }
+}

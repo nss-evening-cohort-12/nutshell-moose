@@ -1,0 +1,38 @@
+{
+  "ingredient1":{
+    "name": "Rice",
+    "type": "vegetable"
+  },
+  "ingredient2":{
+    "name": "Spinach",
+    "type": "vegetable"
+  },
+  "ingredient3":{
+    "name": "Mushroom",
+    "type": "vegetable"
+  },
+  "ingredient4":{
+    "name": "Potato",
+    "type": "vegetable"
+  },
+  "ingredient9":{
+    "name": "Tomato",
+    "type": "fruit"
+  },
+  "ingredient5":{
+    "name": "Apples",
+    "type": "fruit"
+  },
+  "ingredient6":{
+    "name": "Duck",
+    "type": "protien"
+  },
+  "ingredient7":{
+    "name": "Beef",
+    "type": "protein"
+  },
+  "ingredient8":{
+    "name": "Chicken",
+    "type": "protein"
+  }
+}

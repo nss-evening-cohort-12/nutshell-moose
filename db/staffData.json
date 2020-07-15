@@ -1,0 +1,42 @@
+{
+  "staff1": {
+    "name": "Isabella",
+    "id": "",
+    "type": "Busser"
+  },
+  "staff2": {
+    "name": "Abelard",
+    "id": "",
+    "type": "Busser"
+  },
+  "staff3": {
+    "name": "Sofia",
+    "id": "",
+    "type": "Server"
+  },
+  "staff4": {
+    "name": "Achille",
+    "id": "",
+    "type": "Server"
+  },
+  "staff5": {
+    "name": "Emelia",
+    "id": "",
+    "type": "Chef"
+  },
+  "staff6": {
+    "name": "Ada",
+    "id": "",
+    "type": "Chef"
+  },
+  "staff7": {
+    "name": "Ivan",
+    "id": "",
+    "type": "Host"
+  },
+  "staff8": {
+    "name": "Anne-Marie",
+    "id": "",
+    "type": "Manager"
+  }
+}

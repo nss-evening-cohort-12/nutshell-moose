@@ -1,0 +1,32 @@
+{
+  "menuItem1":{
+    "name": "Steak au poivre with crisp Potatoes",
+    "price": 23,
+    "imgUrl": "https://bit.ly/2CdatVR"
+  },
+  "menuItem2": {
+    "name": "Salmis of Duck",
+    "price": 35,
+    "imgUrl": "https://bit.ly/2Ca6cT6"
+  },
+  "menuItem3": {
+    "name": "German Rouladen",
+    "price": 17,
+    "imgUrl": "https://bit.ly/3eyu6F4"
+  },
+  "menuItem4": {
+    "name": "Russian Chicken on Rice",
+    "price": 27,
+    "imgUrl": "https://bit.ly/38YHVvy"
+  },
+  "menuItem5": {
+    "name": "Italian Duck",
+    "price": 28,
+    "imgUrl": "https://bit.ly/3erov3j"
+  },
+  "menueItem6": {
+    "name": "Apple Tart",
+    "price": 14,
+    "imgUrl": "https://bit.ly/3ew8Xv6"
+  }
+}
