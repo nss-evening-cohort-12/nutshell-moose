@@ -1,3 +1,8 @@
 import 'bootstrap';
+import navbar from './components/navbar/navbar';
 
-console.error('test');
+const init = () => {
+  navbar.buildNavbar();
+};
+
+init();
