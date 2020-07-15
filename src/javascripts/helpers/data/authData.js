@@ -1,11 +1,11 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-const logoutButton = $('#navbar-logout-button');
-const loginButton = $('#navbar-login-button');
+const logoutButton = $('#logout-button');
+const loginButton = $('#login-button');
 const authOnly = $('.auth-only');
 
-// this should make sure all buttons with .auth-only class are hidden or unhidden appropriately:
+// call this to appropriately hide or display everything with '.auth-only' class:
 const secureButtons = () => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -15,6 +15,11 @@ const secureButtons = () => {
       authOnly.addClass('hide');
     }
   });
+};
+
+// call this to check if user is authorized before running secure actions (returns boolean)
+const checkAuth = () => {
+  firebase.auth().onAuthStateChanged((user) => (!!user));
 };
 
 const checkLoginStatus = () => {
@@ -29,4 +34,4 @@ const checkLoginStatus = () => {
   });
 };
 
-export default { checkLoginStatus, secureButtons };
+export default { checkLoginStatus, secureButtons, checkAuth };
