@@ -37,19 +37,23 @@
   border: 3px solid $primary-color;
   border-radius: .2em;
   padding: 0;
+  background-color: $primary-color;
 
   h1 {
     align-self: start;
     justify-self: start;
-    padding: 7px 32px 16px 20px;
+    padding: 7px 32px 20px 20px;
 
     border-bottom-right-radius: 1.6em;
-    color: $background-color;
+    background-color: $background-color;
+    color: $primary-color;
   }
 
   h2 {
     text-align: center;
-    background-color: $primary-color;
+    background-color: $background-color;
+    color: $primary-color;
+    border-radius: .1em;
     padding: 25px;
 
     align-self: center;

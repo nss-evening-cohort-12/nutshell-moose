@@ -23,8 +23,8 @@ const buildSeating = (e) => {
       seating.forEach((table) => {
         domString += `
           <div class="table-container">
-            <h1 class="table-number">${table.tableNum}</h1>
-            <h2>Capacity: ${table.capacity}</h2>
+            <h1 class="table-number"><i class="fas fa-hashtag" style="font-size: .6em;"></i> ${table.tableNum}</h1>
+            <h2><i class="fas fa-users"></i> <span style="font-size: 1.3em;">${table.capacity}</span></h2>
           </div>
         `;
       });
