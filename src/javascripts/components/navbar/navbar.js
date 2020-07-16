@@ -1,11 +1,13 @@
 import utils from '../../helpers/utils';
 import './navbar.scss';
 
-// WIP: adding the active class to the navigation item you click
-
-const activeNavLinks = (e) => {
+const activeNavLink = (e) => {
   e.preventDefault();
-  const menuItem = e.target.closest('li').id;
+
+  const allMenuItems = $('.nav-item');
+  allMenuItems.removeClass('active');
+
+  const menuItem = $(`#${e.target.closest('li').id}`);
 
   menuItem.addClass('active');
 };
@@ -20,7 +22,7 @@ const buildNavbar = () => {
       <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNav">
         <div class="nav-group">
           <ul class="navbar-nav">
-            <li class="nav-item active" id="menu-link">
+            <li class="nav-item" id="menu-link">
               <a class="nav-link">Menu</a>
             </li>
             <li class="nav-item" id="staff-link">
@@ -42,11 +44,14 @@ const buildNavbar = () => {
       <button class="btn btn-primary hide" id="sign-out-button">Sign Out</button>
     </nav>
   `;
-  $('body').on('click', '#menu-link', activeNavLinks);
-  $('body').on('click', '#staff-link', activeNavLinks);
-  $('body').on('click', '#ingredient-link', activeNavLinks);
-  $('body').on('click', '#reservations-link', activeNavLinks);
-  $('body').on('click', '#seating-link', activeNavLinks);
+
+  // these click events are temporary. plan to add the `activeNavLink()` function to each build function for the dashboard items
+
+  $('body').on('click', '#menu-link', activeNavLink);
+  $('body').on('click', '#staff-link', activeNavLink);
+  $('body').on('click', '#ingredient-link', activeNavLink);
+  $('body').on('click', '#reservations-link', activeNavLink);
+  $('body').on('click', '#seating-link', activeNavLink);
 
   utils.printToDom('#navbar', domString);
 };
