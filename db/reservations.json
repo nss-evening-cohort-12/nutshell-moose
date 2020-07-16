@@ -1,26 +1,26 @@
 {
-  "reservations1": {
+  "reservation1": {
     "name": "Amy",
     "partySize": 6,
-    "date": "",
+    "date": "2020-08-01",
     "time": 1900
   },
-  "reservations2": {
+  "reservation2": {
     "name": "John",
     "partySize": 2,
-    "date": "",
+    "date": "2020-08-01",
     "time": 2000
   },
-  "reservations3": {
+  "reservation3": {
     "name": "Laura",
     "partySize": 8,
-    "date": "",
+    "date": "2020-08-02",
     "time": 1700
   },
-  "reservations4": {
+  "reservation4": {
     "name": "Kristin",
     "partySize": 4,
-    "date": "",
+    "date": "2020-08-01",
     "time": 1800
   }
 }
