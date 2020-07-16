@@ -7,17 +7,12 @@
   background-color: white;
 }
 
-// div {
-//   border: 1px solid blue;
-// }
-
 form {
   margin: 0;
   padding: 0;
 }
 
 #reservation-form {
-  // width: 80vw;
   margin-top: 1em;
   select {
     -webkit-appearance: none;
@@ -59,7 +54,6 @@ form {
 #hour {
   height: 37px;
   border: 1px solid #ced4da;
-  // width: 30px;
 }
 
 #results-reservations {

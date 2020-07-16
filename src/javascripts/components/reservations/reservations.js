@@ -4,9 +4,6 @@ import utils from '../../helpers/utils';
 import './reservations.scss';
 import reservationsData from '../../helpers/data/reservationsData';
 
-// const now = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
-// <div id="reservation-form" class="mt-5 mx-auto">
-
 const reservationForm = () => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
   const form = `
@@ -51,11 +48,7 @@ const displayReservations = () => new Promise((resolve, reject) => {
   let domString = '';
   reservationsData.getReservations()
     .then((reservations) => {
-      // utils.printToDom('#console', result[0].name);
-      // console.error(result[0]);
-      // MAKE CARDS FOR EXISTING RESERVATIONS
       reservations.forEach((reservation) => {
-        // const date = moment(reservation.date, 'YYYY-MM-DD');
         const date = moment(reservation.date).format('M/D/YYYY');
         const time = moment(reservation.time).format('LT');
         domString += `
@@ -97,7 +90,6 @@ const reservationsPage = () => {
       utils.printToDom('#console', domString);
     })
     .catch((err) => { console.error(err); });
-  // utils.printToDom('#console', domString);
 };
 
 export default { reservationsPage, reservationForm };
