@@ -24,12 +24,19 @@ const reservationForm = () => {
       <div class="form-group row">
         <label for="size" class="col-sm-1 col-form-label">Party size:</label>
         <div class="col-sm-1">
-          <input type="number" class="form-control" id="size required">
+          <input type="number" class="form-control" id="size required" min="2" max="6">
         </div>
         <div class="col-sm-4"></div>
         <label for="time" class="col-sm-1 col-form-label">Time:</label>
         <div class="col-sm-5">
-          <input type="time" min="11:00" max="21:00" class="form-control" id="time" required>
+        <input type="number" id="hour" name="hour" min="1" max="12">
+        :
+        <select id="minutes" name="minutes">
+          <option value="00">00</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+        </select>
         </div>
       </div>
       <div class="form-group row">
@@ -45,8 +52,8 @@ const reservationForm = () => {
 
 const reservationsPage = () => {
   let domString = `
-  <div class="row" id="reservation-header">
-    <p class="text-center">Create New Reservation</p>
+  <div class="row mt-5" id="reservation-header">
+    <h3>Add New Reservation</h3>
   </div>
   `;
   domString += reservationForm();

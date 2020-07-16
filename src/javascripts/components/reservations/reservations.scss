@@ -1,4 +1,27 @@
 #reservation-form {
   // width: 80vw;
   margin-top: 1em;
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 3px;
+    text-overflow: '';
+  }
 }
+
+#reservation-header {
+  justify-content: center;
+}
+
+#minutes {
+  height: 37px;
+  width: 49px;
+  border: 1px solid #ced4da;
+}
+
+#hour {
+  height: 37px;
+  border: 1px solid #ced4da;
+  // width: 30px;
+}
+
