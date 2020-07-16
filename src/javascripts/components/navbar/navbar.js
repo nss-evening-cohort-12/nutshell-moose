@@ -1,16 +1,6 @@
-import utils from '../../helpers/utils';
 import './navbar.scss';
-
-const activeNavLink = (e) => {
-  e.preventDefault();
-
-  const allMenuItems = $('.nav-item');
-  allMenuItems.removeClass('active');
-
-  const menuItem = $(`#${e.target.closest('li').id}`);
-
-  menuItem.addClass('active');
-};
+import utils from '../../helpers/utils';
+import seating from '../seating/seating';
 
 const buildNavbar = () => {
   const domString = `
@@ -45,13 +35,7 @@ const buildNavbar = () => {
     </nav>
   `;
 
-  // these click events are temporary. plan to add the `activeNavLink()` function to each build function for the dashboard items
-
-  $('body').on('click', '#menu-link', activeNavLink);
-  $('body').on('click', '#staff-link', activeNavLink);
-  $('body').on('click', '#ingredient-link', activeNavLink);
-  $('body').on('click', '#reservations-link', activeNavLink);
-  $('body').on('click', '#seating-link', activeNavLink);
+  $('body').on('click', '#seating-link', seating.buildSeating);
 
   utils.printToDom('#navbar', domString);
 };
