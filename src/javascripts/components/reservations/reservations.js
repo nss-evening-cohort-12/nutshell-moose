@@ -50,7 +50,7 @@ const displayReservations = () => new Promise((resolve, reject) => {
     .then((reservations) => {
       reservations.forEach((reservation) => {
         const date = moment(reservation.date).format('M/D/YYYY');
-        const time = moment(reservation.time).format('LT');
+        const time = moment(reservation.time, 'hhmm').format('LT');
         domString += `
         <div class="card reservation-card" style="width: 18rem;">
           <div class="card-header">
