@@ -1,6 +1,5 @@
 import './navbar.scss';
 import utils from '../../helpers/utils';
-import seating from '../seating/seating';
 
 const buildNavbar = () => {
   const domString = `
@@ -34,8 +33,6 @@ const buildNavbar = () => {
       <button class="btn btn-primary hide" id="sign-out-button">Sign Out</button>
     </nav>
   `;
-
-  $('body').on('click', '#seating-link', seating.buildSeating);
 
   utils.printToDom('#navbar', domString);
 };

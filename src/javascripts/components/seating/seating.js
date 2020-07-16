@@ -11,14 +11,20 @@ const buildSeating = (e) => {
   getSeatingData.getSeating()
     .then((seating) => {
       let domString = `
-      <div class="progress-title">
-        <h2>Current Availability:</h2>
-      </div>
-      <div class="progress">
-        <div class="progress-bar available-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Available</div>
-        <div class="progress-bar unavailable-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unavailable</div>
-      </div>
-      <div class="seating-grid">
+        <div class="container">
+          <div class="progress-grid">
+            <div class="progress-title">
+              <h2>Current Availability:</h2>
+            </div>
+            <div class="progress">
+              <div class="progress-bar available-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Available</div>
+              <div class="progress-bar unavailable-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unavailable</div>
+            </div>
+            <div class="new-table">
+              <h5><i class="fas fa-plus"></i> New Table</h5>
+            </div>
+          </div>
+          <div class="seating-grid">
       `;
       seating.forEach((table) => {
         domString += `
@@ -28,8 +34,11 @@ const buildSeating = (e) => {
           </div>
         `;
       });
-      domString += '</div>';
-      utils.printToDom('#seating', domString);
+      domString += `
+          </div>
+        </div>
+      `;
+      utils.printToDom('#console', domString);
     })
     .catch((err) => console.error('getting the seating did not work -> ', err));
 };
