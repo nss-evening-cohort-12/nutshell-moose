@@ -1,22 +1,63 @@
 @import '../../../styles/styles';
 
+.progress {
+  margin: 0px 75px 75px 75px;
+
+  .available-bar {
+    background-color: $primary-color !important;
+  }
+
+  .unavailable-bar {
+    background-color: #fff !important;
+    color: $font-color;
+  }
+}
+
+.progress-title {
+  margin: 75px 75px 0px 75px;
+  color: $font-color;
+}
+
 .seating-grid {
   display: grid;
 
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 50% 50%;
+  grid-gap: 2em;
+  justify-content: center;
 
   margin: 75px;
 }
 
 .table-container {
-  border: 2px solid $primary-color;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  border: 3px solid $primary-color;
+  border-radius: .2em;
   padding: 0;
-  margin: 25px;
+
+  h1 {
+    align-self: start;
+    justify-self: start;
+    padding: 7px 32px 16px 20px;
+
+    border-bottom-right-radius: 1.6em;
+    color: $background-color;
+  }
+
+  h2 {
+    text-align: center;
+    background-color: $primary-color;
+    padding: 25px;
+
+    align-self: center;
+    justify-self: center;
+  }
 }
 
 .table-number {
-  position: static;
   margin: 0;
   background-color: $primary-color;
 }

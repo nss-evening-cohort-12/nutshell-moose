@@ -10,15 +10,21 @@ const buildSeating = (e) => {
 
   getSeatingData.getSeating()
     .then((seating) => {
-      let domString = '<div class="seating-grid">';
+      let domString = `
+      <div class="progress-title">
+        <h2>Current Availability:</h2>
+      </div>
+      <div class="progress">
+        <div class="progress-bar available-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Available</div>
+        <div class="progress-bar unavailable-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unavailable</div>
+      </div>
+      <div class="seating-grid">
+      `;
       seating.forEach((table) => {
         domString += `
           <div class="table-container">
-            <div class="number-container">
-              <h1 class="table-number">${table.tableNum}</h1>
-            </div>
+            <h1 class="table-number">${table.tableNum}</h1>
             <h2>Capacity: ${table.capacity}</h2>
-            <h3>Available? ${table.occupied}</h3>
           </div>
         `;
       });
