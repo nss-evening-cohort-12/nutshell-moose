@@ -2,12 +2,7 @@ import './seating.scss';
 import getSeatingData from '../../helpers/data/getSeatingData';
 import utils from '../../helpers/utils';
 
-const buildSeating = (e) => {
-  e.preventDefault();
-
-  $('.nav-item').removeClass('active');
-  $(`#${e.target.closest('li').id}`).addClass('active');
-
+const buildSeating = () => {
   getSeatingData.getSeating()
     .then((seating) => {
       let domString = `
@@ -17,8 +12,8 @@ const buildSeating = (e) => {
               <h2>Current Availability:</h2>
             </div>
             <div class="progress">
-              <div class="progress-bar available-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Available</div>
-              <div class="progress-bar unavailable-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unavailable</div>
+              <div class="progress-bar available-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Available</div>
+              <div class="progress-bar unavailable-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Unavailable</div>
             </div>
             <div class="new-table">
               <h5><i class="fas fa-plus"></i> New Table</h5>
