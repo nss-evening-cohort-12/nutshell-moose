@@ -10,10 +10,19 @@ const buildSeating = (e) => {
 
   getSeatingData.getSeating()
     .then((seating) => {
-      let domString = '';
+      let domString = '<div class="seating-grid">';
       seating.forEach((table) => {
-        domString += `<h1>${table.tableNum}</h1>`;
+        domString += `
+          <div class="table-container">
+            <div class="number-container">
+              <h1 class="table-number">${table.tableNum}</h1>
+            </div>
+            <h2>Capacity: ${table.capacity}</h2>
+            <h3>Available? ${table.occupied}</h3>
+          </div>
+        `;
       });
+      domString += '</div>';
       utils.printToDom('#seating', domString);
     })
     .catch((err) => console.error('getting the seating did not work -> ', err));
