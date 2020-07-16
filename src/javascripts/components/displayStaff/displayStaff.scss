@@ -1,0 +1,17 @@
+@import '../../../styles/styles';
+
+.card {
+  margin: 1em;
+  border: 1px solid  $primary-color;
+  box-shadow: 2px 3px 2px $primary-hover;
+
+}
+
+.staffNav {
+  justify-content: space-around;
+  margin-top: 1em;
+}
+
+.row{
+  align-items: center;
+}
