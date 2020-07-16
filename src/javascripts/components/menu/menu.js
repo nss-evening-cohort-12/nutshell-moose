@@ -3,7 +3,7 @@ import utils from '../../helpers/utils';
 import './menu.scss';
 
 const menuDom = (data) => {
-  let domString = '<div class="d-flex justify-content-around flex-wrap" id="menu-list">';
+  let domString = '<div class="d-flex justify-content-center flex-wrap" id="menu-list">';
   data.forEach((menuItem) => {
     domString += `
             <div class="card">
@@ -18,11 +18,17 @@ const menuDom = (data) => {
                     </span>
                   </div>
                 </div>
-                <div class="back">
-                  <ul>
-                    <li>Ingredient 1</li>
-                    <li>Ingredient 2</li>
-                  </ul>
+                <div class="back text-center">
+                  <h3>Ingredients List</h3>
+                  <img src="https://i.ibb.co/602hTvZ/divider.png" class="divider">
+                  <div class="d-flex flex-wrap justify-content-between">
+                    <span>Ingredient 1</span>
+                    <span>Ingredient 2</span>
+                    <span>Ingredient 3</span>
+                    <span>Ingredient 4</span>
+                    <span>Ingredient 5</span>
+                    <span>Ingredient 6</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -50,7 +56,7 @@ const menuDom = (data) => {
 const menuItems = () => {
   menuData.getMenuItems()
     .then((printMenuItems) => {
-      utils.printToDom('#content', menuDom(printMenuItems));
+      utils.printToDom('#console', menuDom(printMenuItems));
     })
     .catch((err) => console.error(err));
 };

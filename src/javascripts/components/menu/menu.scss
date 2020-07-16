@@ -5,6 +5,10 @@
   .card {
     width: 20rem;
     margin: 0 1rem 1rem 1rem;
+    border: none;
+    box-shadow: none;
+    border-radius: 1rem;
+    overflow: hidden;
   }
   .card-body {
     background-color: $secondary-color;
@@ -66,6 +70,11 @@
   color: $background-color;
   background-color: $primary-color;
   padding: 1rem;
+  .divider {
+    width: 50%;
+    opacity: 50%;
+    margin: 1rem 0;
+  }
 }
 
 .flip-arrow {

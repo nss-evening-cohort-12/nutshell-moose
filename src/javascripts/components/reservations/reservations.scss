@@ -1,0 +1,62 @@
+@import '../../../styles/styles';
+
+#new-reservation {
+  border: 1px solid black;
+  border-radius: 1em;
+  padding: 20px;
+  background-color: white;
+}
+
+form {
+  margin: 0;
+  padding: 0;
+}
+
+#reservation-form {
+  margin-top: 1em;
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 3px;
+    text-overflow: '';
+  }
+  .btn-primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+  .btn-primary:hover {
+    background-color: $primary-hover;
+    border-color: $primary-hover;
+  }
+}
+
+.reservation-card {
+  .btn-primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+  .btn-primary:hover {
+    background-color: $primary-hover;
+    border-color: $primary-hover;
+  }
+}
+
+.reservation-header {
+  justify-content: center;
+}
+
+#minutes {
+  height: 37px;
+  width: 49px;
+  border: 1px solid #ced4da;
+}
+
+#hour {
+  height: 37px;
+  border: 1px solid #ced4da;
+}
+
+#results-reservations {
+  display: flex;
+
+}
