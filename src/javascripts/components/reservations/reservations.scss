@@ -1,6 +1,6 @@
 @import '../../../styles/styles';
 
-#new-reservation {
+#edit-reservation {
   border: 1px solid black;
   border-radius: 1em;
   padding: 20px;
@@ -49,11 +49,20 @@ form {
   height: 37px;
   width: 49px;
   border: 1px solid #ced4da;
+  border-radius: 5px;
 }
 
 #hour {
   height: 37px;
+  width: 49px;
   border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+#size {
+  height: 37px;
+  width: 60px;
+  // border: 1px solid #ced4da;
 }
 
 #results-reservations {
