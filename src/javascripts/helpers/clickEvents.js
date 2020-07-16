@@ -1,5 +1,5 @@
 const clickEvents = () => {
-  // click events go here
+  $('.body').on('click', '#menu-link', menu.MenuList);
 };
 
 export default { clickEvents };
