@@ -1,6 +1,13 @@
 import './navbar.scss';
 import utils from '../../helpers/utils';
 
+const activeNavLinks = (e) => {
+  e.preventDefault();
+
+  $('.nav-item').removeClass('active');
+  $(`#${e.target.closest('li').id}`).addClass('active');
+};
+
 const buildNavbar = () => {
   const domString = `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -37,4 +44,4 @@ const buildNavbar = () => {
   utils.printToDom('#navbar', domString);
 };
 
-export default { buildNavbar };
+export default { buildNavbar, activeNavLinks };
