@@ -4,7 +4,7 @@
   margin: 3rem;
   .card {
     width: 20rem;
-    margin-bottom: 3rem;
+    margin: 0 1rem 1rem 1rem;
   }
   .card-body {
     background-color: $secondary-color;
@@ -17,6 +17,10 @@
   }
   .fas {
     margin: 1rem;
+    color: $primary-color;
+  }
+  .fa-circle {
+    color: $primary-color !important;
   }
 }
 
@@ -38,14 +42,12 @@
 .flipper {
 	transition: 0.8s;
 	transform-style: preserve-3d;
-
 	position: relative;
 }
 
 /* hide back of pane during swap */
 .front, .back {
 	backface-visibility: hidden;
-
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -60,11 +62,14 @@
 
 /* back, initially hidden pane */
 .back {
-	transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  color: $background-color;
+  background-color: $primary-color;
+  padding: 1rem;
 }
 
 .flip-arrow {
-  color: white;
+  color: $primary-color;
   position: absolute;
   bottom: 1rem;
   right: 1rem;

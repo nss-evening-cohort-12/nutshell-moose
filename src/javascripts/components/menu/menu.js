@@ -11,7 +11,12 @@ const menuDom = (data) => {
               <div class="flipper">
                 <div class="front">
                   <img src="${menuItem.imgUrl}" class="card-img-top">
-                  <div class="flip-arrow"><i class="fas fa-reply fa-lg"></i></div>
+                  <div class="flip-arrow">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-list fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </div>
                 </div>
                 <div class="back">
                   <ul>
