@@ -4,11 +4,12 @@ import utils from '../../helpers/utils';
 import './reservations.scss';
 
 // const now = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
+// <div id="reservation-form" class="mt-5 mx-auto">
 
 const reservationForm = () => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
   const form = `
-  <div id="reservation-form" class="mt-5 mx-auto">
+  <div class="container" id="reservation-form">
     <form>
       <div class="form-group row">
         <label for="name" class="col-sm-1 col-form-label">Name:</label>
@@ -43,7 +44,13 @@ const reservationForm = () => {
 };
 
 const reservationsPage = () => {
-  utils.printToDom('#content', reservationForm());
+  let domString = `
+  <div class="row" id="reservation-header">
+    <p class="text-center">Create New Reservation</p>
+  </div>
+  `;
+  domString += reservationForm();
+  utils.printToDom('#console', domString);
 };
 
 export default { reservationsPage };
