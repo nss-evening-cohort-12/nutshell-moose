@@ -6,7 +6,7 @@ const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
 const getMenuItems = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/menuItem.json`)
-    .then(({ data }) => resolve(utils.convertFirebaseCollection(data)))
+    .then(({ data }) => resolve(utils.firebaseArray(data)))
     .catch((err) => reject(err));
 });
 

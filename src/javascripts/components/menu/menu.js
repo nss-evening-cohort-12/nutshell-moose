@@ -1,5 +1,9 @@
+import menuData from '../../helpers/data/menuData';
+import utils from '../../helpers/utils';
+import './menu.scss';
+
 const menuDom = (data) => {
-  let domString = '<div class="d-flex justify-content-around">';
+  let domString = '<div class="d-flex justify-content-around flex-wrap" id="menu-list">';
   data.forEach((menuItem) => {
     domString += `
             <div class="card">
@@ -16,7 +20,11 @@ const menuDom = (data) => {
 };
 
 const menuItems = () => {
-
+  menuData.getMenuItems()
+    .then((printMenuItems) => {
+      utils.printToDom('#content', menuDom(printMenuItems));
+    })
+    .catch((err) => console.error(err));
 };
 
-export default { menuDom };
+export default { menuDom, menuItems };
