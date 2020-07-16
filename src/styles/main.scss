@@ -1,2 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import 'styles';
+
+body {
+  background-color: $background-color;
+  font-family: $primary-font;
+}
+
+.hide {
+  display: none;
+}

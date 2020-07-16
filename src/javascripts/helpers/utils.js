@@ -1,3 +1,7 @@
+const printToDom = (selector, text) => {
+  $(selector).html(text);
+};
+
 const firebaseArray = (data) => {
   const collectionOfObjs = data;
   const arrayCollection = [];
@@ -12,4 +16,4 @@ const firebaseArray = (data) => {
   return arrayCollection;
 };
 
-export default { firebaseArray };
+export default { printToDom, firebaseArray };
