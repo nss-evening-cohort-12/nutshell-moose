@@ -3,6 +3,7 @@ import displayStaff from '../components/displayStaff/displayStaff';
 import reservations from '../components/reservations/reservations';
 import seating from '../components/seating/seating';
 import navbar from '../components/navbar/navbar';
+import addStaff from '../components/addStaff/addStaff';
 
 const clickEvents = () => {
   $('body').on('click', '#staff-link', displayStaff.buildStaffConsole);
@@ -20,6 +21,10 @@ const clickEvents = () => {
   $('body').on('click', '.flip-container', (e) => {
     $(e.currentTarget).toggleClass('flipped');
   });
+  $('body').on('click', '.stopProp', ((e) => {
+    e.stopPropagation();
+  }));
+  $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
 };
 
 export default { clickEvents };
