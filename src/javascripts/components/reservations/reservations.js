@@ -4,6 +4,17 @@ import utils from '../../helpers/utils';
 import './reservations.scss';
 import reservationsData from '../../helpers/data/reservationsData';
 
+const updateAmPm = () => {
+  console.error('updateAmPm called');
+  const hour = $('#hour').val();
+  const status = hour === '11' ? 'AM' : 'PM';
+  utils.printToDom('#ampm', status);
+};
+
+const updateAmPmEvent = () => {
+  $('#hour').change(updateAmPm);
+};
+
 const setSelectedIndex = (select, i) => {
   const s = select;
   s.options[i - 1].selected = true;
@@ -12,7 +23,6 @@ const setSelectedIndex = (select, i) => {
 const dimCards = (shownCard) => {
   $('.reservation-card').addClass('mute-card bg-light');
   // $('.edit-reservation').addClass('hide');
-  console.error(shownCard);
   $(`#${shownCard}`).removeClass('mute-card bg-light');
   $(`#edit-btn-${shownCard}`).removeClass('btn-primary');
   $(`#edit-btn-${shownCard}`).addClass('btn-secondary');
@@ -24,13 +34,12 @@ const undimCards = () => {
 
 const displayReservationForm = (e) => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
-  const nextHour = Number(moment(Date.now()).format('HH')) + 1;
-  console.error(nextHour);
+  const tomorrow = moment(today).add(1, 'd').format('YYYY-MM-DD');
   let existing = {
     name: '',
     partySize: 2,
-    date: today,
-    hour: nextHour,
+    date: tomorrow,
+    hour: 11,
     minutes: '00',
   };
   let formType = 'Add New';
@@ -39,7 +48,6 @@ const displayReservationForm = (e) => {
     formType = 'Edit';
     existing = { ...e };
     existing.hour = Math.floor(existing.time / 100);
-    console.error(existing.hour);
     existing.minutes = 0;
   }
   let domString = `
@@ -88,15 +96,19 @@ const displayReservationForm = (e) => {
           <option value=30>30</option>
           <option value=45>45</option>
         </select>
+        <span id="ampm">AM</span>
         </div>
         <button type="submit" class="btn btn-primary col-sm-1" id="create-reservation">Save</button>
       </div>
     </form>
   </div>`;
-  // TODO: Add AM/PM display and Cancel button
+  // TODO: Add Cancel button
   utils.printToDom('#edit-reservation', domString);
-  const select = existing.hour - 10;
+  let select = existing.hour - 10;
+  if (select < 0 || select > 11) { select = 0; }
   setSelectedIndex(document.getElementById('hour'), select);
+  console.error('about to call updateAmPm from displayreservationForm');
+  updateAmPmEvent();
 };
 
 const displayReservations = () => new Promise((resolve, reject) => {
@@ -146,6 +158,7 @@ const editReservation = (e) => {
   reservationsData.getReservationById(e)
     .then((reservation) => {
       displayReservationForm(reservation);
+      updateAmPm();
     })
     .catch((err) => console.error(err));
 };
@@ -157,4 +170,6 @@ const editReservationEvent = (e) => {
   dimCards(reservationId);
 };
 
-export default { reservationsPage, displayReservationForm, editReservationEvent };
+export default {
+  reservationsPage, displayReservationForm, editReservationEvent, updateAmPm,
+};
