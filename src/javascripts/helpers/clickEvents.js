@@ -8,6 +8,7 @@ const clickEvents = () => {
   $('body').on('click', '#staff-link', displayStaff.buildStaffConsole);
   $('body').on('click', '#reservations-link', reservations.reservationsPage);
   $('body').on('click', '#seating-link', seating.buildSeating);
+  $('body').on('click', '#add-new-table', seating.numberValidation);
 
   $('body').on('click', '#staff-link', navbar.activeNavLinks);
   $('body').on('click', '#reservations-link', navbar.activeNavLinks);
