@@ -48,7 +48,7 @@ const displayReservationForm = (reservation, reservationId) => {
     existing = { ...reservation };
     existing.hour = Math.floor(existing.time / 100);
     existing.minutes = 0;
-    existing.save = 'existing';
+    existing.save = 'updated';
   }
   let domString = `
       <div class="row reservation-header px-3">
@@ -101,7 +101,7 @@ const displayReservationForm = (reservation, reservationId) => {
         <span id="ampm">AM</span>
         </div>
         <div class="col-sm-3 res-form-btns">
-        <button type="submit" class="btn btn-primary mx-1" id="save-${existing.save}-res">Save</button>
+        <button type="submit" class="btn btn-primary mx-1" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save</button>
         <button type="submit" class="btn btn-danger mx-1 hide" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
         </div>
       </div>
@@ -200,6 +200,17 @@ const deleteReservationEvent = (e) => {
     .catch((err) => console.error('could not delete reservation', err));
 };
 
+const updateReservationEvent = (e) => {
+  e.preventDefault();
+  const reservationId = e.target.dataset.reservationid;
+  console.error(reservationId);
+  reservationsData.updateReservation(reservationId)
+    .then(() => {
+      // displayReservations();
+    })
+    .catch((err) => console.error('could not update reservation', err));
+};
+
 export default {
-  reservationsPage, displayReservationForm, editReservationEvent, updateAmPm, addReservationEvent, deleteReservationEvent,
+  reservationsPage, displayReservationForm, editReservationEvent, updateAmPm, addReservationEvent, deleteReservationEvent, updateReservationEvent,
 };
