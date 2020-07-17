@@ -31,6 +31,7 @@ const undimCards = () => {
 };
 
 const displayReservationForm = (reservation, reservationId) => {
+  console.error(reservation);
   const today = moment(Date.now()).format('YYYY-MM-DD');
   const tomorrow = moment(today).add(1, 'd').format('YYYY-MM-DD');
   let existing = {
@@ -51,7 +52,7 @@ const displayReservationForm = (reservation, reservationId) => {
     existing.save = 'updated';
   }
   let domString = `
-      <div class="row reservation-header px-3">
+      <div class="row reservation-header justify-content-between px-3">
         <div></div>
         <h3>${formType} Reservation:</h3>
         <div class="cancel-area"><i class="far fa-2x fa-times-circle text-secondary hide" id="cancel-res-edit"></i></div>
@@ -119,6 +120,8 @@ const displayReservations = () => new Promise((resolve, reject) => {
     <h3>Existing Reservations:</h3>
   </div>
   <div id="results-reservations">
+    <div class="container-fluid">
+      <div class="row justify-content-between">
   `;
   reservationsData.getReservations()
     .then((reservations) => {
@@ -126,18 +129,20 @@ const displayReservations = () => new Promise((resolve, reject) => {
         const date = moment(reservation.date).format('M/D/YYYY');
         const time = moment(reservation.time, 'hhmm').format('LT');
         domString += `
-        <div class="card reservation-card" id="${reservation.id}" style="width: 18rem;">
-          <div class="card-header">
-            ${date} at ${time}
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">${reservation.name}</h5>
-            <p class="card-text">Party of ${reservation.partySize}</p>
-            <a href="#" class="btn btn-primary edit-reservation" id="edit-btn-${reservation.id}" data-reservationid="${reservation.id}">Edit</a>
+        <div class="col-auto">
+          <div class="card reservation-card" id="${reservation.id}" style="width: 18em;">
+            <div class="card-header">
+              ${date} at ${time}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">${reservation.name}</h5>
+              <p class="card-text">Party of ${reservation.partySize}</p>
+              <a href="#" class="btn btn-primary edit-reservation" id="edit-btn-${reservation.id}" data-reservationid="${reservation.id}">Edit</a>
+            </div>
           </div>
         </div>`;
       });
-      domString += '</div>';
+      domString += '</div></div>';
       utils.printToDom('#display-reservations', domString);
       resolve();
     })
@@ -186,6 +191,7 @@ const addReservationEvent = (e) => {
   reservationsData.addReservation(newResObj)
     .then(() => {
       displayReservations();
+      displayReservationForm();
     })
     .catch((err) => console.error('could not create reservation', err));
 };
@@ -196,6 +202,7 @@ const deleteReservationEvent = (e) => {
   reservationsData.deleteReservation(reservationId)
     .then(() => {
       displayReservations();
+      displayReservationForm();
     })
     .catch((err) => console.error('could not delete reservation', err));
 };

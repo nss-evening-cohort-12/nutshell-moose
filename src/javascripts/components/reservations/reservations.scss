@@ -35,6 +35,7 @@ form {
 }
 
 .reservation-card {
+  
   .btn-primary {
     background-color: $primary-color;
     border-color: $primary-color;
@@ -43,11 +44,6 @@ form {
     background-color: $primary-hover;
     border-color: $primary-hover;
   }
-}
-
-.reservation-header {
-  // justify-content: center;
-  justify-content: space-between;
 }
 
 #minutes {
@@ -67,12 +63,6 @@ form {
 #size {
   height: 37px;
   width: 60px;
-  // border: 1px solid #ced4da;
-}
-
-#results-reservations {
-  display: flex;
-
 }
 
 .mute-card {
