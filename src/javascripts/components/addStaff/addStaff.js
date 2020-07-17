@@ -1,4 +1,7 @@
 import utils from '../../helpers/utils';
+import staffData from '../../helpers/data/getStaffData';
+// eslint-disable-next-line import/no-cycle
+import displayStaff from '../displayStaff/displayStaff';
 
 const addStaffDropDown = () => {
   const domString = `
@@ -10,30 +13,21 @@ const addStaffDropDown = () => {
     <div class="dropdown-menu">
       <form class="px-4 py-3">
         <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Name">
+          <label for="newStaffName">Name</label>
+          <input type="text" class="form-control" id="newStaffName" placeholder="Name">
         </div>
-        <div class="form-group">
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Filter by Staff
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button class="dropdown-item" id="Busser" type="button">Busser</button>
-              <button class="dropdown-item" id="Server" type="button">Server</button>
-              <button class="dropdown-item" id="Chef" type="button">Chef</button>
-              <button class="dropdown-item" id="Manager" type="button">Manager</button>
-              <button class="dropdown-item" id="Host" type="button">Host</button>        
-            </div>
-          </div>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="dropdownCheck">
-          <label class="form-check-label" for="dropdownCheck">
-            Remember me
-          </label>
-        </div>
-        <button type="submit" class="btn btn-primary">Add New Staff</button>
+        <label for="staffType">Staff Role:</label>
+        <div class="stopProp">
+        <select name="staffType" id="newStaffType">
+          <option value="busser">Busser</option>
+          <option value="Host">Host</option>
+          <option value="Chef">Chef</option>
+          <option value="Waiter">Waiter</option>
+          <option value="Manager">Manager</option>
+        </select>  
+        <div>
+                
+        <button type="submit" class="btn btn-primary" id="addNewStaff">Add New Staff</button>
       </form>
 
     </div>
@@ -45,4 +39,19 @@ const addStaffDropDown = () => {
   utils.printToDom('#addStaffButton', domString);
 };
 
-export default { addStaffDropDown };
+const addStaffEvent = (e) => {
+  e.preventDefault();
+
+  const newStaff = {
+    name: $('#newStaffName').val(),
+    type: $('#newStaffType').val(),
+  };
+
+  staffData.addStaff(newStaff)
+    .then(() => {
+      displayStaff.buildStaffConsole();
+    })
+    .catch((err) => console.error(err));
+};
+
+export default { addStaffDropDown, addStaffEvent };
