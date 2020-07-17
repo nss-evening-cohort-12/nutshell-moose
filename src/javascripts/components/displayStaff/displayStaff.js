@@ -1,5 +1,6 @@
 import utils from '../../helpers/utils';
 import staffData from '../../helpers/data/getStaffData';
+// eslint-disable-next-line import/no-cycle
 import addStaff from '../addStaff/addStaff';
 
 const buildStaffConsole = () => {
