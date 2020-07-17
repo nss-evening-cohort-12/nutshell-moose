@@ -30,6 +30,10 @@ form {
   }
 }
 
+#cancel-res-edit:hover {
+  cursor: pointer;
+}
+
 .reservation-card {
   .btn-primary {
     background-color: $primary-color;
@@ -42,7 +46,8 @@ form {
 }
 
 .reservation-header {
-  justify-content: center;
+  // justify-content: center;
+  justify-content: space-between;
 }
 
 #minutes {

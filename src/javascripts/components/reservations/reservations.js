@@ -51,8 +51,10 @@ const displayReservationForm = (e) => {
     existing.minutes = 0;
   }
   let domString = `
-      <div class="row reservation-header">
+      <div class="row reservation-header px-3">
+        <div></div>
         <h3>${formType} Reservation:</h3>
+        <div class="cancel-area"><i class="far fa-2x fa-times-circle text-secondary hide" id="cancel-res-edit"></i></div>
       </div>`;
   domString += `
   <div class="container" id="reservation-form">
@@ -74,7 +76,7 @@ const displayReservationForm = (e) => {
         </div>
         <div class="col-sm-4"></div>
         <label for="time" class="col-sm-1 col-form-label">Time:</label>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
         <select id="hour" name="hour" value=${existing.hour}>
           <option value=11>11</option>
           <option value=12>12</option>
@@ -98,7 +100,10 @@ const displayReservationForm = (e) => {
         </select>
         <span id="ampm">AM</span>
         </div>
-        <button type="submit" class="btn btn-primary col-sm-1" id="create-reservation">Save</button>
+        <div class="col-sm-3 res-form-btns">
+        <button type="submit" class="btn btn-primary mx-1" id="create-reservation">Save</button>
+        <button type="submit" class="btn btn-danger mx-1 hide" id="delete-reservation">Delete</button>
+        </div>
       </div>
     </form>
   </div>`;
@@ -108,7 +113,7 @@ const displayReservationForm = (e) => {
   if (select < 0 || select > 11) { select = 0; }
   setSelectedIndex(document.getElementById('hour'), select);
   console.error('about to call updateAmPm from displayreservationForm');
-  updateAmPmEvent();
+  // updateAmPmEvent();
 };
 
 const displayReservations = () => new Promise((resolve, reject) => {
@@ -150,15 +155,17 @@ const reservationsPage = () => {
   utils.printToDom('#console', domString);
   displayReservations();
   displayReservationForm();
+  updateAmPmEvent();
 };
 
 const editReservation = (e) => {
-  // e.preventDefault();
-  // reservationsData.getReservationById(e.target.dataset.reservationid)
   reservationsData.getReservationById(e)
     .then((reservation) => {
       displayReservationForm(reservation);
       updateAmPm();
+      updateAmPmEvent();
+      $('#cancel-res-edit').removeClass('hide');
+      $('#delete-reservation').removeClass('hide');
     })
     .catch((err) => console.error(err));
 };
