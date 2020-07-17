@@ -14,6 +14,7 @@ const clickEvents = () => {
     e.stopPropagation();
   }));
   $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
+  $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
 };
 
 export default { clickEvents };

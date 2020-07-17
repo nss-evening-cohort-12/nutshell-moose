@@ -1,42 +1,42 @@
 {
   "staff1": {
     "name": "Isabella",
-    "id": "",
+    "staffId": "staff1",
     "type": "Busser"
   },
   "staff2": {
     "name": "Abelard",
-    "id": "",
+    "staffId": "staff2",
     "type": "Busser"
   },
   "staff3": {
     "name": "Sofia",
-    "id": "",
+    "staffId": "staff3",
     "type": "Server"
   },
   "staff4": {
     "name": "Achille",
-    "id": "",
+    "staffId": "staff4",
     "type": "Server"
   },
   "staff5": {
     "name": "Emelia",
-    "id": "",
+    "staffId": "staff5",
     "type": "Chef"
   },
   "staff6": {
     "name": "Ada",
-    "id": "",
+    "staffId": "staff6",
     "type": "Chef"
   },
   "staff7": {
     "name": "Ivan",
-    "id": "",
+    "staffId": "staff7",
     "type": "Host"
   },
   "staff8": {
     "name": "Anne-Marie",
-    "id": "",
+    "staffId": "staff8",
     "type": "Manager"
   }
 }

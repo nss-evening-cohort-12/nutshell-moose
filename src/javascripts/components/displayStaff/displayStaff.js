@@ -1,5 +1,6 @@
 import utils from '../../helpers/utils';
 import staffData from '../../helpers/data/getStaffData';
+// eslint-disable-next-line import/no-cycle
 import addStaff from '../addStaff/addStaff';
 
 const buildStaffConsole = () => {
@@ -38,7 +39,8 @@ const buildStaffConsole = () => {
             <div class="row">
               <h5 class="card-title">Job Title: </h5> <h6 class="card-subtitle mb-2 text-muted"> ${staff.type}</h6>
             </div>
-            <button class="btn btn-danger" data-staff-id=${staff.id} id="editStaff">Edit</button>
+            <button class="btn btn-success" data-staff-id=${staff.id} id="editStaff">Edit</button>
+            <button class="btn btn-danger" data-staff-id=${staff.id} id="deleteStaff">Delete</button>
           </div>
         </div>
         `;
@@ -48,4 +50,12 @@ const buildStaffConsole = () => {
     .catch((err) => console.error(err));
 };
 
-export default { buildStaffConsole };
+const deleteStaff = (e) => {
+  staffData.deleteStaff(e.target.dataset.staffId)
+    .then(() => {
+      buildStaffConsole();
+    })
+    .catch((err) => console.error(err));
+};
+
+export default { buildStaffConsole, deleteStaff };
