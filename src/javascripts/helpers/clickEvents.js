@@ -6,7 +6,8 @@ const clickEvents = () => {
   $('body').on('click', '#reservations-link', reservations.reservationsPage);
   $('body').on('click', '.edit-reservation', reservations.editReservationEvent);
   $('body').on('click', '#cancel-res-edit', reservations.reservationsPage);
-  // $('body').on('click', '#hour', reservations.updateAmPm);
+  $('body').on('click', '#save-new-res', reservations.addReservationEvent);
+  $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
 };
 
 export default { clickEvents };

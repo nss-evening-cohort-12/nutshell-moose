@@ -5,7 +5,6 @@ import './reservations.scss';
 import reservationsData from '../../helpers/data/reservationsData';
 
 const updateAmPm = () => {
-  console.error('updateAmPm called');
   const hour = $('#hour').val();
   const status = hour === '11' ? 'AM' : 'PM';
   utils.printToDom('#ampm', status);
@@ -22,7 +21,6 @@ const setSelectedIndex = (select, i) => {
 
 const dimCards = (shownCard) => {
   $('.reservation-card').addClass('mute-card bg-light');
-  // $('.edit-reservation').addClass('hide');
   $(`#${shownCard}`).removeClass('mute-card bg-light');
   $(`#edit-btn-${shownCard}`).removeClass('btn-primary');
   $(`#edit-btn-${shownCard}`).addClass('btn-secondary');
@@ -32,7 +30,7 @@ const undimCards = () => {
   $('.reservation-card').removeClass('mute-card bg-light');
 };
 
-const displayReservationForm = (e) => {
+const displayReservationForm = (reservation, reservationId) => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
   const tomorrow = moment(today).add(1, 'd').format('YYYY-MM-DD');
   let existing = {
@@ -41,14 +39,16 @@ const displayReservationForm = (e) => {
     date: tomorrow,
     hour: 11,
     minutes: '00',
+    save: 'new',
   };
   let formType = 'Add New';
-  if (e) {
+  if (reservation) {
     // TODO: change color of form for editing existing res
     formType = 'Edit';
-    existing = { ...e };
+    existing = { ...reservation };
     existing.hour = Math.floor(existing.time / 100);
     existing.minutes = 0;
+    existing.save = 'existing';
   }
   let domString = `
       <div class="row reservation-header px-3">
@@ -61,11 +61,11 @@ const displayReservationForm = (e) => {
     <form>
       <div class="form-group row">
         <label for="name" class="col-sm-1 col-form-label">Name:</label>
-        <div class="col-sm-5">
+        <div class="col-sm-4">
           <input type="text" class="form-control" id="name" value="${existing.name}" required>
         </div>
         <label for="date" class="col-sm-1 col-form-label">Date:</label>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
           <input type="date" min="${today}" class="form-control" id="date" value="${existing.date}" required>
         </div>
       </div>
@@ -74,22 +74,22 @@ const displayReservationForm = (e) => {
         <div class="col-sm-1">
           <input type="number" class="form-control" id="size" value=${existing.partySize} required" min="2" max="8">
         </div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-3"></div>
         <label for="time" class="col-sm-1 col-form-label">Time:</label>
         <div class="col-sm-2">
         <select id="hour" name="hour" value=${existing.hour}>
           <option value=11>11</option>
           <option value=12>12</option>
-          <option value=1>1</option>
-          <option value=2>2</option>
-          <option value=3>3</option>
-          <option value=4>4</option>
-          <option value=5>5</option>
-          <option value=6>6</option>
-          <option value=7>7</option>
-          <option value=8>8</option>
-          <option value=9>9</option>
-          <option value=10>10</option>
+          <option value=13>1</option>
+          <option value=14>2</option>
+          <option value=15>3</option>
+          <option value=16>4</option>
+          <option value=17>5</option>
+          <option value=18>6</option>
+          <option value=19>7</option>
+          <option value=20>8</option>
+          <option value=21>9</option>
+          <option value=22>10</option>
         </select>
         :
         <select id="minutes" name="minutes">
@@ -101,19 +101,16 @@ const displayReservationForm = (e) => {
         <span id="ampm">AM</span>
         </div>
         <div class="col-sm-3 res-form-btns">
-        <button type="submit" class="btn btn-primary mx-1" id="create-reservation">Save</button>
-        <button type="submit" class="btn btn-danger mx-1 hide" id="delete-reservation">Delete</button>
+        <button type="submit" class="btn btn-primary mx-1" id="save-${existing.save}-res">Save</button>
+        <button type="submit" class="btn btn-danger mx-1 hide" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
         </div>
       </div>
     </form>
   </div>`;
-  // TODO: Add Cancel button
   utils.printToDom('#edit-reservation', domString);
   let select = existing.hour - 10;
   if (select < 0 || select > 11) { select = 0; }
   setSelectedIndex(document.getElementById('hour'), select);
-  console.error('about to call updateAmPm from displayreservationForm');
-  // updateAmPmEvent();
 };
 
 const displayReservations = () => new Promise((resolve, reject) => {
@@ -158,10 +155,10 @@ const reservationsPage = () => {
   updateAmPmEvent();
 };
 
-const editReservation = (e) => {
-  reservationsData.getReservationById(e)
+const editReservation = (reservationId) => {
+  reservationsData.getReservationById(reservationId)
     .then((reservation) => {
-      displayReservationForm(reservation);
+      displayReservationForm(reservation, reservationId);
       updateAmPm();
       updateAmPmEvent();
       $('#cancel-res-edit').removeClass('hide');
@@ -177,6 +174,32 @@ const editReservationEvent = (e) => {
   dimCards(reservationId);
 };
 
+const addReservationEvent = (e) => {
+  e.preventDefault();
+  const time = Number($('#hour').val() + $('#minutes').val());
+  const newResObj = {
+    name: $('#name').val(),
+    partySize: Number($('#size').val()),
+    date: $('#date').val(),
+    time,
+  };
+  reservationsData.addReservation(newResObj)
+    .then(() => {
+      displayReservations();
+    })
+    .catch((err) => console.error('could not create reservation', err));
+};
+
+const deleteReservationEvent = (e) => {
+  e.preventDefault();
+  const reservationId = e.target.dataset.reservationid;
+  reservationsData.deleteReservation(reservationId)
+    .then(() => {
+      displayReservations();
+    })
+    .catch((err) => console.error('could not delete reservation', err));
+};
+
 export default {
-  reservationsPage, displayReservationForm, editReservationEvent, updateAmPm,
+  reservationsPage, displayReservationForm, editReservationEvent, updateAmPm, addReservationEvent, deleteReservationEvent,
 };
