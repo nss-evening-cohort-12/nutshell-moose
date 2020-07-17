@@ -14,18 +14,20 @@
 
   .available-bar {
     background-color: $primary-color !important;
+    font-size: 1.2em;
   }
 
   .unavailable-bar {
     background-color: #fff !important;
     color: $font-color;
+    font-size: 1.2em;
   }
 }
 
 .progress-title {
   grid-column: 1;
   grid-row: 1;
-  margin: 75px 0px 40px 0px;
+  margin: 75px 0px 50px 0px;
   color: $font-color;
 }
 

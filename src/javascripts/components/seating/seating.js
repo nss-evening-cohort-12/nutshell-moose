@@ -11,7 +11,7 @@ const buildSeating = () => {
             <div class="progress-title">
               <h2>Current Availability:</h2>
             </div>
-            <div class="progress">
+            <div class="progress" style="height: 25px;">
               <div class="progress-bar available-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Available</div>
               <div class="progress-bar unavailable-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Unavailable</div>
             </div>
