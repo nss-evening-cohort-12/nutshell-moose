@@ -16,12 +16,13 @@ const sliderChange = () => {
 const numberValidation = (e) => {
   e.preventDefault();
   const number = $('#input-table-number').val() * 1;
-  const capacity = $('#capacity-range').val();
+  // const capacity = $('#capacity-range').val();
 
   getSeatingData.getSeating()
     .then((seating) => {
       seating.forEach((table) => {
         if (number === table.tableNum) {
+          $('.alert').remove('.alert');
           $('#input-table-number').after(`
             <div class="alert alert-danger alert-dismissible fade show mt-2 pl-2 pr-3" role="alert">
               <em>Table is not available.
@@ -30,10 +31,11 @@ const numberValidation = (e) => {
               </button>
             </div>
           `);
-        } else {
-          $('.alert').remove('.alert');
-          console.warn('Nice! That worked. -> ', `New Table Number: ${number} /`, `New Capacity: ${capacity}`);
-        }
+          console.error(table.tableNum);
+        } else; // {
+        //   $('.alert').remove('.alert');
+        //   console.warn('Nice! That worked. -> ', `New Table Number: ${number} /`, `New Capacity: ${capacity}`);
+        // }
       });
     })
     .catch((err) => console.error('getting the seats for number validation did not work -> ', err));
