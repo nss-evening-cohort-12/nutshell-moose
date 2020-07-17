@@ -69,3 +69,11 @@ form {
   display: flex;
 
 }
+
+.mute-card {
+  background-color: grey;
+  color: grey;
+  .btn {
+    display: none;
+  }
+}

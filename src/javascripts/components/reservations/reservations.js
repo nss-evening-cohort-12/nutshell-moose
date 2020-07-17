@@ -9,9 +9,23 @@ const setSelectedIndex = (select, i) => {
   s.options[i - 1].selected = true;
 };
 
+const dimCards = (shownCard) => {
+  $('.reservation-card').addClass('mute-card bg-light');
+  // $('.edit-reservation').addClass('hide');
+  console.error(shownCard);
+  $(`#${shownCard}`).removeClass('mute-card bg-light');
+  $(`#edit-btn-${shownCard}`).removeClass('btn-primary');
+  $(`#edit-btn-${shownCard}`).addClass('btn-secondary');
+};
+
+const undimCards = () => {
+  $('.reservation-card').removeClass('mute-card bg-light');
+};
+
 const displayReservationForm = (e) => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
-  const nextHour = Number(moment(Date.now()).format('hh')) + 1;
+  const nextHour = Number(moment(Date.now()).format('HH')) + 1;
+  console.error(nextHour);
   let existing = {
     name: '',
     partySize: 2,
@@ -21,17 +35,17 @@ const displayReservationForm = (e) => {
   };
   let formType = 'Add New';
   if (e) {
+    // TODO: change color of form for editing existing res
     formType = 'Edit';
     existing = { ...e };
     existing.hour = Math.floor(existing.time / 100);
+    console.error(existing.hour);
     existing.minutes = 0;
-    console.error('existing', existing.hour);
   }
   let domString = `
       <div class="row reservation-header">
         <h3>${formType} Reservation:</h3>
       </div>`;
-  // const today = moment(Date.now()).format('YYYY-MM-DD');
   domString += `
   <div class="container" id="reservation-form">
     <form>
@@ -79,9 +93,9 @@ const displayReservationForm = (e) => {
       </div>
     </form>
   </div>`;
+  // TODO: Add AM/PM display and Cancel button
   utils.printToDom('#edit-reservation', domString);
   const select = existing.hour - 10;
-  console.error(select);
   setSelectedIndex(document.getElementById('hour'), select);
 };
 
@@ -98,14 +112,14 @@ const displayReservations = () => new Promise((resolve, reject) => {
         const date = moment(reservation.date).format('M/D/YYYY');
         const time = moment(reservation.time, 'hhmm').format('LT');
         domString += `
-        <div class="card reservation-card" style="width: 18rem;">
+        <div class="card reservation-card" id="${reservation.id}" style="width: 18rem;">
           <div class="card-header">
             ${date} at ${time}
           </div>
           <div class="card-body">
             <h5 class="card-title">${reservation.name}</h5>
             <p class="card-text">Party of ${reservation.partySize}</p>
-            <a href="#" class="btn btn-primary edit-reservation" data-reservationid="${reservation.id}">Edit</a>
+            <a href="#" class="btn btn-primary edit-reservation" id="edit-btn-${reservation.id}" data-reservationid="${reservation.id}">Edit</a>
           </div>
         </div>`;
       });
@@ -117,6 +131,7 @@ const displayReservations = () => new Promise((resolve, reject) => {
 });
 
 const reservationsPage = () => {
+  undimCards();
   const domString = `
   <div class="container mt-5" id="edit-reservation">edit-reservation</div>
   <div class="container mt-5" id="display-reservations">display-reservations</div>`;
@@ -125,39 +140,21 @@ const reservationsPage = () => {
   displayReservationForm();
 };
 
-// const reservationsPage = () => {
-//   let domString = `
-//   <div class="container mt-5" id="new-reservation">
-//     <div class="row reservation-header">
-//       <h3>Add New Reservation:</h3>
-//     </div>
-//   `;
-//   domString += displayReservationForm();
-//   domString += `
-//   <div class="container mt-5" id="display-reservations">
-//   <div class="row mt-5 reservation-header">
-//     <h3>Existing Reservations:</h3>
-//   </div>
-//   <div id="results-reservations">
-//   `;
-//   displayReservations()
-//     .then((result) => {
-//       domString += result;
-//       domString += '</div></div>';
-//       utils.printToDom('#console', domString);
-//     })
-//     .catch((err) => { console.error(err); });
-// };
-
 const editReservation = (e) => {
-  e.preventDefault();
-  // console.error(e.target.dataset.reservationid);
-  // const reservationId = e.target.dataset.reservationid;
-  reservationsData.getReservationById(e.target.dataset.reservationid)
+  // e.preventDefault();
+  // reservationsData.getReservationById(e.target.dataset.reservationid)
+  reservationsData.getReservationById(e)
     .then((reservation) => {
       displayReservationForm(reservation);
     })
     .catch((err) => console.error(err));
 };
 
-export default { reservationsPage, displayReservationForm, editReservation };
+const editReservationEvent = (e) => {
+  e.preventDefault();
+  const reservationId = e.target.dataset.reservationid;
+  editReservation(reservationId);
+  dimCards(reservationId);
+};
+
+export default { reservationsPage, displayReservationForm, editReservationEvent };
