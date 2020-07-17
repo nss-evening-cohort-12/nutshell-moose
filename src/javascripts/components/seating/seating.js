@@ -13,6 +13,8 @@ const sliderChange = () => {
   });
 };
 
+// WIP / need to figure out the numberValidation function still
+
 const numberValidation = (e) => {
   e.preventDefault();
   const number = $('#input-table-number').val() * 1;
