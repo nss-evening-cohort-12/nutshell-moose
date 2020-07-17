@@ -14,7 +14,7 @@ const menuDom = (data) => {
                   <div class="flip-arrow">
                     <span class="fa-stack fa-lg">
                       <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-list fa-stack-1x fa-inverse"></i>
+                      <i class="fa fa-sync-alt fa-stack-1x fa-inverse"></i>
                     </span>
                   </div>
                 </div>
@@ -33,17 +33,17 @@ const menuDom = (data) => {
               </div>
             </div>
             <div class="card-body d-flex flex-column h-100">
-              <h5 class="card-title mt-auto">${menuItem.name}</h5>
-              <p class="card-text mt-auto">$${menuItem.price.toFixed(2)}</p>
-              <div class="d-flex justify-content-end flex-nowrap mt-auto">
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-pen fa-stack-1x fa-inverse"></i>
-              </span>
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
-              </span>
+              <h5 class="card-title mb-auto p-2">${menuItem.name}</h5>
+              <h4 class="card-text p-2">$${menuItem.price.toFixed(2)}</h4>
+              <div class="d-flex justify-content-end flex-nowrap p-2">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-pen fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
+                </span>
               </div>
             </div>
           </div>
