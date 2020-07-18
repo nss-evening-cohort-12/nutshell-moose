@@ -13,26 +13,37 @@ const sliderChange = () => {
   });
 };
 
-// eslint-disable-next-line consistent-return
 const numberValidation = (e) => {
   e.preventDefault();
-  const number = $('#input-table-number').val() * 1;
-  const capacity = $('#capacity-range').val();
+  const tableNum = $('#input-table-number').val() * 1;
+  const capacity = $('#capacity-range').val() * 1;
+  let occupied = '';
+
   if ($('#available-radio').is(':checked')) {
-    console.warn('available');
+    occupied = true;
   } if ($('#unavailable-radio').is(':checked')) {
-    console.warn('unavailable');
+    occupied = false;
   }
 
-  if (number >= 7 && number <= 30) {
+  const newSeatingObj = {
+    capacity,
+    occupied,
+    tableNum,
+  };
+
+  if ((tableNum >= 7 && tableNum <= 30) && ($('#available-radio').is(':checked') || $('#unavailable-radio').is(':checked'))) {
     $('.alert').remove('.alert');
-    // getSeatingData.addTable()
-    console.warn('Nice! That worked. -> ', `New Table Number: ${number} /`, `New Capacity: ${capacity}`);
+    getSeatingData.addTable(newSeatingObj)
+      .then(() => {
+        // eslint-disable-next-line no-use-before-define
+        buildSeating();
+      })
+      .catch((err) => console.error('adding to the table did not work -> ', err));
   } else {
     $('.alert').remove('.alert');
     $('#input-table-number').after(`
       <div class="alert alert-danger alert-dismissible fade show mt-2 pl-2 pr-3" role="alert">
-        <em>Table is not available.
+        <em>Fill out entire form.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -72,13 +83,13 @@ const buildSeating = () => {
               <button class="btn btn-secondary dropdown-toggle shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-plus"></i> New Table
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <form>
                   <div class="form-group">
                     <label for="input-table-number">Table Number</label>
                     <input type="number" max="30" min="7" class="form-control" id="input-table-number" placeholder="12" required>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group mb-1">
                     <label for="capacity-range">Capacity:</label>
                     <span class="font-weight-bold ml-2 value-span"></span>
                     <input type="range" class="custom-range" min="1" max="6" id="capacity-range">
