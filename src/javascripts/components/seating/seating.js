@@ -22,7 +22,7 @@ const numberValidation = (e) => {
 
   if (number <= 30 && number >= 1) {
     $('.alert').remove('.alert');
-    console.warn('Nice! That worked. -> ', `New Table Number: ${number} /`, `New Capacity: ${capacity}`);
+    console.error('Nice! That worked. -> ', `New Table Number: ${number} /`, `New Capacity: ${capacity}`);
   } else {
     $('.alert').remove('.alert');
     $('#input-table-number').after(`
