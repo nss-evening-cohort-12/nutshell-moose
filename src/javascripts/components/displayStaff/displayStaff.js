@@ -35,17 +35,17 @@ const buildStaffCards = (allStaff) => {
             </div>
             <label for="staffType">Staff Role:</label>
             <div class="stopProp">
-            <select name="editStaffType" id="editStaffType">
-              <option value="Busser" ${staff.type === 'Busser' ? 'selected' : ''}>Busser</option>
-              <option value="Server" ${staff.type === 'Server' ? 'selected' : ''}>Server</option>
-              <option value="Chef" ${staff.type === 'Chef' ? 'selected' : ''}>Chef</option>
-              <option value="Host" ${staff.type === 'Host' ? 'selected' : ''}>Host</option>
-              <option value="Manager" ${staff.type === 'Manager' ? 'selected' : ''}>Manager</option>
-            </select> 
+              <select name="editStaffType" id="editStaffType">
+                <option value="Busser" ${staff.type === 'Busser' ? 'selected' : ''}>Busser</option>
+                <option value="Server" ${staff.type === 'Server' ? 'selected' : ''}>Server</option>
+                <option value="Chef" ${staff.type === 'Chef' ? 'selected' : ''}>Chef</option>
+                <option value="Host" ${staff.type === 'Host' ? 'selected' : ''}>Host</option>
+                <option value="Manager" ${staff.type === 'Manager' ? 'selected' : ''}>Manager</option>
+              </select> 
             </div> 
       
                     
-            <button type="submit" class="btn btn-primary editStaffSubmit" data-staff-id=${staff.id} >Update Staff</button>
+            <button type="submit" class="btn btn-primary editStaffSubmit" id="editStaffSubmit" data-staff-id=${staff.id} >Update Staff</button>
           </form>
 
         </div>
