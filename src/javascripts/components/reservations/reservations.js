@@ -31,6 +31,13 @@ const undimCards = () => {
   $('.reservation-card').removeClass('mute-card bg-light');
 };
 
+const displayReservationsFilter = () => {
+  const domString = `
+    I AM A FILTER
+  `;
+  utils.printToDom('#reservations-filter', domString);
+};
+
 const displayReservationForm = (reservation, reservationId) => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
   const tomorrow = moment(today).add(1, 'd').format('YYYY-MM-DD');
@@ -120,6 +127,7 @@ const displayReservations = () => new Promise((resolve, reject) => {
   <div class="row mt-5 reservation-header">
     <h3>Existing Reservations:</h3>
   </div>
+  <div id="reservations-filter"></div>
   <div id="results-reservations">
     <div class="container-fluid">
       <div class="row">
@@ -145,6 +153,7 @@ const displayReservations = () => new Promise((resolve, reject) => {
       });
       domString += '</div></div>';
       utils.printToDom('#display-reservations', domString);
+      displayReservationsFilter();
       resolve();
     })
     .catch((err) => { reject(err); });
