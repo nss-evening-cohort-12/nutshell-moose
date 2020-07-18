@@ -12,7 +12,6 @@ const getReservations = (date) => new Promise((resolve, reject) => {
     .then(({ data }) => {
       const reservations = utils.firebaseArray(data);
       reservations.sort((a, b) => ((timestamp(a) > timestamp(b)) ? 1 : -1));
-      console.warn(moment(`${reservations[0].date} ${reservations[0].time}`, 'YYYY-MM-DD hhmm').format('YYYYMMDDHHmm'));
       resolve(reservations);
     })
     .catch((err) => reject(err));
