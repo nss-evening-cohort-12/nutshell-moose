@@ -13,36 +13,32 @@ const sliderChange = () => {
   });
 };
 
-// WIP / need to figure out the numberValidation function still
-
+// eslint-disable-next-line consistent-return
 const numberValidation = (e) => {
   e.preventDefault();
   const number = $('#input-table-number').val() * 1;
-  // const capacity = $('#capacity-range').val();
+  const capacity = $('#capacity-range').val();
+  if ($('#available-radio').is(':checked')) {
+    console.warn('available');
+  } if ($('#unavailable-radio').is(':checked')) {
+    console.warn('unavailable');
+  }
 
-  getSeatingData.getSeating()
-    .then((seating) => {
-      seating.forEach((table) => {
-        if (number === table.tableNum) {
-          console.warn('sup');
-        } else;
-      });
-    })
-    .catch((err) => console.error('did not work -> ', err));
-  // if (number <= 30 && number >= 1) {
-  //   $('.alert').remove('.alert');
-  //   console.warn('Nice! That worked. -> ', `New Table Number: ${number} /`, `New Capacity: ${capacity}`);
-  // } else {
-  //   $('.alert').remove('.alert');
-  //   $('#input-table-number').after(`
-  //     <div class="alert alert-danger alert-dismissible fade show mt-2 pl-2 pr-3" role="alert">
-  //       <em>Table is not available.
-  //       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-  //         <span aria-hidden="true">&times;</span>
-  //       </button>
-  //     </div>
-  //   `);
-  // }
+  if (number >= 7 && number <= 30) {
+    $('.alert').remove('.alert');
+    // getSeatingData.addTable()
+    console.warn('Nice! That worked. -> ', `New Table Number: ${number} /`, `New Capacity: ${capacity}`);
+  } else {
+    $('.alert').remove('.alert');
+    $('#input-table-number').after(`
+      <div class="alert alert-danger alert-dismissible fade show mt-2 pl-2 pr-3" role="alert">
+        <em>Table is not available.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    `);
+  }
 };
 
 const checkAvailability = () => {
@@ -80,12 +76,22 @@ const buildSeating = () => {
                 <form>
                   <div class="form-group">
                     <label for="input-table-number">Table Number</label>
-                    <input type="number" max="30" min="1" class="form-control" id="input-table-number" placeholder="12" required>
+                    <input type="number" max="30" min="7" class="form-control" id="input-table-number" placeholder="12" required>
                   </div>
                   <div class="form-group">
                     <label for="capacity-range">Capacity:</label>
                     <span class="font-weight-bold ml-2 value-span"></span>
                     <input type="range" class="custom-range" min="1" max="6" id="capacity-range">
+                  </div>
+                  <div class="form-group">
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="available-radio" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="available-radio">Available</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="unavailable-radio" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="unavailable-radio">Unavailable</label>
+                    </div>
                   </div>
                   <button type="submit" class="btn btn-secondary" id="add-new-table">Add Table</button>
                 </form>
