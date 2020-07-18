@@ -14,14 +14,18 @@ const clickEvents = () => {
   $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
   $('body').on('click', '#menu-link', menu.menuItems);
   $('body').on('click', '#ingredient-link', ingredients.ingredients);
-  $('body').on('click', '.flip-container', (e) => {
+  $('body').on('click', '.menu-cards', (e) => {
     $(e.currentTarget).toggleClass('flipped');
+  });
+  $('body').on('click', '.flip-add-menu-form', (e) => {
+    $(e.currentTarget).closest('.flip-container').toggleClass('flipped');
   });
   $('body').on('click', '.stopProp', ((e) => {
     e.stopPropagation();
   }));
   $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
   $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
+  $('body').on('submit', '#add-new-menu', menu.newMenuItem);
 };
 
 export default { clickEvents };
