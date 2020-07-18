@@ -19,7 +19,7 @@ const addStaffDropDown = () => {
         <label for="staffType">Staff Role:</label>
         <div class="stopProp">
         <select name="staffType" id="newStaffType">
-          <option value="busser">Busser</option>
+          <option value="Busser">Busser</option>
           <option value="Host">Host</option>
           <option value="Chef">Chef</option>
           <option value="Server">Server</option>

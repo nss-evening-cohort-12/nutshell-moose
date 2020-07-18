@@ -28,14 +28,14 @@ const buildStaffCards = (allStaff) => {
 
           <div class="dropdown-menu">
 
-          <form class="px-4 py-3">
+          <form class="px-4 py-3 editStaff">
             <div class="form-group">
               <label for="newStaffName">Name</label>
-              <input type="text" class="form-control" id="editStaffName" placeholder="${staff.name}">
+              <input type="text" name="editStaffName" class="form-control editStaffName" id="editStaffName" placeholder="${staff.name}">
             </div>
             <label for="staffType">Staff Role:</label>
             <div class="stopProp">
-            <select name="staffType" id="newStaffType">
+            <select name="editStaffType" id="editStaffType">
               <option value="Busser" ${staff.type === 'Busser' ? 'selected' : ''}>Busser</option>
               <option value="Server" ${staff.type === 'Server' ? 'selected' : ''}>Server</option>
               <option value="Chef" ${staff.type === 'Chef' ? 'selected' : ''}>Chef</option>
@@ -45,7 +45,7 @@ const buildStaffCards = (allStaff) => {
             </div> 
       
                     
-            <button type="submit" class="btn btn-primary editStaffSubmit" >Update Staff</button>
+            <button type="submit" class="btn btn-primary editStaffSubmit" data-staff-id=${staff.id} >Update Staff</button>
           </form>
 
         </div>
