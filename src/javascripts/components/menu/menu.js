@@ -4,6 +4,13 @@ import './menu.scss';
 
 const menuDom = (data) => {
   let domString = '<div class="d-flex justify-content-center flex-wrap" id="menu-list">';
+  domString += `
+              <div class="card"> 
+              <div class="card-body d-flex flex-column h-100" id="add-menu-item">
+                <div class="p-2 text-center"><i class="fas fa-plus fa-5x add-menu-plus"></i></div>
+                <h5 class="card-title mb-auto p-2 text-center">Add Menu Item</h5>
+              </div>
+            </div>`;
   data.forEach((menuItem) => {
     domString += `
             <div class="card">
