@@ -22,7 +22,7 @@ const addStaffDropDown = () => {
           <option value="busser">Busser</option>
           <option value="Host">Host</option>
           <option value="Chef">Chef</option>
-          <option value="Waiter">Waiter</option>
+          <option value="Server">Server</option>
           <option value="Manager">Manager</option>
         </select>  
         <div>
@@ -32,9 +32,6 @@ const addStaffDropDown = () => {
 
     </div>
   </div>
-
-    <div class="dropdown-menu"> 
-</div>
   `;
   utils.printToDom('#addStaffButton', domString);
 };
