@@ -33,7 +33,7 @@ const undimCards = () => {
 
 const reservationsFilter = (selectedDate) => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
-  let filteredDate = today;
+  let filteredDate = '';
   if (selectedDate) {
     filteredDate = selectedDate;
   }
@@ -133,13 +133,17 @@ const displayReservations = () => new Promise((resolve, reject) => {
   <div class="row mt-5 reservation-header justify-content-center">
     <h3>Existing Reservations:</h3>
   </div>
-  <div class="row">
-    <div class="filter-buttons ml-auto">
-      <button type="button" class="btn btn-primary mx-1">Show All</button>
+  <div class="row justify-content-center">
+    <div class="filter-buttons">
+      
       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Filter By Date
+        Change Filter
       </button>
       <div class="dropdown-menu dropdown-menu-right">
+        <button type="button" class="dropdown-item">Show All</button>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-header">or select date:</div>
+
         ${reservationsFilter()}
       </div>
     </div>
