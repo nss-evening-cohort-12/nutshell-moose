@@ -1,0 +1,149 @@
+@import '../../../styles/styles';
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 100%;
+}
+
+.progress {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: end;
+
+  margin-bottom: 25px;
+
+  .available-bar {
+    background-color: $primary-color !important;
+    font-size: 1.2em;
+  }
+
+  .unavailable-bar {
+    background-color: #fff !important;
+    color: $font-color;
+    font-size: 1.2em;
+  }
+}
+
+.progress-title {
+  grid-column: 1;
+  grid-row: 1;
+  
+  color: $font-color;
+
+  margin: 75px 0px 50px 0px;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.new-table {
+  align-self: end;
+  justify-self: end;
+
+  .btn-secondary {
+    background-color: $primary-color !important;
+    color: #fff;
+    border: 2px solid $primary-color !important;
+    border-radius: .1em;
+   
+    margin-bottom: 20px;
+  }
+
+  .btn-secondary:hover,
+  .btn-secondary:focus,
+  .btn-secondary:active {
+    background-color: $primary-hover !important;
+    border-color: $primary-hover !important;
+
+    outline: none !important;
+    box-shadow: none;
+  }
+
+  form {
+    padding: 20px 25px 5px 25px;
+    width: 260px;
+
+    .value-span {
+      color: $primary-color;
+      font-size: 1.3em;
+    }
+
+    label {
+      color: $font-color;
+    }
+  }
+}
+
+.seating-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 2em;
+  justify-content: center;
+
+  margin: 25px 0px;
+}
+
+.table-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  border: 3px solid $primary-color;
+  border-radius: .2em;
+
+  padding: 0;
+
+  .table-number {
+    align-self: start;
+    justify-self: start;
+
+    background-color: $background-color;
+    color: $primary-color;
+    border-bottom: 3px solid $primary-color;
+    border-right: 3px solid $primary-color;
+    border-bottom-right-radius: 1.6em;
+
+    margin: 0;
+    padding: 7px 32px 20px 20px;
+  }
+
+  .table-capacity {
+    justify-self: center;
+    align-self: center;
+
+    background-color: $secondary-color;
+    color: #fff;
+    border: 3px solid $secondary-color;
+    border-radius: 2em;
+    text-align: center;
+  
+    padding: 23.5px 15px;
+    margin: 0;
+  }
+
+  .table-edit {
+    align-self: end;
+    justify-self: end;
+
+    background-color: $background-color;
+    color: $primary-color;
+    border-top: 3px solid $primary-color;
+    border-left: 3px solid $primary-color;
+    border-top-left-radius: 1.6em;
+
+    margin: 0;
+    padding: 10px 10px 3.5px 16px;
+
+    transition: 100ms ease-in;
+  }
+
+  .table-edit:hover {
+    color: $primary-hover;
+
+    cursor: pointer;
+  }
+}
