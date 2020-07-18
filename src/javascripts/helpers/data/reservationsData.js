@@ -12,7 +12,6 @@ const getReservations = () => new Promise((resolve, reject) => {
 
 const getReservationById = (id) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/reservations/${id}.json`)
-    // .then(({ data }) => resolve(utils.firebaseArray(data)))
     .then((result) => resolve(result.data))
     .catch((err) => reject(err));
 });
@@ -21,23 +20,9 @@ const addReservation = (newResObj) => axios.post(`${baseUrl}/reservations.json`,
 
 const deleteReservation = (reservationId) => axios.delete(`${baseUrl}/reservations/${reservationId}.json`);
 
-// const updatePin = (pinId, newBoard) => new Promise((resolve, reject) => {
-//   axios.get(`${baseUrl}/pins/${pinId}.json`)
-//     .then((pin) => {
-//       const newPinObj = pin.data;
-//       newPinObj.boardId = newBoard;
-//       axios.put(`${baseUrl}/pins/${pinId}.json`, newPinObj)
-//         .then(resolve());
-//     })
-//     .catch((err) => reject(err));
-// });
-
-const updateReservation = (reservationId) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/reservations/${reservationId}.json`)
-    .then((reservation) => {
-      const existingResObj = reservation.data;
-      console.error(existingResObj);
-    })
+const updateReservation = (reservationId, newResObject) => new Promise((resolve, reject) => {
+  axios.put(`${baseUrl}/reservations/${reservationId}.json`, newResObject)
+    .then(() => resolve())
     .catch((err) => reject(err));
 });
 

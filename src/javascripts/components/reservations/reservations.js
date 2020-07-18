@@ -11,6 +11,7 @@ const updateAmPm = () => {
 };
 
 const updateAmPmEvent = () => {
+  updateAmPm();
   $('#hour').change(updateAmPm);
 };
 
@@ -31,7 +32,6 @@ const undimCards = () => {
 };
 
 const displayReservationForm = (reservation, reservationId) => {
-  console.error(reservation);
   const today = moment(Date.now()).format('YYYY-MM-DD');
   const tomorrow = moment(today).add(1, 'd').format('YYYY-MM-DD');
   let existing = {
@@ -112,6 +112,7 @@ const displayReservationForm = (reservation, reservationId) => {
   let select = existing.hour - 10;
   if (select < 0 || select > 11) { select = 0; }
   setSelectedIndex(document.getElementById('hour'), select);
+  updateAmPmEvent();
 };
 
 const displayReservations = () => new Promise((resolve, reject) => {
@@ -121,7 +122,7 @@ const displayReservations = () => new Promise((resolve, reject) => {
   </div>
   <div id="results-reservations">
     <div class="container-fluid">
-      <div class="row justify-content-between">
+      <div class="row">
   `;
   reservationsData.getReservations()
     .then((reservations) => {
@@ -157,15 +158,12 @@ const reservationsPage = () => {
   utils.printToDom('#console', domString);
   displayReservations();
   displayReservationForm();
-  updateAmPmEvent();
 };
 
 const editReservation = (reservationId) => {
   reservationsData.getReservationById(reservationId)
     .then((reservation) => {
       displayReservationForm(reservation, reservationId);
-      updateAmPm();
-      updateAmPmEvent();
       $('#cancel-res-edit').removeClass('hide');
       $('#delete-reservation').removeClass('hide');
     })
@@ -210,10 +208,17 @@ const deleteReservationEvent = (e) => {
 const updateReservationEvent = (e) => {
   e.preventDefault();
   const reservationId = e.target.dataset.reservationid;
-  console.error(reservationId);
-  reservationsData.updateReservation(reservationId)
+  const time = Number($('#hour').val() + $('#minutes').val());
+  const newReservationInfo = {
+    name: $('#name').val(),
+    partySize: $('#size').val(),
+    date: $('#date').val(),
+    time,
+  };
+  reservationsData.updateReservation(reservationId, newReservationInfo)
     .then(() => {
-      // displayReservations();
+      displayReservations();
+      displayReservationForm();
     })
     .catch((err) => console.error('could not update reservation', err));
 };

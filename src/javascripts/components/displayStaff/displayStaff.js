@@ -1,21 +1,23 @@
 import utils from '../../helpers/utils';
 import staffData from '../../helpers/data/getStaffData';
+// eslint-disable-next-line import/no-cycle
+import addStaff from '../addStaff/addStaff';
 
 const buildStaffConsole = () => {
   const domString1 = `
   <div class="container">
     <div class="row staffNav">
-    <button type="button" id="addStaff" class="btn btn-info">Add Staff</button>
+    <div id="addStaffButton">stuff</div>
       <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Filter by Staff
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" id="Busser">Busser</a>
-        <a class="dropdown-item" id="Server">Server</a>
-        <a class="dropdown-item" id="Chef">Chef</a>
-        <a class="dropdown-item" id="Manager">Manager</a>
-        <a class="dropdown-item" id="Host">Host</a>
+        <button class="dropdown-item" id="Busser" type="button">Busser</button>
+        <button class="dropdown-item" id="Server" type="button">Server</button>
+        <button class="dropdown-item" id="Chef" type="button">Chef</button>
+        <button class="dropdown-item" id="Manager" type="button">Manager</button>
+        <button class="dropdown-item" id="Host" type="button">Host</button>        
       </div>
     </div>
     </div>
@@ -23,6 +25,7 @@ const buildStaffConsole = () => {
   <div>
   `;
   utils.printToDom('#console', domString1);
+  addStaff.addStaffDropDown();
   let domString2 = '';
   staffData.getStaff()
     .then((allStaff) => {
@@ -36,7 +39,8 @@ const buildStaffConsole = () => {
             <div class="row">
               <h5 class="card-title">Job Title: </h5> <h6 class="card-subtitle mb-2 text-muted"> ${staff.type}</h6>
             </div>
-            <button class="btn btn-danger" data-staff-id=${staff.id} id="editStaff">Edit</button>
+            <button class="btn btn-success" data-staff-id=${staff.id} id="editStaff">Edit</button>
+            <button class="btn btn-danger" data-staff-id=${staff.id} id="deleteStaff">Delete</button>
           </div>
         </div>
         `;
@@ -46,4 +50,12 @@ const buildStaffConsole = () => {
     .catch((err) => console.error(err));
 };
 
-export default { buildStaffConsole };
+const deleteStaff = (e) => {
+  staffData.deleteStaff(e.target.dataset.staffId)
+    .then(() => {
+      buildStaffConsole();
+    })
+    .catch((err) => console.error(err));
+};
+
+export default { buildStaffConsole, deleteStaff };
