@@ -5,6 +5,7 @@ import seating from '../components/seating/seating';
 import navbar from '../components/navbar/navbar';
 import addStaff from '../components/addStaff/addStaff';
 import ingredients from '../components/ingredients/ingredients';
+import filterStaff from '../components/filterStaff/filterStaff';
 
 const clickEvents = () => {
   $('body').on('click', '#staff-link', displayStaff.buildStaffConsole);
@@ -33,6 +34,7 @@ const clickEvents = () => {
   }));
   $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
   $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
+  $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
 };
 
 export default { clickEvents };
