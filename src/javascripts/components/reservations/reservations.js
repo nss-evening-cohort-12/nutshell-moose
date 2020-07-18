@@ -38,8 +38,7 @@ const reservationsFilter = (selectedDate) => {
     filteredDate = selectedDate;
   }
   const domString = `
-    <label for="date" class="col-form-label">Date:</label>
-    <input type="date" min="${today}" class="form-control" id="date" value="${filteredDate}">
+    <input type="date" min="${today}" class="form-control" id="filter-date" value="${filteredDate}">
   `;
   return domString;
 };
@@ -136,15 +135,12 @@ const displayReservations = () => new Promise((resolve, reject) => {
   </div>
   <div class="row">
     <div class="filter-buttons ml-auto">
-      <button type="button" class="btn btn-primary mx-1 ">Show All</button>
+      <button type="button" class="btn btn-primary mx-1">Show All</button>
       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Right-aligned menu
+        Filter By Date
       </button>
       <div class="dropdown-menu dropdown-menu-right">
-
-        <button class="dropdown-item" type="button">Action</button>
-        <button class="dropdown-item" type="button">Another action</button>
-        <button class="dropdown-item" type="button">Something else here</button>
+        ${reservationsFilter()}
       </div>
     </div>
   </div>
@@ -174,7 +170,6 @@ const displayReservations = () => new Promise((resolve, reject) => {
       });
       domString += '</div></div>';
       utils.printToDom('#display-reservations', domString);
-      displayReservationsFilter();
       resolve();
     })
     .catch((err) => { reject(err); });
