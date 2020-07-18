@@ -8,6 +8,7 @@ import addStaff from '../components/addStaff/addStaff';
 import ingredients from '../components/ingredients/ingredients';
 import filterStaff from '../components/filterStaff/filterStaff';
 import auth from '../components/auth/auth';
+import editStaff from '../components/editStaff/editStaff';
 
 const clickEvents = () => {
   $('body').on('click', '#sign-in-button', auth.signMeIn);
@@ -37,13 +38,14 @@ const authClickEvents = () => {
   }));
   $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
   $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
+  $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
+  $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
 
   $('body').on('click', '.edit-reservation', reservations.editReservationEvent);
   $('body').on('click', '#cancel-res-edit', reservations.reservationsPage);
   $('body').on('click', '#save-new-res', reservations.addReservationEvent);
   $('body').on('click', '#save-updated-res', reservations.updateReservationEvent);
   $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
-  $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
 
   $('body').on('click', '.edit-reservation', reservations.editReservationEvent);
   $('body').on('click', '#cancel-res-edit', reservations.reservationsPage);
