@@ -65,4 +65,11 @@ nav {
     border-radius: 2em;
     color: #fff !important;
   }
+
+  .fa-bread-slice {
+    background: linear-gradient(0deg, #917226, $secondary-color);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
