@@ -31,11 +31,17 @@ const undimCards = () => {
   $('.reservation-card').removeClass('mute-card bg-light');
 };
 
-const displayReservationsFilter = () => {
+const reservationsFilter = (selectedDate) => {
+  const today = moment(Date.now()).format('YYYY-MM-DD');
+  let filteredDate = today;
+  if (selectedDate) {
+    filteredDate = selectedDate;
+  }
   const domString = `
-    I AM A FILTER
+    <label for="date" class="col-form-label">Date:</label>
+    <input type="date" min="${today}" class="form-control" id="date" value="${filteredDate}">
   `;
-  utils.printToDom('#reservations-filter', domString);
+  return domString;
 };
 
 const displayReservationForm = (reservation, reservationId) => {
@@ -124,10 +130,25 @@ const displayReservationForm = (reservation, reservationId) => {
 
 const displayReservations = () => new Promise((resolve, reject) => {
   let domString = `
-  <div class="row mt-5 reservation-header">
+  <div class="container">
+  <div class="row mt-5 reservation-header justify-content-center">
     <h3>Existing Reservations:</h3>
   </div>
-  <div id="reservations-filter"></div>
+  <div class="row">
+    <div class="filter-buttons ml-auto">
+      <button type="button" class="btn btn-primary mx-1 ">Show All</button>
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Right-aligned menu
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+
+        <button class="dropdown-item" type="button">Action</button>
+        <button class="dropdown-item" type="button">Another action</button>
+        <button class="dropdown-item" type="button">Something else here</button>
+      </div>
+    </div>
+  </div>
+  </div>
   <div id="results-reservations">
     <div class="container-fluid">
       <div class="row">

@@ -4,8 +4,8 @@ import utils from '../utils';
 
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
-const getReservations = () => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/reservations.json`)
+const getReservations = (date) => new Promise((resolve, reject) => {
+  axios.get(date ? `${baseUrl}/reservations.json?orderBy="date"&equalTo="${date}"` : `${baseUrl}/reservations.json`)
     .then(({ data }) => resolve(utils.firebaseArray(data)))
     .catch((err) => reject(err));
 });
