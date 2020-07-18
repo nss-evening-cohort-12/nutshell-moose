@@ -18,22 +18,31 @@ const sliderChange = () => {
 const numberValidation = (e) => {
   e.preventDefault();
   const number = $('#input-table-number').val() * 1;
-  const capacity = $('#capacity-range').val();
+  // const capacity = $('#capacity-range').val();
 
-  if (number <= 30 && number >= 1) {
-    $('.alert').remove('.alert');
-    console.warn('Nice! That worked. -> ', `New Table Number: ${number} /`, `New Capacity: ${capacity}`);
-  } else {
-    $('.alert').remove('.alert');
-    $('#input-table-number').after(`
-      <div class="alert alert-danger alert-dismissible fade show mt-2 pl-2 pr-3" role="alert">
-        <em>Table is not available.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    `);
-  }
+  getSeatingData.getSeating()
+    .then((seating) => {
+      seating.forEach((table) => {
+        if (number === table.tableNum) {
+          console.warn('sup');
+        } else;
+      });
+    })
+    .catch((err) => console.error('did not work -> ', err));
+  // if (number <= 30 && number >= 1) {
+  //   $('.alert').remove('.alert');
+  //   console.warn('Nice! That worked. -> ', `New Table Number: ${number} /`, `New Capacity: ${capacity}`);
+  // } else {
+  //   $('.alert').remove('.alert');
+  //   $('#input-table-number').after(`
+  //     <div class="alert alert-danger alert-dismissible fade show mt-2 pl-2 pr-3" role="alert">
+  //       <em>Table is not available.
+  //       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  //         <span aria-hidden="true">&times;</span>
+  //       </button>
+  //     </div>
+  //   `);
+  // }
 };
 
 const checkAvailability = () => {
