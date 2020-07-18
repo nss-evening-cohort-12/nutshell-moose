@@ -53,15 +53,31 @@ const numberValidation = (e) => {
 };
 
 const checkAvailability = () => {
+  let availableNum = 0;
+  let unavailableNum = 0;
+
   getSeatingData.getSeating()
     .then((seating) => {
       seating.forEach((table) => {
         if (table.occupied === true) {
           $(`#${table.id}`).css('background-color', '#FFF');
+          availableNum += 1;
         } else if (table.occupied === false) {
           $(`#${table.id}`).css('background-color', '#5386E4');
+          unavailableNum += 1;
         } else;
       });
+
+      if (availableNum > unavailableNum) {
+        $('.available-bar').css('width', '75%');
+        $('.unavailable-bar').css('width', '25%');
+      } else if (availableNum < unavailableNum) {
+        $('.available-bar').css('width', '25%');
+        $('.unavailable-bar').css('width', '75%');
+      } else if (availableNum === unavailableNum) {
+        $('.available-bar').css('width', '50%');
+        $('.unavailable-bar').css('width', '50%');
+      }
     })
     .catch((err) => console.error('getting seat data for availability did not work -> ', err));
 };
