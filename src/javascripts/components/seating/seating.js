@@ -52,6 +52,23 @@ const numberValidation = (e) => {
   }
 };
 
+const editTable = (e) => {
+  e.preventDefault();
+  const currentTable = e.currentTarget.dataset.editTableId;
+
+  getSeatingData.getSeating()
+    .then((seating) => {
+      seating.forEach((table) => {
+        if (currentTable === table.id) {
+          $('.edit-table-form').val(`${table.tableNum}`);
+          $('.edit-capacity-form').val(`${table.capacity}`);
+          $('.value-span').html(`${table.capacity}`);
+        }
+      });
+    })
+    .catch((err) => console.error('getting tables for editing did not work ->', err));
+};
+
 const checkAvailability = () => {
   let availableNum = 0;
   let unavailableNum = 0;
@@ -132,7 +149,25 @@ const buildSeating = () => {
           <div class="table-container" id="${table.id}">
             <h1 class="table-number"><i class="fas fa-hashtag" style="font-size: .6em;"></i> ${table.tableNum}</h1>
             <h2 class="table-capacity"><i class="fas fa-users"></i> <span style="font-size: 1.3em;">${table.capacity}</span></h2>
-            <h3 class="table-edit"><i class="fas fa-pen"></i></h3>
+            <div class="dropdown new-table">
+              <a class="dropdown-toggle shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <h3 class="table-edit" id="edit-table" data-edit-table-id=${table.id}><i class="fas fa-pen"></i></h3>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <form>
+                  <div class="form-group">
+                    <label for="input-table-number">Table Number</label>
+                    <input type="number" max="30" min="7" class="form-control edit-table-form" id="input-table-number" placeholder="12" required>
+                  </div>
+                  <div class="form-group mb-1">
+                    <label for="capacity-range">Capacity:</label>
+                    <span class="font-weight-bold ml-2 value-span"></span>
+                    <input type="range" class="custom-range edit-capacity-form" min="1" max="6" id="capacity-range">
+                  </div>
+                  <button type="submit" class="btn btn-secondary" id="add-new-table">Update</button>
+                </form>
+              </div>
+            </div>
           </div>
         `;
       });
@@ -147,4 +182,4 @@ const buildSeating = () => {
     .catch((err) => console.error('getting the seating did not work -> ', err));
 };
 
-export default { buildSeating, numberValidation };
+export default { buildSeating, numberValidation, editTable };

@@ -15,7 +15,6 @@ const clickEvents = () => {
 
   $('body').on('click', '#reservations-link', reservations.reservationsPage);
   $('body').on('click', '#seating-link', seating.buildSeating);
-  $('body').on('click', '#add-new-table', seating.numberValidation);
 
   $('body').on('click', '#staff-link', navbar.activeNavLinks);
   $('body').on('click', '#reservations-link', navbar.activeNavLinks);
@@ -50,6 +49,9 @@ const authClickEvents = () => {
   $('body').on('click', '#save-new-res', reservations.addReservationEvent);
   $('body').on('click', '#save-updated-res', reservations.updateReservationEvent);
   $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
+
+  $('body').on('click', '#add-new-table', seating.numberValidation);
+  $('body').on('click', '#edit-table', seating.editTable);
 };
 
 export default { clickEvents, authClickEvents };
