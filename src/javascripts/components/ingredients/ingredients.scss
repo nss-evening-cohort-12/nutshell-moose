@@ -1,0 +1,33 @@
+@import '../../../styles/styles';
+
+#ingredients-list {
+  margin: 3rem;
+  .card {
+    width: 20rem;
+    margin: 0 1rem 1rem 1rem;
+    border: none;
+    box-shadow: none;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .card-body {
+    background-image: linear-gradient(0deg, #bf9632, $secondary-color);
+    color: $font-color;
+  }
+  .card-img-top {
+    width: 100%;
+    height: 15rem;
+    object-fit: cover;
+  }
+  .fas {
+    margin: 1rem;
+    color: $primary-color;
+  }
+  .fa-circle {
+    color: $primary-color !important;
+  }
+  .ingred-types {
+    color: $font-color;
+    opacity: 50%;
+  }
+}
