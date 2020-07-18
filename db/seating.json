@@ -1,32 +1,32 @@
 {
   "table1": {
     "tableNum": 1,
-    "capcity": 4,
+    "capacity": 4,
     "occupied": false
   },
   "table2": {
     "tableNum": 2,
-    "capcity": 4,
+    "capacity": 3,
     "occupied": false
   },
   "table3": {
     "tableNum": 3,
-    "capcity": 4,
+    "capacity": 4,
     "occupied": true
   },
   "table4": {
     "tableNum": 4,
-    "capcity": 2,
+    "capacity": 2,
     "occupied": true
   },
   "table5": {
     "tableNum": 5,
-    "capcity": 6,
+    "capacity": 6,
     "occupied": false
   },
   "table6": {
     "tableNum": 6,
-    "capcity": 8,
+    "capacity": 5,
     "occupied": true
   }
 }
