@@ -22,7 +22,7 @@ const typeToIcon = (type) => {
 const ingredDom = (data) => {
   let domString = '<div class="d-flex justify-content-center flex-wrap" id="ingredients-list">';
   domString += `
-              <div class="card"> 
+            <div class="card"> 
               <div class="card-body d-flex flex-column h-100" id="add-ingredient">
                 <div class="p-2 text-center"><i class="fas fa-plus fa-5x ingred-types"></i></div>
                 <h5 class="card-title mb-auto p-2 text-center">Add Ingredient</h5>
