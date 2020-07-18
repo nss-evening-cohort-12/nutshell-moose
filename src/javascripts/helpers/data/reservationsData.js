@@ -1,12 +1,20 @@
+import moment from 'moment';
 import axios from 'axios';
 import apiKeys from '../apiKeys.json';
 import utils from '../utils';
 
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
+const timestamp = (reservation) => moment(`${reservation.date} ${reservation.time}`, 'YYYY-MM-DD hhmm').format('YYYYMMDDHHmm');
+
 const getReservations = (date) => new Promise((resolve, reject) => {
   axios.get(date ? `${baseUrl}/reservations.json?orderBy="date"&equalTo="${date}"` : `${baseUrl}/reservations.json`)
-    .then(({ data }) => resolve(utils.firebaseArray(data)))
+    .then(({ data }) => {
+      const reservations = utils.firebaseArray(data);
+      reservations.sort((a, b) => ((timestamp(a) > timestamp(b)) ? 1 : -1));
+      console.warn(moment(`${reservations[0].date} ${reservations[0].time}`, 'YYYY-MM-DD hhmm').format('YYYYMMDDHHmm'));
+      resolve(reservations);
+    })
     .catch((err) => reject(err));
 });
 
