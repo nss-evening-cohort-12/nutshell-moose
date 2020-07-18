@@ -1,8 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+// eslint-disable-next-line import/no-cycle
+import clickEvents from '../clickEvents';
 
-const logoutButton = $('#logout-button');
-const loginButton = $('#login-button');
 const authOnly = $('.auth-only');
 
 // call this to appropriately hide or display everything with '.auth-only' class:
@@ -18,6 +18,7 @@ const secureButtons = () => {
 };
 
 // call this to check if user is authorized before running secure actions (returns boolean)
+// jv- Does not return a bool, currently return 'undefined' regardless of auth status
 const checkAuth = () => {
   firebase.auth().onAuthStateChanged((user) => (!!user));
 };
@@ -25,11 +26,12 @@ const checkAuth = () => {
 const checkLoginStatus = () => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      logoutButton.removeClass('hide');
-      loginButton.addClass('hide');
+      $('#sign-out-button').removeClass('hide');
+      $('#sign-in-button').addClass('hide');
+      clickEvents.authClickEvents();
     } else {
-      logoutButton.addClass('hide');
-      loginButton.removeClass('hide');
+      $('#sign-out-button').addClass('hide');
+      $('#sign-in-button').removeClass('hide');
     }
   });
 };
