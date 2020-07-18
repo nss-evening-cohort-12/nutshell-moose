@@ -6,4 +6,9 @@ const signMeIn = () => {
   firebase.auth().signInWithPopup(provider);
 };
 
-export default { signMeIn };
+const logoutEvent = () => {
+  firebase.auth().signOut();
+  $('#console').empty();
+};
+
+export default { signMeIn, logoutEvent };
