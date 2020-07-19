@@ -48,7 +48,7 @@ const menuDom = (data, data2) => {
   data.forEach((menuItem) => {
     const price = menuItem.price * 1;
     domString += `
-            <div class="card">
+            <div class="card" id="${menuItem.id}">
             <div class="card-img-top flip-container menu-cards">
               <div class="flipper">
                 <div class="front">
@@ -83,7 +83,7 @@ const menuDom = (data, data2) => {
                 </span>
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
+                  <i class="fa fa-trash fa-stack-1x fa-inverse delete-menu-item" data-delete-id="${menuItem.id}"></i>
                 </span>
               </div>
             </div>
@@ -110,6 +110,7 @@ const menuItems = () => {
                   finalIngreds.push(tempIngred);
                 });
                 const objToPush = {
+                  id: item.id,
                   name: item.name,
                   imgUrl: item.imgUrl,
                   price: item.price,

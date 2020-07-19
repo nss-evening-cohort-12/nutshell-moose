@@ -20,6 +20,8 @@ const getIngredientById = (ingredientId) => axios.get(`${baseUrl}/ingredients/${
 
 const deleteIngredient = (ingredientId) => axios.delete(`${baseUrl}/ingredients/${ingredientId}.json`);
 
+const deleteMenuIngredient = (id) => axios.delete(`${baseUrl}/menuIngredient/${id}.json`);
+
 const addIngredient = (ingredientObj) => axios.post(`${baseUrl}/ingredients.json`, ingredientObj);
 
 const addMenuIngredient = (ingredientObj) => axios.post(`${baseUrl}/menuIngredient.json`, ingredientObj);
@@ -34,4 +36,5 @@ export default {
   updateIngredients,
   getIngredientsJoin,
   addMenuIngredient,
+  deleteMenuIngredient,
 };
