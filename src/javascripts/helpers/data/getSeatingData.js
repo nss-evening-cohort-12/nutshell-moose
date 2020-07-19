@@ -12,7 +12,9 @@ const getSeating = () => new Promise((resolve, reject) => {
 
 const addTable = (newSeatingObj) => axios.post(`${baseUrl}/seating.json`, newSeatingObj);
 
-// WIP: this function was to checkexisting table numbers and return the one table if it matched, and return null if not
+const updateTable = (tableId, editedTable) => axios.put(`${baseUrl}/seating/${tableId}.json`, editedTable);
+
+// WIP: this function was to check existing table numbers and return the one table if it matched, and return null if not
 
 // const getTableById = (tableNumber) => new Promise((resolve, reject) => {
 //   axios.get(`${baseUrl}/seating.json?orderBy="tableNum"&equalTo"${tableNumber}"`)
@@ -20,4 +22,4 @@ const addTable = (newSeatingObj) => axios.post(`${baseUrl}/seating.json`, newSea
 //     .catch((err) => reject(err));
 // });
 
-export default { getSeating, addTable };
+export default { getSeating, addTable, updateTable };

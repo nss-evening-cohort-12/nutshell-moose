@@ -58,7 +58,8 @@ const clickEvents = () => {
       $('body').on('click', '#save-updated-res', reservations.updateReservationEvent);
       $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
       $('body').on('click', '#add-new-table', seating.numberValidation);
-      $('body').on('click', '#edit-table', seating.editTable);
+      $('body').on('click', '#edit-table', seating.editTableForm);
+      $('body').on('click', '#add-new-table', seating.editTableEvent);
     }
     if (!user) {
       $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);
