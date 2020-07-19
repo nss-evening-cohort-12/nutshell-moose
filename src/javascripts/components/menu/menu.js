@@ -4,20 +4,6 @@ import './menu.scss';
 import ingredData from '../../helpers/data/ingredData';
 import ingredients from '../ingredients/ingredients';
 
-const newMenuItem = (e) => {
-  e.preventDefault();
-  const menuObj = {
-    name: e.target.elements.foodName.value,
-    price: e.target.elements.foodPrice.value,
-    imgUrl: e.target.elements.foodImageUrl.value,
-  };
-  menuData.addMenuItem(menuObj)
-    .then((response) => {
-      console.error(response.data.name);
-    })
-    .catch((err) => console.error(err));
-};
-
 const menuDom = (data, data2) => {
   let domString = '<div class="d-flex justify-content-center flex-wrap" id="menu-list">';
   domString += `
@@ -60,6 +46,7 @@ const menuDom = (data, data2) => {
             </div>
               `;
   data.forEach((menuItem) => {
+    const price = menuItem.price * 1;
     domString += `
             <div class="card">
             <div class="card-img-top flip-container menu-cards">
@@ -88,7 +75,7 @@ const menuDom = (data, data2) => {
             </div>
             <div class="card-body d-flex flex-column h-100">
               <h5 class="card-title mb-auto p-2">${menuItem.name}</h5>
-              <h4 class="card-text p-2">$${menuItem.price.toFixed(2)}</h4>
+              <h4 class="card-text p-2">$${price.toFixed(2)}</h4>
               <div class="d-flex justify-content-end flex-nowrap p-2">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
@@ -133,6 +120,31 @@ const menuItems = () => {
               utils.printToDom('#console', menuDom(finalMenuItemsArray, ingredsArray));
             });
         });
+    })
+    .catch((err) => console.error(err));
+};
+
+const newMenuItem = (e) => {
+  e.preventDefault();
+  const menuObj = {
+    name: e.target.elements.foodName.value,
+    price: e.target.elements.foodPrice.value,
+    imgUrl: e.target.elements.foodImageUrl.value,
+  };
+  menuData.addMenuItem(menuObj)
+    .then((response) => {
+      const newMenuId = response.data.name;
+      const addIngredients = e.target.elements.ingredList;
+      addIngredients.forEach((i) => {
+        if (i.checked) {
+          const newMenuIngred = {
+            ingredientId: i.value,
+            menuId: newMenuId,
+          };
+          ingredData.addMenuIngredient(newMenuIngred);
+        }
+      });
+      menuItems();
     })
     .catch((err) => console.error(err));
 };
