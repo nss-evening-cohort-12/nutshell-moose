@@ -12,6 +12,7 @@ import auth from '../components/auth/auth';
 import editStaff from '../components/editStaff/editStaff';
 import addMenuItem from '../components/addMenuItem/addMenuItem';
 import deleteMenuItem from '../components/deleteMenuItem/deleteMenuItem';
+import editMenuItem from '../components/editMenuItem/editMenuItem';
 
 const clickEvents = () => {
   $('body').on('click', '#sign-in-button', auth.signMeIn);
@@ -47,7 +48,9 @@ const authClickEvents = () => {
   $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
   $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
   $('body').on('submit', '#add-new-menu', addMenuItem.newMenuItem);
+  $('body').on('submit', '#edit-menu-item', editMenuItem.processMenuEdit);
   $('body').on('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
+  $('body').on('click', '.edit-menu-item', editMenuItem.populateEditForm);
   $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
   $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
 
