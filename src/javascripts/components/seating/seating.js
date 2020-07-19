@@ -110,10 +110,10 @@ const checkAvailability = () => {
     .then((seating) => {
       seating.forEach((table) => {
         if (table.occupied === true) {
-          $(`#${table.id}`).css('background-color', '#FFF');
+          $(`#${table.id}`).css('background-image', 'linear-gradient(0deg, #DDD, #FFF)');
           unavailableNum += 1;
         } else if (table.occupied === false) {
-          $(`#${table.id}`).css('background-color', '#5386E4');
+          $(`#${table.id}`).css('background-image', 'linear-gradient(0deg, #4169b3, #5386E4)');
           availableNum += 1;
         } else;
       });
@@ -179,7 +179,7 @@ const buildSeating = () => {
       seating.forEach((table) => {
         domString += `
           <div class="table-container" id="${table.id}">
-            <h1 class="table-number"><i class="fas fa-hashtag" style="font-size: .6em;"></i> ${table.tableNum}</h1>
+            <h1 class="table-number"><span style="font-size: .6em;">Table</span> ${table.tableNum}</h1>
             <h2 class="table-capacity"><i class="fas fa-users"></i> <span style="font-size: 1.3em;">${table.capacity}</span></h2>
             <div class="auth-only dropdown new-table">
               <a class="dropdown-toggle shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

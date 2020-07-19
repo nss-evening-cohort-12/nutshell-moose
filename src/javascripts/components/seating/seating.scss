@@ -14,12 +14,12 @@
   margin-bottom: 25px;
 
   .available-bar {
-    background-color: $primary-color !important;
+    background-image: linear-gradient(0deg, #4671c0, #5386E4);
     font-size: 1.2em;
   }
 
   .unavailable-bar {
-    background-color: #fff !important;
+    background-image: linear-gradient(0deg, #FFF, #e3e3e3);
     color: $font-color;
     font-size: 1.2em;
   }
@@ -106,18 +106,19 @@
     border-bottom: 3px solid $primary-color;
     border-right: 3px solid $primary-color;
     border-bottom-right-radius: 1.6em;
+    font-size: 2em;
 
     margin: 0;
-    padding: 7px 32px 20px 20px;
+    padding: 7px 32px 15px 20px;
   }
 
   .table-capacity {
     justify-self: center;
     align-self: center;
 
-    background-color: $secondary-color;
+    background-image: linear-gradient(0deg, #bf9632, $secondary-color);
     color: #fff;
-    border: 3px solid $secondary-color;
+    border: 1px solid $secondary-color;
     border-radius: 2em;
     text-align: center;
   
