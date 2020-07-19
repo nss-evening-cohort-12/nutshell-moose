@@ -9,6 +9,7 @@ import ingredients from '../components/ingredients/ingredients';
 import filterStaff from '../components/filterStaff/filterStaff';
 import auth from '../components/auth/auth';
 import editStaff from '../components/editStaff/editStaff';
+import addMenuItem from '../components/addMenuItem/addMenuItem';
 
 const clickEvents = () => {
   $('body').on('click', '#sign-in-button', auth.signMeIn);
@@ -43,7 +44,7 @@ const authClickEvents = () => {
   }));
   $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
   $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
-  $('body').on('submit', '#add-new-menu', menu.newMenuItem);
+  $('body').on('submit', '#add-new-menu', addMenuItem.newMenuItem);
   $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
   $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
 
