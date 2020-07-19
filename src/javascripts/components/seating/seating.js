@@ -144,8 +144,8 @@ const buildSeating = () => {
               <div class="progress-bar available-bar" role="progressbar" style="width: 20%;" aria-valuemin="0" aria-valuemax="100">Available</div>
               <div class="progress-bar unavailable-bar" role="progressbar" style="width: 80%;" aria-valuemin="0" aria-valuemax="100">Unavailable</div>
             </div>
-            <div class="dropdown new-table auth-only">
-              <button class="btn btn-secondary dropdown-toggle shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown new-table">
+              <button class="btn btn-secondary dropdown-toggle shadow-none auth-only" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-plus"></i> New Table
               </button>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -181,9 +181,9 @@ const buildSeating = () => {
           <div class="table-container" id="${table.id}">
             <h1 class="table-number"><span style="font-size: .6em;">Table</span> ${table.tableNum}</h1>
             <h2 class="table-capacity"><i class="fas fa-users"></i> <span style="font-size: 1.3em;">${table.capacity}</span></h2>
-            <div class="auth-only dropdown new-table">
+            <div class="dropdown new-table">
               <a class="dropdown-toggle shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <h3 class="table-edit" id="edit-table" data-edit-table-id=${table.id}><i class="fas fa-pen"></i></h3>
+                <h3 class="table-edit auth-only" id="edit-table" data-edit-table-id=${table.id}><i class="fas fa-pen"></i></h3>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <form>
