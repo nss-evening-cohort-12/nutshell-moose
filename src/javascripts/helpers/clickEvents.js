@@ -15,6 +15,7 @@ import addMenuItem from '../components/addMenuItem/addMenuItem';
 import deleteMenuItem from '../components/deleteMenuItem/deleteMenuItem';
 
 const clickEvents = () => {
+  // BOTH AUTHORIZED AND NON-AUTHORIZED USER USER CLICK EVENTS:
   $('body').on('click', '#sign-in-button', auth.signMeIn);
   $('body').on('click', '#sign-out-button', auth.logoutEvent);
 
@@ -39,7 +40,7 @@ const clickEvents = () => {
   $('body').on('change', '#filter-date', reservations.filterEvent);
   $('body').on('click', '#all-reservations', reservations.reservationsPage);
 
-  // Add any click events only for authorized users here:
+  // AUTHORIZED USER ONLY CLICK EVENTS (add in both sections so it removes click event on logout):
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       $('body').on('click', '#staff-link', displayStaff.buildStaffConsole);
@@ -58,26 +59,24 @@ const clickEvents = () => {
       $('body').on('click', '#save-updated-res', reservations.updateReservationEvent);
       $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
     }
+    if (!user) {
+      $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);
+      $('body').off('click', '.stopProp', ((e) => {
+        e.stopPropagation();
+      }));
+      $('body').off('click', '#addNewStaff', addStaff.addStaffEvent);
+      $('body').off('click', '#deleteStaff', displayStaff.deleteStaff);
+      $('body').off('submit', '#add-new-menu', addMenuItem.newMenuItem);
+      $('body').off('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
+      $('body').off('click', '#filterStaffType', filterStaff.filterStaffEvent);
+      $('body').off('click', '.editStaffSubmit', editStaff.editStaffEvent);
+      $('body').off('click', '.edit-reservation', reservations.editReservationEvent);
+      $('body').off('click', '#cancel-res-edit', reservations.reservationsPage);
+      $('body').off('click', '#save-new-res', reservations.addReservationEvent);
+      $('body').off('click', '#save-updated-res', reservations.updateReservationEvent);
+      $('body').off('click', '#delete-reservation', reservations.deleteReservationEvent);
+    }
   });
 };
-
-// const authClickEvents = () => {
-//   $('body').on('click', '#staff-link', displayStaff.buildStaffConsole);
-//   $('body').on('click', '.stopProp', ((e) => {
-//     e.stopPropagation();
-//   }));
-//   $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
-//   $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
-//   $('body').on('submit', '#add-new-menu', addMenuItem.newMenuItem);
-//   $('body').on('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
-//   $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
-//   $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
-
-//   $('body').on('click', '.edit-reservation', reservations.editReservationEvent);
-//   $('body').on('click', '#cancel-res-edit', reservations.reservationsPage);
-//   $('body').on('click', '#save-new-res', reservations.addReservationEvent);
-//   $('body').on('click', '#save-updated-res', reservations.updateReservationEvent);
-//   $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
-// };
 
 export default { clickEvents };
