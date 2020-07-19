@@ -100,6 +100,9 @@
   .table-number {
     align-self: start;
     justify-self: start;
+    grid-row: 1;
+    grid-column: 1;
+
 
     background-color: $background-color;
     color: $primary-color;
@@ -144,6 +147,30 @@
 
   .table-edit:hover {
     color: $primary-hover;
+
+    cursor: pointer;
+  }
+
+  .table-delete {
+    align-self: start;
+    justify-self: end;
+    grid-row: 1;
+    grid-column: 1;
+
+    background-color: $background-color;
+    color: $danger-color;
+    border-bottom: 3px solid $primary-color;
+    border-left: 3px solid $primary-color;
+    border-bottom-left-radius: 1.6em;
+
+    margin: 0;
+    padding: 8px 10px 15px 15px;
+
+    transition: 100ms ease-in;
+  }
+
+  .table-delete:hover {
+    color: #a2262c;
 
     cursor: pointer;
   }

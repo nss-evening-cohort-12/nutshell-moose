@@ -14,6 +14,8 @@ const addTable = (newSeatingObj) => axios.post(`${baseUrl}/seating.json`, newSea
 
 const updateTable = (tableId, editedTable) => axios.put(`${baseUrl}/seating/${tableId}.json`, editedTable);
 
+const deleteTable = (tableId) => axios.delete(`${baseUrl}/seating/${tableId}.json`);
+
 // WIP: this function was to check existing table numbers and return the one table if it matched, and return null if not
 
 // const getTableById = (tableNumber) => new Promise((resolve, reject) => {
@@ -22,4 +24,9 @@ const updateTable = (tableId, editedTable) => axios.put(`${baseUrl}/seating/${ta
 //     .catch((err) => reject(err));
 // });
 
-export default { getSeating, addTable, updateTable };
+export default {
+  getSeating,
+  addTable,
+  updateTable,
+  deleteTable,
+};
