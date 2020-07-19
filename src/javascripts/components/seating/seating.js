@@ -1,6 +1,7 @@
 import './seating.scss';
 import getSeatingData from '../../helpers/data/getSeatingData';
 import utils from '../../helpers/utils';
+import authData from '../../helpers/data/authData';
 
 const sliderChange = () => {
   $(document).ready(() => {
@@ -80,7 +81,7 @@ const buildSeating = () => {
               <div class="progress-bar unavailable-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Unavailable</div>
             </div>
             <div class="dropdown new-table">
-              <button class="btn btn-secondary dropdown-toggle shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-secondary dropdown-toggle shadow-none auth-only" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-plus"></i> New Table
               </button>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -116,7 +117,7 @@ const buildSeating = () => {
           <div class="table-container" id="${table.id}">
             <h1 class="table-number"><i class="fas fa-hashtag" style="font-size: .6em;"></i> ${table.tableNum}</h1>
             <h2 class="table-capacity"><i class="fas fa-users"></i> <span style="font-size: 1.3em;">${table.capacity}</span></h2>
-            <h3 class="table-edit"><i class="fas fa-pen"></i></h3>
+            <h3 class="table-edit auth-only"><i class="fas fa-pen"></i></h3>
           </div>
         `;
       });
@@ -127,6 +128,7 @@ const buildSeating = () => {
       utils.printToDom('#console', domString);
       checkAvailability();
       sliderChange();
+      authData.secureButtons();
     })
     .catch((err) => console.error('getting the seating did not work -> ', err));
 };

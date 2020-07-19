@@ -11,6 +11,7 @@ const init = () => {
   authData.checkLoginStatus();
   clickEvents.clickEvents();
   navbar.buildNavbar();
+  authData.secureButtons();
 };
 
 init();

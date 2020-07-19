@@ -14,6 +14,7 @@ const displayHomePage = (user) => {
   </div>
   `;
   utils.printToDom('#console', domString);
+  $('.nav-item').removeClass('active');
 };
 
 export default { displayHomePage };

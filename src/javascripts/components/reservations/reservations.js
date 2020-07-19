@@ -76,7 +76,7 @@ const displayReservationForm = (reservation, reservationId) => {
   let domString = `
       <div class="row reservation-header justify-content-between px-3">
         <div></div>
-        <h3>${formType} Reservation:</h3>
+        <h3>${formType} Reservation</h3>
         <div class="cancel-area"><i class="far fa-2x fa-times-circle text-dark hide" id="cancel-res-edit"></i></div>
       </div>`;
   domString += `
@@ -145,7 +145,7 @@ const displayReservations = (filterDate) => new Promise((resolve, reject) => {
   let domString = `
   <div class="container">
   <div class="row mt-5 reservation-header justify-content-center">
-    <h3>Existing Reservations</h3>
+    <h2>Existing Reservations</h2>
   </div>
   <div class="row justify-content-center">
     <div class="filter-buttons d-flex align-items-center">
