@@ -2,17 +2,17 @@ import ingredData from '../../helpers/data/ingredData';
 import utils from '../../helpers/utils';
 import './ingredients.scss';
 
-const typeToIcon = (type) => {
+const typeToIcon = (type, size) => {
   let print = '';
   switch (type) {
     case 'vegetable':
-      print = '<i class="fas fa-carrot fa-5x ingred-types"></i>';
+      print = `<i class="fa fa-carrot ${size} ingred-types"></i>`;
       break;
     case 'fruit':
-      print = '<i class="fas fa-apple-alt fa-5x ingred-types"></i>';
+      print = `<i class="fa fa-apple-alt ${size} ingred-types"></i>`;
       break;
     case 'protein':
-      print = '<i class="fas fa-drumstick-bite fa-5x ingred-types"></i>';
+      print = `<i class="fa fa-drumstick-bite ${size} ingred-types"></i>`;
       break;
     default: print = '';
   }
@@ -32,7 +32,7 @@ const ingredDom = (data) => {
     domString += `
             <div class="card">
             <div class="card-body d-flex flex-column h-100">
-              <div class="p-2 text-center">${typeToIcon(ingredient.type)}</div>
+              <div class="p-2 text-center">${typeToIcon(ingredient.type, 'fa-5x')}</div>
               <h5 class="card-title mb-auto p-2 text-center">${ingredient.name}</h5>
               <div class="d-flex justify-content-end flex-nowrap p-2">
                 <span class="fa-stack fa-lg">
@@ -60,4 +60,4 @@ const ingredients = () => {
     .catch((err) => console.error(err));
 };
 
-export default { ingredDom, ingredients };
+export default { ingredDom, ingredients, typeToIcon };
