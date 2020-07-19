@@ -1,5 +1,6 @@
-// import authData from '../../helpers/data/authData';
 import moment from 'moment';
+// eslint-disable-next-line import/no-cycle
+import authData from '../../helpers/data/authData';
 import utils from '../../helpers/utils';
 import './reservations.scss';
 import reservationsData from '../../helpers/data/reservationsData';
@@ -51,6 +52,10 @@ const reservationsFilter = (selectedDate) => {
 };
 
 const displayReservationForm = (reservation, reservationId) => {
+  if (!authData.checkAuth()) {
+    $('#edit-reservation').addClass('hide');
+    return;
+  }
   const today = moment(Date.now()).format('YYYY-MM-DD');
   const tomorrow = moment(today).add(1, 'd').format('YYYY-MM-DD');
   let existing = {
@@ -177,13 +182,14 @@ const displayReservations = (filterDate) => new Promise((resolve, reject) => {
             <div class="card-body">
               <h5 class="card-title">${reservation.name}</h5>
               <p class="card-text">Party of ${reservation.partySize}</p>
-              <a href="#" class="btn btn-primary edit-reservation" id="edit-btn-${reservation.id}" data-reservationid="${reservation.id}">Edit</a>
+              <a href="#" class="btn btn-primary edit-reservation auth-only" id="edit-btn-${reservation.id}" data-reservationid="${reservation.id}">Edit</a>
             </div>
           </div>
         </div>`;
       });
       domString += '</div></div>';
       utils.printToDom('#display-reservations', domString);
+      authData.secureButtons();
       resolve();
     })
     .catch((err) => { reject(err); });
