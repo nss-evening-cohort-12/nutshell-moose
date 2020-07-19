@@ -60,6 +60,7 @@ const clickEvents = () => {
       $('body').on('click', '#add-new-table', seating.numberValidation);
       $('body').on('click', '#edit-table', seating.editTableForm);
       $('body').on('click', '#add-new-table', seating.editTableEvent);
+      $('body').on('click', '#delete-table', seating.deleteTableEvent);
     }
     if (!user) {
       $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);
@@ -78,7 +79,8 @@ const clickEvents = () => {
       $('body').off('click', '#save-updated-res', reservations.updateReservationEvent);
       $('body').off('click', '#delete-reservation', reservations.deleteReservationEvent);
       $('body').off('click', '#add-new-table', seating.numberValidation);
-      $('body').off('click', '#edit-table', seating.editTable);
+      $('body').off('click', '#edit-table', seating.editTableEvent);
+      $('body').off('click', '#delete-table', seating.deleteTableEvent);
     }
   });
 };

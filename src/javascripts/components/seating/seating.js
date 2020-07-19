@@ -102,6 +102,17 @@ const editTableEvent = (e) => {
     .catch((err) => console.error('could not edit the table -> ', err));
 };
 
+const deleteTableEvent = (e) => {
+  const tableId = e.currentTarget.dataset.deleteTableId;
+
+  getSeatingData.deleteTable(tableId)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      buildSeating();
+    })
+    .catch((err) => console.error('could not delete table -> ', err));
+};
+
 const checkAvailability = () => {
   let availableNum = 0;
   let unavailableNum = 0;
@@ -180,6 +191,7 @@ const buildSeating = () => {
         domString += `
           <div class="table-container" id="${table.id}">
             <h1 class="table-number"><span style="font-size: .6em;">Table</span> ${table.tableNum}</h1>
+            <h3 class="table-delete auth-only" id="delete-table" data-delete-table-id=${table.id}><i class="fas fa-trash-alt"></i></h3>
             <h2 class="table-capacity"><i class="fas fa-users"></i> <span style="font-size: 1.3em;">${table.capacity}</span></h2>
             <div class="dropdown new-table">
               <a class="dropdown-toggle shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -230,4 +242,5 @@ export default {
   numberValidation,
   editTableForm,
   editTableEvent,
+  deleteTableEvent,
 };
