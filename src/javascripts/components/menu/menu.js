@@ -79,8 +79,8 @@ const menuDom = (data, data2) => {
               <div class="d-flex justify-content-end flex-nowrap p-2">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-pen fa-stack-1x fa-inverse"></i>
-                </span>
+                  <i class="fa fa-pen fa-stack-1x fa-inverse edit-menu-item" data-edit-id="${menuItem.id}"></i>
+                </span> 
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-trash fa-stack-1x fa-inverse delete-menu-item" data-delete-id="${menuItem.id}"></i>
