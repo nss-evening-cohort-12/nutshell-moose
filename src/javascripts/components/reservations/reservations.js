@@ -31,6 +31,25 @@ const undimCards = () => {
   $('.reservation-card').removeClass('mute-card bg-light');
 };
 
+const filterEvent = () => {
+  const date = $('#filter-date').val();
+  // eslint-disable-next-line no-use-before-define
+  displayReservations(date);
+};
+
+const reservationsFilter = (selectedDate) => {
+  const today = moment(Date.now()).format('YYYY-MM-DD');
+  let filteredDate = '';
+  if (selectedDate) {
+    filteredDate = selectedDate;
+  }
+  const domString = `
+    <input type="date" min="${today}" class="form-control" id="filter-date" value="${filteredDate}">
+  `;
+  // $('body').on('change', '#filter-date', filterEvent); <-- MOVED to clickevents.js
+  return domString;
+};
+
 const displayReservationForm = (reservation, reservationId) => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
   const tomorrow = moment(today).add(1, 'd').format('YYYY-MM-DD');
@@ -115,16 +134,36 @@ const displayReservationForm = (reservation, reservationId) => {
   updateAmPmEvent();
 };
 
-const displayReservations = () => new Promise((resolve, reject) => {
+const displayReservations = (filterDate) => new Promise((resolve, reject) => {
+  let currentFilter = 'All';
+  if (filterDate) {
+    currentFilter = moment(filterDate).format('M/D/YYYY');
+  }
   let domString = `
-  <div class="row mt-5 reservation-header">
-    <h3>Existing Reservations:</h3>
+  <div class="container">
+  <div class="row mt-5 reservation-header justify-content-center">
+    <h3>Existing Reservations</h3>
+  </div>
+  <div class="row justify-content-center">
+    <div class="filter-buttons d-flex align-items-center">
+      <div class="mr-2">Current view:</div>
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        ${currentFilter}
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <button type="button" class="dropdown-item" id="all-reservations">Show All</button>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-header">or select date:</div>
+        ${reservationsFilter()}
+      </div>
+    </div>
+  </div>
   </div>
   <div id="results-reservations">
     <div class="container-fluid">
       <div class="row">
   `;
-  reservationsData.getReservations()
+  reservationsData.getReservations(filterDate)
     .then((reservations) => {
       reservations.forEach((reservation) => {
         const date = moment(reservation.date).format('M/D/YYYY');
@@ -224,5 +263,5 @@ const updateReservationEvent = (e) => {
 };
 
 export default {
-  reservationsPage, displayReservationForm, editReservationEvent, updateAmPm, addReservationEvent, deleteReservationEvent, updateReservationEvent,
+  reservationsPage, displayReservationForm, editReservationEvent, updateAmPm, addReservationEvent, deleteReservationEvent, updateReservationEvent, filterEvent,
 };
