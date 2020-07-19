@@ -1,0 +1,16 @@
+#welcome-page {
+  // font-size: 200px;
+  height: calc(100vh - 74px);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc((50vh - 74px)/5);
+}
+
+.profile-pic {
+  border-radius: 50%;
+  max-width:100px;
+    height:auto;
+}
