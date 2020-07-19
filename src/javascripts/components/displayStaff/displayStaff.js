@@ -2,23 +2,57 @@ import utils from '../../helpers/utils';
 import staffData from '../../helpers/data/getStaffData';
 // eslint-disable-next-line import/no-cycle
 import addStaff from '../addStaff/addStaff';
+// import editStaff from '../editStaff/editStaff';
 
 const buildStaffCards = (allStaff) => {
   let domString = '';
   allStaff.forEach((staff) => {
     domString += `
     <div class="card" style="width: 18rem;">
-    <div class="card-body cardContainer container">
-      <div class="row">
-        <h6 class=" text-muted">Name: </h6> <h5 class="card-title"> ${staff.name}</h5>
-      </div>
-      <div class="row">
-      <h6 class="card-subtitle mb-2 text-muted">Job Title: </h6> <h5 class="card-title"> ${staff.type}</h5>
-      </div>
-      <button class="btn btn-success" data-staff-id=${staff.id} id="editStaff">Edit</button>
-      <button class="btn btn-danger" data-staff-id=${staff.id} id="deleteStaff">Delete</button>
+
+      <div class="card-body cardContainer container">
+
+        <div class="row">
+            <h6 class=" text-muted">Name: </h6> <h5 class="card-title"> ${staff.name}</h5>
+        </div>
+
+        <div class="row">
+          <h6 class="card-subtitle mb-2 text-muted">Job Title: </h6> <h5 class="card-title"> ${staff.type}</h5>
+        </div>
+
+        <div class="btn-group dropright">
+
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Edit Staff
+          </button>
+
+          <div class="dropdown-menu">
+
+          <form class="px-4 py-3 editStaff">
+            <div class="form-group">
+              <label for="newStaffName">Name</label>
+              <input type="text" name="editStaffName" class="form-control editStaffName" id="editStaffName" placeholder="${staff.name}">
+            </div>
+            <label for="staffType">Staff Role:</label>
+            <div class="stopProp">
+              <select name="editStaffType" id="editStaffType">
+                <option value="Busser" ${staff.type === 'Busser' ? 'selected' : ''}>Busser</option>
+                <option value="Server" ${staff.type === 'Server' ? 'selected' : ''}>Server</option>
+                <option value="Chef" ${staff.type === 'Chef' ? 'selected' : ''}>Chef</option>
+                <option value="Host" ${staff.type === 'Host' ? 'selected' : ''}>Host</option>
+                <option value="Manager" ${staff.type === 'Manager' ? 'selected' : ''}>Manager</option>
+              </select> 
+            </div> 
+      
+                    
+            <button type="submit" class="btn btn-primary editStaffSubmit" id="editStaffSubmit" data-staff-id=${staff.id} >Update Staff</button>
+          </form>
+
+        </div>
+      </div>    
+          <button class="btn btn-danger" data-staff-id=${staff.id} id="deleteStaff">Delete</button>
+        </div>
     </div>
-  </div>
   `;
   });
   utils.printToDom('#staffCards', domString);
