@@ -1,5 +1,4 @@
 import moment from 'moment';
-// eslint-disable-next-line import/no-cycle
 import authData from '../../helpers/data/authData';
 import utils from '../../helpers/utils';
 import './reservations.scss';
