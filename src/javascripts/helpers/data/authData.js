@@ -19,9 +19,11 @@ const checkLoginStatus = () => {
     if (user) {
       $('#sign-out-button').removeClass('hide');
       $('#sign-in-button').addClass('hide');
+      $('#staff-link').removeClass('hide');
     } else {
       $('#sign-out-button').addClass('hide');
       $('#sign-in-button').removeClass('hide');
+      $('#staff-link').addClass('hide');
     }
     homePage.displayHomePage(user);
   });
