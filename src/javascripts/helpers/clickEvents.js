@@ -1,7 +1,8 @@
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import menu from '../components/menu/menu';
 // eslint-disable-next-line import/no-cycle
 import displayStaff from '../components/displayStaff/displayStaff';
-// eslint-disable-next-line import/no-cycle
 import reservations from '../components/reservations/reservations';
 import seating from '../components/seating/seating';
 import navbar from '../components/navbar/navbar';
@@ -15,12 +16,12 @@ import deleteMenuItem from '../components/deleteMenuItem/deleteMenuItem';
 import editMenuItem from '../components/editMenuItem/editMenuItem';
 
 const clickEvents = () => {
+  // BOTH AUTHORIZED AND NON-AUTHORIZED USER USER CLICK EVENTS:
   $('body').on('click', '#sign-in-button', auth.signMeIn);
   $('body').on('click', '#sign-out-button', auth.logoutEvent);
 
   $('body').on('click', '#reservations-link', reservations.reservationsPage);
   $('body').on('click', '#seating-link', seating.buildSeating);
-  $('body').on('click', '#add-new-table', seating.numberValidation);
 
   $('body').on('click', '#staff-link', navbar.activeNavLinks);
   $('body').on('click', '#reservations-link', navbar.activeNavLinks);
@@ -38,27 +39,55 @@ const clickEvents = () => {
   });
   $('body').on('change', '#filter-date', reservations.filterEvent);
   $('body').on('click', '#all-reservations', reservations.reservationsPage);
+
+  // AUTHORIZED USER ONLY CLICK EVENTS (add in both sections so it removes click event on logout):
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      $('body').on('click', '#staff-link', displayStaff.buildStaffConsole);
+      $('body').on('click', '.stopProp', ((e) => {
+        e.stopPropagation();
+      }));
+      $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
+      $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
+      $('body').on('submit', '#add-new-menu', addMenuItem.newMenuItem);
+      $('body').on('submit', '#edit-menu-item', editMenuItem.processMenuEdit);
+      $('body').on('click', '.edit-menu-item', editMenuItem.populateEditForm);
+      $('body').on('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
+      $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
+      $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
+      $('body').on('click', '.edit-reservation-btn', reservations.editReservationEvent);
+      $('body').on('click', '#cancel-res-edit', reservations.reservationsPage);
+      $('body').on('click', '#save-new-res', reservations.addReservationEvent);
+      $('body').on('click', '#save-updated-res', reservations.updateReservationEvent);
+      $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
+      $('body').on('click', '#add-new-table', seating.numberValidation);
+      $('body').on('click', '#edit-table', seating.editTableForm);
+      $('body').on('click', '#add-new-table', seating.editTableEvent);
+      $('body').on('click', '#delete-table', seating.deleteTableEvent);
+    }
+    if (!user) {
+      $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);
+      $('body').off('click', '.stopProp', ((e) => {
+        e.stopPropagation();
+      }));
+      $('body').off('click', '#addNewStaff', addStaff.addStaffEvent);
+      $('body').off('click', '#deleteStaff', displayStaff.deleteStaff);
+      $('body').off('submit', '#add-new-menu', addMenuItem.newMenuItem);
+      $('body').off('submit', '#edit-menu-item', editMenuItem.processMenuEdit);
+      $('body').off('click', '.edit-menu-item', editMenuItem.populateEditForm);
+      $('body').off('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
+      $('body').off('click', '#filterStaffType', filterStaff.filterStaffEvent);
+      $('body').off('click', '.editStaffSubmit', editStaff.editStaffEvent);
+      $('body').off('click', '.edit-reservation-btn', reservations.editReservationEvent);
+      $('body').off('click', '#cancel-res-edit', reservations.reservationsPage);
+      $('body').off('click', '#save-new-res', reservations.addReservationEvent);
+      $('body').off('click', '#save-updated-res', reservations.updateReservationEvent);
+      $('body').off('click', '#delete-reservation', reservations.deleteReservationEvent);
+      $('body').off('click', '#add-new-table', seating.numberValidation);
+      $('body').off('click', '#edit-table', seating.editTableEvent);
+      $('body').off('click', '#delete-table', seating.deleteTableEvent);
+    }
+  });
 };
 
-const authClickEvents = () => {
-  $('body').on('click', '#staff-link', displayStaff.buildStaffConsole);
-  $('body').on('click', '.stopProp', ((e) => {
-    e.stopPropagation();
-  }));
-  $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
-  $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
-  $('body').on('submit', '#add-new-menu', addMenuItem.newMenuItem);
-  $('body').on('submit', '#edit-menu-item', editMenuItem.processMenuEdit);
-  $('body').on('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
-  $('body').on('click', '.edit-menu-item', editMenuItem.populateEditForm);
-  $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
-  $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
-
-  $('body').on('click', '.edit-reservation', reservations.editReservationEvent);
-  $('body').on('click', '#cancel-res-edit', reservations.reservationsPage);
-  $('body').on('click', '#save-new-res', reservations.addReservationEvent);
-  $('body').on('click', '#save-updated-res', reservations.updateReservationEvent);
-  $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
-};
-
-export default { clickEvents, authClickEvents };
+export default { clickEvents };

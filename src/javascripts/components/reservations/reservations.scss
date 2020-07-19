@@ -4,7 +4,7 @@
   border: 1px solid black;
   border-radius: 1em;
   padding: 20px;
-  background-color: white;
+  background-image: linear-gradient(0deg, #bf9632, $secondary-color);
 }
 
 form {
@@ -30,20 +30,8 @@ form {
   }
 }
 
-#cancel-res-edit:hover {
+#cancel-res-edit:hover, .edit-reservation-btn {
   cursor: pointer;
-}
-
-.reservation-card {
-  
-  .btn-primary {
-    background-color: $primary-color;
-    border-color: $primary-color;
-  }
-  .btn-primary:hover {
-    background-color: $primary-hover;
-    border-color: $primary-hover;
-  }
 }
 
 #minutes {
@@ -66,9 +54,40 @@ form {
 }
 
 .mute-card {
-  background-color: grey;
-  color: grey;
-  .btn {
-    display: none;
+  .card-body {
+    background-image: none !important;
+    background-color: lightgrey !important;
+    color: grey !important;
   }
+
+  color: grey;
+}
+
+.reservation-card {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 1rem !important;
+
+  .card-body {
+    background-image: linear-gradient(0deg, #bf9632, $secondary-color);
+    color: $font-color;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+  
+  .card-header {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+
+  .fa-circle {
+    color: $primary-color;
+  }
+
+  .edit-reservation-btn:hover {
+    .fa-circle {
+      color: $primary-hover;
+    }
+  }
+  
 }

@@ -1,7 +1,5 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-// eslint-disable-next-line import/no-cycle
-import clickEvents from '../clickEvents';
 import homePage from '../../components/homePage/homePage';
 
 // call this to appropriately hide things with '.auth-only' class:
@@ -21,10 +19,11 @@ const checkLoginStatus = () => {
     if (user) {
       $('#sign-out-button').removeClass('hide');
       $('#sign-in-button').addClass('hide');
-      clickEvents.authClickEvents();
+      $('#staff-link').removeClass('hide');
     } else {
       $('#sign-out-button').addClass('hide');
       $('#sign-in-button').removeClass('hide');
+      $('#staff-link').addClass('hide');
     }
     homePage.displayHomePage(user);
   });

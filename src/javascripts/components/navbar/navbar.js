@@ -1,5 +1,6 @@
 import './navbar.scss';
 import utils from '../../helpers/utils';
+// import authData from '../../helpers/data/authData';
 
 const activeNavLinks = (e) => {
   e.preventDefault();

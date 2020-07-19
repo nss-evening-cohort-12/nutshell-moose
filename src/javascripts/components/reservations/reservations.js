@@ -1,5 +1,4 @@
 import moment from 'moment';
-// eslint-disable-next-line import/no-cycle
 import authData from '../../helpers/data/authData';
 import utils from '../../helpers/utils';
 import './reservations.scss';
@@ -24,8 +23,7 @@ const setSelectedIndex = (select, i) => {
 const dimCards = (shownCard) => {
   $('.reservation-card').addClass('mute-card bg-light');
   $(`#${shownCard}`).removeClass('mute-card bg-light');
-  $(`#edit-btn-${shownCard}`).removeClass('btn-primary');
-  $(`#edit-btn-${shownCard}`).addClass('btn-secondary');
+  $('.edit-reservation-btn').addClass('hide');
 };
 
 const undimCards = () => {
@@ -78,8 +76,8 @@ const displayReservationForm = (reservation, reservationId) => {
   let domString = `
       <div class="row reservation-header justify-content-between px-3">
         <div></div>
-        <h3>${formType} Reservation:</h3>
-        <div class="cancel-area"><i class="far fa-2x fa-times-circle text-secondary hide" id="cancel-res-edit"></i></div>
+        <h3>${formType} Reservation</h3>
+        <div class="cancel-area"><i class="far fa-2x fa-times-circle text-dark hide" id="cancel-res-edit"></i></div>
       </div>`;
   domString += `
   <div class="container" id="reservation-form">
@@ -147,7 +145,7 @@ const displayReservations = (filterDate) => new Promise((resolve, reject) => {
   let domString = `
   <div class="container">
   <div class="row mt-5 reservation-header justify-content-center">
-    <h3>Existing Reservations</h3>
+    <h2>Existing Reservations</h2>
   </div>
   <div class="row justify-content-center">
     <div class="filter-buttons d-flex align-items-center">
@@ -182,7 +180,10 @@ const displayReservations = (filterDate) => new Promise((resolve, reject) => {
             <div class="card-body">
               <h5 class="card-title">${reservation.name}</h5>
               <p class="card-text">Party of ${reservation.partySize}</p>
-              <a href="#" class="btn btn-primary edit-reservation auth-only" id="edit-btn-${reservation.id}" data-reservationid="${reservation.id}">Edit</a>
+              <span class="fa-stack fa-lg edit-reservation-btn auth-only">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-pen fa-stack-1x fa-inverse" id="edit-btn-${reservation.id}" data-reservationid="${reservation.id}"></i>
+              </span>
             </div>
           </div>
         </div>`;
@@ -198,8 +199,8 @@ const displayReservations = (filterDate) => new Promise((resolve, reject) => {
 const reservationsPage = () => {
   undimCards();
   const domString = `
-  <div class="container mt-5" id="edit-reservation">edit-reservation</div>
-  <div class="container mt-5" id="display-reservations">display-reservations</div>`;
+  <div class="container mt-5" id="edit-reservation"></div>
+  <div class="container mt-5" id="display-reservations"></div>`;
   utils.printToDom('#console', domString);
   displayReservations();
   displayReservationForm();
@@ -220,6 +221,7 @@ const editReservationEvent = (e) => {
   const reservationId = e.target.dataset.reservationid;
   editReservation(reservationId);
   dimCards(reservationId);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 const addReservationEvent = (e) => {

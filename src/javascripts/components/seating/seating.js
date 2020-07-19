@@ -1,11 +1,12 @@
 import './seating.scss';
 import getSeatingData from '../../helpers/data/getSeatingData';
 import utils from '../../helpers/utils';
+import authData from '../../helpers/data/authData';
 
-const sliderChange = () => {
+const sliderChange = (valueId) => {
   $(document).ready(() => {
     const valueSpan = $('.value-span');
-    const value = $('#capacity-range');
+    const value = $(`#${valueId}`);
     valueSpan.html(value.val());
     value.on('input change', () => {
       valueSpan.html(value.val());
@@ -52,16 +53,91 @@ const numberValidation = (e) => {
   }
 };
 
+const editTableForm = (e) => {
+  e.preventDefault();
+  const tableId = e.currentTarget.dataset.editTableId;
+
+  getSeatingData.getSeating()
+    .then((seating) => {
+      seating.forEach((table) => {
+        if (tableId === table.id) {
+          $('.edit-table-form').val(`${table.tableNum}`);
+          $('.edit-capacity-form').val(`${table.capacity}`);
+          $('.value-span').html(`${table.capacity}`);
+
+          if (table.occupied === true) {
+            $(`#input-unavailable-${table.id}`).prop('checked', true);
+          } else if (table.occupied === false) {
+            $(`#input-available-${table.id}`).prop('checked', true);
+          } else;
+        }
+        sliderChange(`input-capacity-${tableId}`);
+      });
+    })
+    .catch((err) => console.error('getting tables for editing did not work ->', err));
+};
+
+const editTableEvent = (e) => {
+  e.preventDefault();
+  const tableId = e.currentTarget.dataset.editIdEvent;
+  let occupied = '';
+
+  if ($(`#input-available-${tableId}`).is(':checked')) {
+    occupied = false;
+  } if ($(`#input-unavailable-${tableId}`).is(':checked')) {
+    occupied = true;
+  }
+
+  const editedTable = {
+    capacity: $(`#input-capacity-${tableId}`).val() * 1,
+    occupied,
+    tableNum: $(`#input-table-${tableId}`).val() * 1,
+  };
+
+  getSeatingData.updateTable(tableId, editedTable)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      buildSeating();
+    })
+    .catch((err) => console.error('could not edit the table -> ', err));
+};
+
+const deleteTableEvent = (e) => {
+  const tableId = e.currentTarget.dataset.deleteTableId;
+
+  getSeatingData.deleteTable(tableId)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      buildSeating();
+    })
+    .catch((err) => console.error('could not delete table -> ', err));
+};
+
 const checkAvailability = () => {
+  let availableNum = 0;
+  let unavailableNum = 0;
+
   getSeatingData.getSeating()
     .then((seating) => {
       seating.forEach((table) => {
         if (table.occupied === true) {
-          $(`#${table.id}`).css('background-color', '#FFF');
+          $(`#${table.id}`).css('background-image', 'linear-gradient(0deg, #DDD, #FFF)');
+          unavailableNum += 1;
         } else if (table.occupied === false) {
-          $(`#${table.id}`).css('background-color', '#5386E4');
+          $(`#${table.id}`).css('background-image', 'linear-gradient(0deg, #4169b3, #5386E4)');
+          availableNum += 1;
         } else;
       });
+      if (availableNum > unavailableNum) {
+        $('.available-bar').css('width', '75%');
+        $('.unavailable-bar').css('width', '25%');
+      } else if (availableNum < unavailableNum) {
+        $('.available-bar').css('width', '25%');
+        $('.unavailable-bar').css('width', '75%');
+      } else if (availableNum === unavailableNum) {
+        $('.available-bar').css('width', '50%');
+        $('.unavailable-bar').css('width', '50%');
+      }
     })
     .catch((err) => console.error('getting seat data for availability did not work -> ', err));
 };
@@ -76,11 +152,11 @@ const buildSeating = () => {
               <h2>Current Availability:</h2>
             </div>
             <div class="progress" style="height: 25px;">
-              <div class="progress-bar available-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Available</div>
-              <div class="progress-bar unavailable-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Unavailable</div>
+              <div class="progress-bar available-bar" role="progressbar" style="width: 20%;" aria-valuemin="0" aria-valuemax="100">Available</div>
+              <div class="progress-bar unavailable-bar" role="progressbar" style="width: 80%;" aria-valuemin="0" aria-valuemax="100">Unavailable</div>
             </div>
             <div class="dropdown new-table">
-              <button class="btn btn-secondary dropdown-toggle shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-secondary dropdown-toggle shadow-none auth-only" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-plus"></i> New Table
               </button>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -114,9 +190,38 @@ const buildSeating = () => {
       seating.forEach((table) => {
         domString += `
           <div class="table-container" id="${table.id}">
-            <h1 class="table-number"><i class="fas fa-hashtag" style="font-size: .6em;"></i> ${table.tableNum}</h1>
+            <h1 class="table-number"><span style="font-size: .6em;">Table</span> ${table.tableNum}</h1>
+            <h3 class="table-delete auth-only" id="delete-table" data-delete-table-id=${table.id}><i class="fas fa-trash-alt"></i></h3>
             <h2 class="table-capacity"><i class="fas fa-users"></i> <span style="font-size: 1.3em;">${table.capacity}</span></h2>
-            <h3 class="table-edit"><i class="fas fa-pen"></i></h3>
+            <div class="dropdown new-table">
+              <a class="dropdown-toggle shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <h3 class="table-edit auth-only" id="edit-table" data-edit-table-id=${table.id}><i class="fas fa-pen"></i></h3>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <form>
+                  <div class="form-group">
+                    <label for="input-table-number">Table Number</label>
+                    <input type="number" max="30" min="7" class="form-control edit-table-form" id="input-table-${table.id}" placeholder="12" required>
+                  </div>
+                  <div class="form-group mb-1">
+                    <label for="input-capacity-${table.id}">Capacity:</label>
+                    <span class="font-weight-bold ml-2 value-span"></span>
+                    <input type="range" class="custom-range edit-capacity-form" min="1" max="6" id="input-capacity-${table.id}">
+                  </div>
+                  <div class="form-group">
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="input-available-${table.id}" name="customRadio" class="custom-control-input edit-radio">
+                      <label class="custom-control-label" for="input-available-${table.id}">Available</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="input-unavailable-${table.id}" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="input-unavailable-${table.id}">Unavailable</label>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-secondary" id="add-new-table" data-edit-id-event=${table.id}>Update</button>
+                </form>
+              </div>
+            </div>
           </div>
         `;
       });
@@ -126,9 +231,16 @@ const buildSeating = () => {
       `;
       utils.printToDom('#console', domString);
       checkAvailability();
-      sliderChange();
+      sliderChange('capacity-range');
+      authData.secureButtons();
     })
     .catch((err) => console.error('getting the seating did not work -> ', err));
 };
 
-export default { buildSeating, numberValidation };
+export default {
+  buildSeating,
+  numberValidation,
+  editTableForm,
+  editTableEvent,
+  deleteTableEvent,
+};
