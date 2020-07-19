@@ -53,7 +53,7 @@ const clickEvents = () => {
       $('body').on('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
       $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
       $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
-      $('body').on('click', '.edit-reservation', reservations.editReservationEvent);
+      $('body').on('click', '.edit-reservation-btn', reservations.editReservationEvent);
       $('body').on('click', '#cancel-res-edit', reservations.reservationsPage);
       $('body').on('click', '#save-new-res', reservations.addReservationEvent);
       $('body').on('click', '#save-updated-res', reservations.updateReservationEvent);
@@ -70,7 +70,7 @@ const clickEvents = () => {
       $('body').off('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
       $('body').off('click', '#filterStaffType', filterStaff.filterStaffEvent);
       $('body').off('click', '.editStaffSubmit', editStaff.editStaffEvent);
-      $('body').off('click', '.edit-reservation', reservations.editReservationEvent);
+      $('body').off('click', '.edit-reservation-btn', reservations.editReservationEvent);
       $('body').off('click', '#cancel-res-edit', reservations.reservationsPage);
       $('body').off('click', '#save-new-res', reservations.addReservationEvent);
       $('body').off('click', '#save-updated-res', reservations.updateReservationEvent);
