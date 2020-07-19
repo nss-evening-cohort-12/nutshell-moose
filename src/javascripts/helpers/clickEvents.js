@@ -29,6 +29,8 @@ const clickEvents = () => {
   $('body').on('click', '.flip-container', (e) => {
     $(e.currentTarget).toggleClass('flipped');
   });
+  $('body').on('change', '#filter-date', reservations.filterEvent);
+  $('body').on('click', '#all-reservations', reservations.reservationsPage);
 };
 
 const authClickEvents = () => {
@@ -40,12 +42,6 @@ const authClickEvents = () => {
   $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
   $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
   $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
-
-  $('body').on('click', '.edit-reservation', reservations.editReservationEvent);
-  $('body').on('click', '#cancel-res-edit', reservations.reservationsPage);
-  $('body').on('click', '#save-new-res', reservations.addReservationEvent);
-  $('body').on('click', '#save-updated-res', reservations.updateReservationEvent);
-  $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
 
   $('body').on('click', '.edit-reservation', reservations.editReservationEvent);
   $('body').on('click', '#cancel-res-edit', reservations.reservationsPage);
