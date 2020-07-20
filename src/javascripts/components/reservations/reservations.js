@@ -136,6 +136,8 @@ const displayReservationForm = (reservation, reservationId) => {
   let select = existing.hour - 10;
   if (select < 0 || select > 11) { select = 0; }
   setSelectedIndex(document.getElementById('hour'), select);
+  if (reservation) { setSelectedIndex(document.getElementById('minutes'), ((reservation.time % 100) / 15) + 1); }
+
   updateAmPmEvent();
 };
 
