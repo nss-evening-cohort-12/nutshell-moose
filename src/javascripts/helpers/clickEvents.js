@@ -14,6 +14,7 @@ import editStaff from '../components/editStaff/editStaff';
 import addMenuItem from '../components/addMenuItem/addMenuItem';
 import deleteMenuItem from '../components/deleteMenuItem/deleteMenuItem';
 import editMenuItem from '../components/editMenuItem/editMenuItem';
+import filterMenuItems from '../components/filterMenuItems/filterMenuItems';
 
 const clickEvents = () => {
   // BOTH AUTHORIZED AND NON-AUTHORIZED USER USER CLICK EVENTS:
@@ -39,6 +40,7 @@ const clickEvents = () => {
   });
   $('body').on('change', '#filter-date', reservations.filterEvent);
   $('body').on('click', '#all-reservations', reservations.reservationsPage);
+  $('body').on('change', '.filter-menu', filterMenuItems.filterMenu);
 
   // AUTHORIZED USER ONLY CLICK EVENTS (add in both sections so it removes click event on logout):
   firebase.auth().onAuthStateChanged((user) => {
