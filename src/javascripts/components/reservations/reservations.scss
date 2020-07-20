@@ -64,6 +64,8 @@ form {
 
 #results-reservations {
   width: 90%;
+  background-image: linear-gradient(0deg, #bf9632, $secondary-color);
+  border-radius: 1em;
 }
 
 #display-reservations {
@@ -72,10 +74,10 @@ form {
 
 .reservation-card {
   border: 4px solid $primary-hover;
-  box-shadow: none !important;
+  box-shadow: none;
   width: 22em;
   margin: 15px;
-  border-radius: 1rem !important;
+  border-radius: 1rem;
   overflow: hidden;
 
   .res-card-header {
