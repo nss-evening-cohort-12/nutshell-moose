@@ -10,7 +10,11 @@ This project utilizes the DOM with Jquery as well as Axios Promises to retrieve 
 
 ## Preview
 
-PREVIEW GIF/SCREENSHOTS
+#### Preview For Unauthorized Users
+![Le Baguette Site Demo Unauthorized Users](./screenshots/le-baguette-site-demo-1.gif)
+
+#### Preview For Authorized Users
+![Le Baguette Site Demo Unauthorized Users](./screenshots/le-baguette-site-demo-2.gif)
 
 ## Deployed Project
 
