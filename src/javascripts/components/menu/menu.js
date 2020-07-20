@@ -3,6 +3,7 @@ import utils from '../../helpers/utils';
 import './menu.scss';
 import ingredData from '../../helpers/data/ingredData';
 import ingredients from '../ingredients/ingredients';
+import authData from '../../helpers/data/authData';
 
 const menuDom = (data, data2) => {
   let domString = `
@@ -26,7 +27,9 @@ const menuDom = (data, data2) => {
     </div>
   </div>
     <div class="d-flex justify-content-center flex-wrap" id="menu-list">`;
-  domString += `
+
+  if (authData.checkAuth()) {
+    domString += `
             <div class="card flip-container" id="add-menu-item">  
             <div class="card-body"> 
               <div class="flipper"> 
@@ -48,15 +51,15 @@ const menuDom = (data, data2) => {
                     <input type="text" class="form-control" name="foodImageUrl" placeholder="Image Url">
                   </div>
                   <div class="form-group d-flex flex-wrap">`;
-  data2.forEach((ingredient) => {
-    domString += `
+    data2.forEach((ingredient) => {
+      domString += `
     <div class="form-check mr-3">
     <input type="checkbox" class="form-check-input" name="ingredList" id="${ingredient.id}" value="${ingredient.id}">
     <label class="form-check-label" for="${ingredient.id}">${ingredient.name}</label>
     </div>
     `;
-  });
-  domString += `
+    });
+    domString += `
                   </div>
                   <button type="submit" class="btn btn-primary">Add New Menu Item</button>
               </form>
@@ -65,6 +68,8 @@ const menuDom = (data, data2) => {
               </div>
             </div>
               `;
+  }
+
   data.forEach((menuItem) => {
     const price = menuItem.price * 1;
     domString += `
@@ -95,7 +100,10 @@ const menuDom = (data, data2) => {
             </div>
             <div class="card-body d-flex flex-column h-100">
               <h5 class="card-title mb-auto p-2">${menuItem.name}</h5>
-              <h4 class="card-text p-2">$${price.toFixed(2)}</h4>
+              <h4 class="card-text p-2">$${price.toFixed(2)}</h4>`;
+
+    if (authData.checkAuth()) {
+      domString += `
               <div class="d-flex justify-content-end flex-nowrap p-2">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
@@ -105,14 +113,13 @@ const menuDom = (data, data2) => {
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-trash fa-stack-1x fa-inverse delete-menu-item" data-delete-id="${menuItem.id}"></i>
                 </span>
-              </div>
-            </div>
-          </div>
-            `;
+              </div>`;
+    }
+    domString += '</div></div>';
   });
   domString += '</div>';
   return domString;
-};
+}; // end card forEach
 
 const menuItems = () => {
   menuData.getMenuItems()
