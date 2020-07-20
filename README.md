@@ -18,7 +18,7 @@ This project utilizes the DOM with Jquery as well as Axios Promises to retrieve 
 
 ## Deployed Project
 
-LINK TO DEPLOYED PROJECT
+https://nutshell-moose.web.app/
 
 ## Clone the Repository
 - Clone it 👉🏼 `$ git clone https://github.com/nss-evening-cohort-12/nutshell-moose.git`
