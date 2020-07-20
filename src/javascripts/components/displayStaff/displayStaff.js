@@ -13,11 +13,11 @@ const buildStaffCards = (allStaff) => {
       <div class="card-body cardContainer container">
 
         <div class="row">
-            <h6 class=" text-muted">Name: </h6> <h5 class="card-title"> ${staff.name}</h5>
+            <h6>Name:</h6> <h5> ${staff.name}</h5>
         </div>
 
         <div class="row">
-          <h6 class="card-subtitle mb-2 text-muted">Job Title: </h6> <h5 class="card-title"> ${staff.type}</h5>
+          <h6>Job Title: </h6> <h5> ${staff.type}</h5>
         </div>
 
         <div class="btn-group dropright">
@@ -50,7 +50,7 @@ const buildStaffCards = (allStaff) => {
 
         </div>
       </div>    
-          <button class="btn btn-danger" data-staff-id=${staff.id} id="deleteStaff">Delete</button>
+          <button class="btn btn-danger" data-staff-id=${staff.id} id="deleteStaff">Fire</button>
         </div>
     </div>
   `;
