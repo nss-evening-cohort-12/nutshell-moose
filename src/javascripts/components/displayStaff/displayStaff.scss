@@ -1,6 +1,7 @@
 @import '../../../styles/styles';
 
 .card {
+  padding: 1em;
   width: 20rem;
   margin: 1rem 1rem 1rem 1rem;
   border: none;
@@ -8,6 +9,13 @@
   border-radius: 1rem;
   background-image: linear-gradient(0deg, #bf9632, $secondary-color);
   color: $font-color;
+  .fas {
+    margin: 1rem;
+    color: $primary-color;
+  }
+  .fa-circle {
+    color: $primary-color !important;
+  }
 
 }
 

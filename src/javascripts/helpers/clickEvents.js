@@ -53,7 +53,7 @@ const clickEvents = () => {
         e.stopPropagation();
       }));
       $('body').on('click', '#addNewStaff', addStaff.addStaffEvent);
-      $('body').on('click', '#deleteStaff', displayStaff.deleteStaff);
+      $('body').on('click', '.deleteStaff', displayStaff.deleteStaff);
       $('body').on('submit', '#add-new-menu', addMenuItem.newMenuItem);
       $('body').on('submit', '#edit-menu-item', editMenuItem.processMenuEdit);
       $('body').on('click', '.edit-menu-item', editMenuItem.populateEditForm);
@@ -79,7 +79,7 @@ const clickEvents = () => {
         e.stopPropagation();
       }));
       $('body').off('click', '#addNewStaff', addStaff.addStaffEvent);
-      $('body').off('click', '#deleteStaff', displayStaff.deleteStaff);
+      $('body').off('click', '.deleteStaff', displayStaff.deleteStaff);
       $('body').off('submit', '#add-new-menu', addMenuItem.newMenuItem);
       $('body').off('submit', '#edit-menu-item', editMenuItem.processMenuEdit);
       $('body').off('click', '.edit-menu-item', editMenuItem.populateEditForm);
