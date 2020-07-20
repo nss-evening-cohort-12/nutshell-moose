@@ -52,19 +52,42 @@ const ingredDom = (data) => {
   </div>`;
   data.forEach((ingredient) => {
     domString += `
-            <div class="card">
-            <div class="card-body d-flex flex-column h-100">
-              <div class="p-2 text-center">${typeToIcon(ingredient.type, 'fa-5x')}</div>
-              <h5 class="card-title mb-auto p-2 text-center">${ingredient.name}</h5>
-              <div class="d-flex justify-content-end flex-nowrap p-2">
-                <span class="fa-stack fa-lg">
-                  <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-pen fa-stack-1x fa-inverse"></i>
-                </span>
-                <span class="fa-stack fa-lg">
-                  <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
-                </span>
+          <div class="card flip-container" id="add-menu-item">
+            <div class="card-body">
+              <div class="flipper">
+                <div class="front d-flex flex-column h-100 flip-add-menu-form">
+                  <div class="p-2 text-center">${typeToIcon(ingredient.type, 'fa-5x')}</div>
+                  <h5 class="card-title mb-auto p-2 text-center">${ingredient.name}</h5>
+                  <div class="d-flex justify-content-end flex-nowrap p-2">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-pen fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="back flex-column">
+                  <form class="edit-ingredient">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="ingredName" value="${ingredient.name}">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Ingredient Type</label>
+                      <select class="form-control" name="ingredType" id="exampleFormControlSelect1">
+                        <option value="vegetable"${ingredient.type === 'vegetable' ? ' selected' : ''}>Vegetable</option>
+                        <option value="fruit"${ingredient.type === 'fruit' ? ' selected' : ''}>Fruit</option>
+                        <option value="protein"${ingredient.type === 'protein' ? ' selected' : ''}>Protein</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <input type="hidden" name="ingredientId" value="${ingredient.id}">
+                      <button type="submit" class="btn btn-primary">Edit Ingredient</button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
