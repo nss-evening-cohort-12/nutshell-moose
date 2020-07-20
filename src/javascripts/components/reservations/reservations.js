@@ -23,7 +23,6 @@ const setSelectedIndex = (select, i) => {
 const dimCards = (shownCard) => {
   $('.reservation-card').addClass('mute-card bg-light');
   $(`#${shownCard}`).removeClass('mute-card bg-light');
-  // $('.edit-reservation-btn').addClass('hide');
 };
 
 const undimCards = () => {
@@ -45,7 +44,6 @@ const reservationsFilter = (selectedDate) => {
   const domString = `
     <input type="date" min="${today}" class="form-control" id="filter-date" value="${filteredDate}">
   `;
-  // $('body').on('change', '#filter-date', filterEvent); <-- MOVED to clickevents.js
   return domString;
 };
 
@@ -81,52 +79,54 @@ const displayReservationForm = (reservation, reservationId) => {
         <div class="cancel-area mx-2"><i class="far fa-2x fa-times-circle text-dark hide" id="cancel-res-edit"></i></div>
       </div>`;
   domString += `
-    <div class="container" id="reservation-form">
+    <div id="reservation-form">
       <form>
         <div class="form-group row">
-          <label for="name" class="col-sm-1 col-form-label">Name:</label>
-          <div class="col-sm-4">
+          <label for="name" class="col-sm-1 col-form-label res-form-col">Name:</label>
+          <div class="col-sm-5 res-form-col">
             <input type="text" class="form-control" id="name" value="${existing.name}" required>
           </div>
-          <label for="date" class="col-sm-1 col-form-label">Date:</label>
-          <div class="col-sm-5">
+          <label for="date" class="col-sm-1 col-form-label res-form-col">Date:</label>
+          <div class="col-sm-5 res-form-col">
             <input type="date" min="${today}" class="form-control" id="date" value="${existing.date}" required>
           </div>
         </div>
         <div class="form-group row">
-          <label for="size" class="col-sm-1 col-form-label">Party size:</label>
-          <div class="col-sm-1">
+          <label for="size" class="col-sm-1 col-form-label res-form-col">Party size:</label>
+          <div class="col-sm-1 res-form-col">
             <input type="number" class="form-control" id="size" value=${existing.partySize} required" min="2" max="8">
           </div>
-          <div class="col-sm-3"></div>
-          <label for="time" class="col-sm-1 col-form-label">Time:</label>
-          <div class="col-sm-2">
-          <select id="hour" name="hour" value=${existing.hour}>
-            <option value=11>11</option>
-            <option value=12>12</option>
-            <option value=13>1</option>
-            <option value=14>2</option>
-            <option value=15>3</option>
-            <option value=16>4</option>
-            <option value=17>5</option>
-            <option value=18>6</option>
-            <option value=19>7</option>
-            <option value=20>8</option>
-            <option value=21>9</option>
-            <option value=22>10</option>
-          </select>
-          :
-          <select id="minutes" name="minutes">
-            <option value=00>00</option>
-            <option value=15>15</option>
-            <option value=30>30</option>
-            <option value=45>45</option>
-          </select>
-          <span id="ampm">AM</span>
+          <div class="col-sm-4 res-form-col"></div>
+          <label for="time" class="col-sm-1 col-form-label res-form-col">Time:</label>
+          <div class="col-sm-2 res-form-col">
+            <div class="res-form-block">
+              <select id="hour" name="hour" value=${existing.hour}>
+                <option value=11>11</option>
+                <option value=12>12</option>
+                <option value=13>1</option>
+                <option value=14>2</option>
+                <option value=15>3</option>
+                <option value=16>4</option>
+                <option value=17>5</option>
+                <option value=18>6</option>
+                <option value=19>7</option>
+                <option value=20>8</option>
+                <option value=21>9</option>
+                <option value=22>10</option>
+              </select>
+              :
+              <select id="minutes" name="minutes">
+                <option value=00>00</option>
+                <option value=15>15</option>
+                <option value=30>30</option>
+                <option value=45>45</option>
+              </select>
+              <span id="ampm">AM</span>
+            </div>
           </div>
-          <div class="col-sm-3 res-form-btns">
-          <button type="submit" class="btn btn-primary mx-1" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save</button>
-          <button type="submit" class="btn btn-danger mx-1 hide" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
+          <div class="col-sm-3 res-form-btns res-form-col">
+          <button type="submit" class="btn btn-primary mt-2" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save</button>
+          <button type="submit" class="btn btn-danger mt-2 ml-2 hide" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
           </div>
         </div>
       </form>
@@ -145,8 +145,8 @@ const displayReservations = (filterDate) => new Promise((resolve, reject) => {
     currentFilter = moment(filterDate).format('M/D/YYYY');
   }
   let domString = `
-  <div class="container">
-  <div class="row mt-5 reservation-header justify-content-center">
+<div class="res-list-area">
+  <div class="row mt-3 reservation-header justify-content-center">
     <h2>Existing Reservations</h2>
   </div>
   <div class="row justify-content-center">
@@ -163,7 +163,7 @@ const displayReservations = (filterDate) => new Promise((resolve, reject) => {
       </div>
     </div>
   </div>
-  </div>
+  
   <div id="results-reservations" class="d-flex justify-content-center flex-wrap">
   `;
   reservationsData.getReservations(filterDate)
@@ -176,26 +176,33 @@ const displayReservations = (filterDate) => new Promise((resolve, reject) => {
         const date = moment(reservation.date).format('M/D/YYYY');
         const time = moment(reservation.time, 'hhmm').format('LT');
         domString += `
-          <div class="reservation-card" id="${reservation.id}">
-            <div class="res-card-header d-flex justify-content-between">
-              <span>${date} at ${time}</span>
-              
-            </div>
-            <div class="res-card-body d-flex justify-content-center">
-              <div class="res-info align-self-center">
-                <h4 class="res-card-title">${reservation.name}</h4>
-                <div class="res-card-text">Party of ${reservation.partySize}</div>
-                <span class="res-party-icons">${partyIcons}</span>
-              </div>
-            </div>
-            <div class="res-card-footer d-flex justify-content-end p-2">
-            <span class="fa-stack fa-lg edit-reservation-btn auth-only">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-pen fa-stack-1x fa-inverse" id="edit-btn-${reservation.id}" data-reservationid="${reservation.id}"></i>
-              </span>
-            </div>
-          </div>`;
+    <div class="reservation-card" id="${reservation.id}">
+      <div class="res-card-header d-flex justify-content-between">
+        <span>${date} at ${time}</span>
+        
+      </div>
+      <div class="res-card-body d-flex justify-content-center">
+        <div class="res-info align-self-center">
+          <h4 class="res-card-title">${reservation.name}</h4>
+          <div class="res-card-text">Party of ${reservation.partySize}</div>
+          <span class="res-party-icons">${partyIcons}</span>
+        </div>
+      </div>
+      <div class="res-card-footer d-flex justify-content-end p-2">
+      <span class="fa-stack fa-lg edit-reservation-btn auth-only">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-pen fa-stack-1x fa-inverse" id="edit-btn-${reservation.id}" data-reservationid="${reservation.id}"></i>
+        </span>
+      </div>
+    </div>`;
       });
+      if (reservations.length === 0) {
+        domString += `
+        <div class="alert alert-secondary m-5" role="alert">
+          <h4 class="alert-heading">No reservations currently booked on ${currentFilter}</h4>
+        </div>
+        `;
+      }
       domString += '</div>';
       utils.printToDom('#display-reservations', domString);
       authData.secureButtons();
@@ -203,65 +210,6 @@ const displayReservations = (filterDate) => new Promise((resolve, reject) => {
     })
     .catch((err) => { reject(err); });
 });
-
-// const displayReservations = (filterDate) => new Promise((resolve, reject) => {
-//   let currentFilter = 'All';
-//   if (filterDate) {
-//     currentFilter = moment(filterDate).format('M/D/YYYY');
-//   }
-//   let domString = `
-//   <div class="container">
-//   <div class="row mt-5 reservation-header justify-content-center">
-//     <h2>Existing Reservations</h2>
-//   </div>
-//   <div class="row justify-content-center">
-//     <div class="filter-buttons d-flex align-items-center">
-//       <div class="mr-2">Current view:</div>
-//       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-//         ${currentFilter}
-//       </button>
-//       <div class="dropdown-menu dropdown-menu-right">
-//         <button type="button" class="dropdown-item" id="all-reservations">Show All</button>
-//         <div class="dropdown-divider"></div>
-//         <div class="dropdown-header">or select date:</div>
-//         ${reservationsFilter()}
-//       </div>
-//     </div>
-//   </div>
-//   </div>
-//   <div id="results-reservations">
-//     <div class="container-fluid">
-//       <div class="row">
-//   `;
-//   reservationsData.getReservations(filterDate)
-//     .then((reservations) => {
-//       reservations.forEach((reservation) => {
-//         const date = moment(reservation.date).format('M/D/YYYY');
-//         const time = moment(reservation.time, 'hhmm').format('LT');
-//         domString += `
-//         <div class="col-auto">
-//           <div class="card reservation-card" id="${reservation.id}" style="width: 18em;">
-//             <div class="card-header">
-//               ${date} at ${time}
-//             </div>
-//             <div class="card-body">
-//               <h5 class="card-title">${reservation.name}</h5>
-//               <p class="card-text">Party of ${reservation.partySize}</p>
-//               <span class="fa-stack fa-lg edit-reservation-btn auth-only">
-//                   <i class="fa fa-circle fa-stack-2x"></i>
-//                   <i class="fa fa-pen fa-stack-1x fa-inverse" id="edit-btn-${reservation.id}" data-reservationid="${reservation.id}"></i>
-//               </span>
-//             </div>
-//           </div>
-//         </div>`;
-//       });
-//       domString += '</div></div>';
-//       utils.printToDom('#display-reservations', domString);
-//       authData.secureButtons();
-//       resolve();
-//     })
-//     .catch((err) => { reject(err); });
-// });
 
 const reservationsPage = () => {
   undimCards();

@@ -1,25 +1,28 @@
 @import '../../../styles/styles';
 
 #add-edit-reservation-form {
-  border: 1px solid black;
+  border: 1px solid $primary-color;
   border-radius: 1em;
   padding-top: 20px;
   background-image: linear-gradient(0deg, #FFF, #e3e3e3);
-  width: 80vw;
-}
-
-form {
-  margin: 0;
-  padding: 0;
+  width: 90vw;
+  font-size: 1.1rem;
 }
 
 #reservation-form {
   margin-top: 1em;
+  display: flex;
+  justify-content: center;
   select {
     -webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 3px;
     text-overflow: '';
+  }
+  form {
+    margin: 0;
+    padding: 0;
+    width: 95%;
   }
   .btn-primary {
     background-color: $primary-color;
@@ -29,29 +32,37 @@ form {
     background-color: $primary-hover;
     border-color: $primary-hover;
   }
+
+  #minutes {
+    height: 37px;
+    width: 49px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+  
+  #hour {
+    height: 37px;
+    width: 49px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+  
+  #size {
+    height: 37px;
+    width: 60px;
+  }
 }
 
 #cancel-res-edit:hover, .edit-reservation-btn {
   cursor: pointer;
 }
 
-#minutes {
-  height: 37px;
-  width: 49px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
+.res-form-col {
+  flex-wrap: nowrap !important;
 }
 
-#hour {
-  height: 37px;
-  width: 49px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-}
-
-#size {
-  height: 37px;
-  width: 60px;
+.res-form-block {
+  white-space: nowrap;
 }
 
 .mute-card {
@@ -62,10 +73,10 @@ form {
   }
 }
 
-#results-reservations {
-  width: 90%;
+.res-list-area {
   background-image: linear-gradient(0deg, #bf9632, $secondary-color);
   border-radius: 1em;
+  width: 90%;
 }
 
 #display-reservations {
@@ -73,15 +84,14 @@ form {
 }
 
 .reservation-card {
+  background-image: linear-gradient(0deg, #4671c0, #5386E4);
   border: 4px solid $primary-hover;
-  box-shadow: none;
   width: 22em;
   margin: 15px;
   border-radius: 1rem;
   overflow: hidden;
 
   .res-card-header {
-    background-image: linear-gradient(0deg, #4671c0, #5386E4);
     font-size: 1.1em;
     padding: 15px;
     color: white;
