@@ -1,6 +1,7 @@
 import ingredData from '../../helpers/data/ingredData';
 import utils from '../../helpers/utils';
 import './ingredients.scss';
+import authData from '../../helpers/data/authData';
 
 const typeToIcon = (type, size) => {
   let print = '';
@@ -21,7 +22,8 @@ const typeToIcon = (type, size) => {
 
 const ingredDom = (data) => {
   let domString = '<div class="d-flex justify-content-center flex-wrap" id="ingredients-list">';
-  domString += `
+  if (authData.checkAuth()) {
+    domString += `
   <div class="card flip-container" id="add-menu-item">  
     <div class="card-body"> 
       <div class="flipper"> 
@@ -50,14 +52,18 @@ const ingredDom = (data) => {
       </div>
     </div>
   </div>`;
+  } // end if
+
   data.forEach((ingredient) => {
     domString += `
-          <div class="card flip-container" id="add-menu-item">
+          <div class="card${authData.checkAuth() ? ' flip-container' : ''}" id="add-menu-item">
             <div class="card-body">
               <div class="flipper">
                 <div class="front d-flex flex-column h-100 flip-add-menu-form">
                   <div class="p-2 text-center">${typeToIcon(ingredient.type, 'fa-5x')}</div>
-                  <h5 class="card-title mb-auto p-2 text-center">${ingredient.name}</h5>
+                  <h5 class="card-title mb-auto p-2 text-center">${ingredient.name}</h5>`;
+    if (authData.checkAuth()) {
+      domString += `
                   <div class="d-flex justify-content-end flex-nowrap p-2">
                     <span class="fa-stack fa-lg">
                       <i class="fa fa-circle fa-stack-2x"></i>
@@ -67,7 +73,10 @@ const ingredDom = (data) => {
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-trash fa-stack-1x fa-inverse delete-ingredient" data-delete-id="${ingredient.id}"></i>
                     </span>
-                  </div>
+                  </div>`;
+    } // end if
+
+    domString += `
                 </div>
                 <div class="back flex-column">
                   <form class="edit-ingredient">
