@@ -22,12 +22,34 @@ const typeToIcon = (type, size) => {
 const ingredDom = (data) => {
   let domString = '<div class="d-flex justify-content-center flex-wrap" id="ingredients-list">';
   domString += `
-            <div class="card"> 
-              <div class="card-body d-flex flex-column h-100" id="add-ingredient">
-                <div class="p-2 text-center"><i class="fas fa-plus fa-5x ingred-types"></i></div>
-                <h5 class="card-title mb-auto p-2 text-center">Add Ingredient</h5>
+  <div class="card flip-container" id="add-menu-item">  
+    <div class="card-body"> 
+      <div class="flipper"> 
+        <div class="front flip-add-menu-form">
+          <div class="p-2 text-center"><i class="fas fa-plus fa-5x ingred-types"></i></div>
+          <h5 class="card-title mb-auto p-2 text-center">Add Ingredient</h5>
+        </div>
+        <div class="back flex-column">
+          <form id="add-new-ingredient">
+              <div class="form-group">
+                <input type="text" class="form-control" name="ingredName" placeholder="Ingedient Name">
               </div>
-            </div>`;
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Ingredient Type</label>
+                  <select class="form-control" name="ingredType" id="exampleFormControlSelect1">
+                    <option value="vegetable">Vegetable</option>
+                    <option value="fruit">Fruit</option>
+                    <option value="protein">Protein</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary">Add New Ingredient</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>`;
   data.forEach((ingredient) => {
     domString += `
             <div class="card">
