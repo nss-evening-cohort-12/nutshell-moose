@@ -185,7 +185,7 @@ const displayReservations = (filterDate) => new Promise((resolve, reject) => {
         <div class="res-info align-self-center">
           <h4 class="res-card-title">${reservation.name}</h4>
           <div class="res-card-text">Party of ${reservation.partySize}</div>
-          <span class="res-party-icons">${partyIcons}</span>
+          <div class="res-party-icons mb-1">${partyIcons}</div>
         </div>
       </div>
       <div class="res-card-footer d-flex justify-content-end p-2">
