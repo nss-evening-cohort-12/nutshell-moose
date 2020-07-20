@@ -53,6 +53,7 @@ const clickEvents = () => {
       $('body').on('submit', '#edit-menu-item', editMenuItem.processMenuEdit);
       $('body').on('click', '.edit-menu-item', editMenuItem.populateEditForm);
       $('body').on('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
+      $('body').on('submit', '#add-new-ingredient', addMenuItem.newMenuItem);
       $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
       $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
       $('body').on('click', '.edit-reservation-btn', reservations.editReservationEvent);
