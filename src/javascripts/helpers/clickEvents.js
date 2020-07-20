@@ -93,6 +93,7 @@ const clickEvents = () => {
       $('body').off('click', '#delete-reservation', reservations.deleteReservationEvent);
       $('body').off('click', '#add-new-table', seating.numberValidation);
       $('body').off('click', '#edit-table', seating.editTableEvent);
+      $('body').off('click', '#edit-current-table', seating.editTableEvent);
       $('body').off('click', '#delete-table', seating.deleteTableEvent);
     }
   });
