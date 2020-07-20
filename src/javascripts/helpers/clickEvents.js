@@ -17,6 +17,7 @@ import editMenuItem from '../components/editMenuItem/editMenuItem';
 import filterMenuItems from '../components/filterMenuItems/filterMenuItems';
 import addIngredient from '../components/addIngredient/addIngredient';
 import editIngredient from '../components/editIngredient/editIngredient';
+import deleteIngredient from '../components/deleteIngredient/deleteIngredient';
 
 const clickEvents = () => {
   // BOTH AUTHORIZED AND NON-AUTHORIZED USER USER CLICK EVENTS:
@@ -59,6 +60,7 @@ const clickEvents = () => {
       $('body').on('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
       $('body').on('submit', '#add-new-ingredient', addIngredient.newIngredient);
       $('body').on('submit', '.edit-ingredient', editIngredient.submitEdit);
+      $('body').on('click', '.delete-ingredient', deleteIngredient.deleteIngredsAndJoins);
       $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
       $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
       $('body').on('click', '.edit-reservation-btn', reservations.editReservationEvent);
