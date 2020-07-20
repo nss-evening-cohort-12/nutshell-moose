@@ -12,7 +12,7 @@ const activeNavLinks = (e) => {
 const buildNavbar = () => {
   const domString = `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand">Le Baguette. <i class="fas fa-bread-slice"></i></a>
+      <a class="navbar-brand">La Baguette. <i class="fas fa-bread-slice"></i></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
