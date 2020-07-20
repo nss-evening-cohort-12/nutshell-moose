@@ -8,7 +8,7 @@ const buildStaffCards = (allStaff) => {
   let domString = '';
   allStaff.forEach((staff) => {
     domString += `
-    <div class="card" style="width: 18rem;">
+    <div class="card d-flex flex-column" style="width: 18rem;">
 
       <div class="card-body cardContainer container">
 
@@ -20,11 +20,15 @@ const buildStaffCards = (allStaff) => {
           <h6>Job Title: </h6> <h5> ${staff.type}</h5>
         </div>
 
-        <div class="btn-group dropright">
-
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Edit Staff
-          </button>
+        <div class="btn-group dropright justify-content-end w-100 flex-nowrap p-2">
+          <span class="fa-stack fa-lg dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-pen fa-stack-1x fa-inverse"></i>
+            </span>
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-trash fa-stack-1x fa-inverse deleteStaff" data-staff-id=${staff.id}></i>
+            </span>
 
           <div class="dropdown-menu">
 
@@ -50,7 +54,8 @@ const buildStaffCards = (allStaff) => {
 
         </div>
       </div>    
-          <button class="btn btn-danger" data-staff-id=${staff.id} id="deleteStaff">Fire</button>
+          
+          
         </div>
     </div>
   `;
@@ -89,6 +94,7 @@ const buildStaffConsole = () => {
 };
 
 const deleteStaff = (e) => {
+  e.stopPropagation();
   staffData.deleteStaff(e.target.dataset.staffId)
     .then(() => {
       buildStaffConsole();
