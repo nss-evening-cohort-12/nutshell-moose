@@ -41,7 +41,7 @@ const ingredDom = (data) => {
                 </span>
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
+                  <i class="fa fa-trash fa-stack-1x fa-inverse delete-ingredient" data-delete-id="${ingredient.id}"></i>
                 </span>
               </div>
             </div>
