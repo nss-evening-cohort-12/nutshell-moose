@@ -5,7 +5,27 @@ import ingredData from '../../helpers/data/ingredData';
 import ingredients from '../ingredients/ingredients';
 
 const menuDom = (data, data2) => {
-  let domString = '<div class="d-flex justify-content-center flex-wrap" id="menu-list">';
+  let domString = `
+  <div class="dropdown d-flex justify-content-end">
+    <button class="btn btn-secondary dropdown-toggle mt-5 mr-5" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Filter Menu Items
+    </button>
+    <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton">
+      <div class="form-group">
+    `;
+  data2.forEach((ingredient) => {
+    domString += `
+      <div class="form-check">
+        <input class="form-check-input filter-menu" type="checkbox" value="${ingredient.id}">
+        <label class="form-check-label" for="defaultCheck1">${ingredient.name}</label>
+      </div>
+      `;
+  });
+  domString += `
+      </div>
+    </div>
+  </div>
+    <div class="d-flex justify-content-center flex-wrap" id="menu-list">`;
   domString += `
             <div class="card flip-container" id="add-menu-item">  
             <div class="card-body"> 
@@ -48,7 +68,7 @@ const menuDom = (data, data2) => {
   data.forEach((menuItem) => {
     const price = menuItem.price * 1;
     domString += `
-            <div class="card" id="${menuItem.id}">
+            <div class="card remove-card-class" id="${menuItem.id}">
             <div class="card-img-top flip-container menu-cards">
               <div class="flipper">
                 <div class="front">
