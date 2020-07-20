@@ -218,7 +218,7 @@ const buildSeating = () => {
                       <label class="custom-control-label" for="input-unavailable-${table.id}">Unavailable</label>
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-secondary" id="add-new-table" data-edit-id-event=${table.id}>Update</button>
+                  <button type="submit" class="btn btn-secondary" id="edit-current-table" data-edit-id-event=${table.id}>Update</button>
                 </form>
               </div>
             </div>
