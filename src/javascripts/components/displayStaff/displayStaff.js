@@ -8,7 +8,7 @@ const buildStaffCards = (allStaff) => {
   let domString = '';
   allStaff.forEach((staff) => {
     domString += `
-    <div class="card d-flex flex-column" style="width: 18rem;">
+    <div class="card d-flex flex-column addStaff" style="width: 18rem;">
 
       <div class="card-body cardContainer container">
 
