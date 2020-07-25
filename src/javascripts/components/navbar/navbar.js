@@ -31,9 +31,15 @@ const buildNavbar = () => {
             <li class="nav-item" id="reservations-link">
               <a class="nav-link">Reservations</a>
             </li>
+            <li class="nav-item" id="orders-link">
+            <a class="nav-link">Orders</a>
+          </li>
             <li class="nav-item" id="seating-link">
               <a class="nav-link">Seating</a>
             </li>
+            <li class="nav-item" id="reports-link">
+            <a class="nav-link">Reports</a>
+          </li>
           </ul>
         </div>
       </div>

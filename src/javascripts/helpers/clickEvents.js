@@ -32,6 +32,8 @@ const clickEvents = () => {
   $('body').on('click', '#seating-link', navbar.activeNavLinks);
   $('body').on('click', '#menu-link', navbar.activeNavLinks);
   $('body').on('click', '#ingredient-link', navbar.activeNavLinks);
+  $('body').on('click', '#orders-link', navbar.activeNavLinks);
+  $('body').on('click', '#reports-link', navbar.activeNavLinks);
 
   $('body').on('click', '#menu-link', menu.menuItems);
   $('body').on('click', '#ingredient-link', ingredients.ingredients);
