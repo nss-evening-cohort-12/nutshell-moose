@@ -35,14 +35,14 @@ const ingredDom = (data) => {
           <form id="add-new-ingredient">
               <div class="form-group">
                 <input type="text" class="form-control" name="ingredName" placeholder="Ingedient Name">
-              </div>
-              <div class="form-group">
                 <label for="exampleFormControlSelect1">Ingredient Type</label>
                   <select class="form-control" name="ingredType" id="exampleFormControlSelect1">
                     <option value="vegetable">Vegetable</option>
                     <option value="fruit">Fruit</option>
                     <option value="protein">Protein</option>
                   </select>
+                  <label for="ingredQuantity">Quantity</label>
+                  <input type="text" class="form-control" name="ingredQuantity" placeholder="10">
               </div>
               <div class="form-group">
                 <button type="submit" class="btn btn-primary">Add New Ingredient</button>
@@ -60,11 +60,12 @@ const ingredDom = (data) => {
             <div class="card-body">
               <div class="flipper">
                 <div class="front d-flex flex-column h-100 flip-add-menu-form">
-                  <div class="p-2 text-center">${typeToIcon(ingredient.type, 'fa-5x')}</div>
-                  <h5 class="card-title mb-auto p-2 text-center">${ingredient.name}</h5>`;
+                  <div class="p-2 text-center">${typeToIcon(ingredient.type, 'fa-4x')}</div>
+                  <h5 class="card-title mb-auto p-2 text-center">${ingredient.name}</h5>
+                  <h5 class="carcard-title mb-auto p-2 text-center">${ingredient.quantity} In Stock</h5>`;
     if (authData.checkAuth()) {
       domString += `
-                  <div class="d-flex justify-content-end flex-nowrap p-2">
+                  <div class="d-flex justify-content-center flex-nowrap m-4">
                     <span class="fa-stack fa-lg">
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-pen fa-stack-1x fa-inverse"></i>
@@ -82,14 +83,14 @@ const ingredDom = (data) => {
                   <form class="edit-ingredient">
                     <div class="form-group">
                       <input type="text" class="form-control" name="ingredName" value="${ingredient.name}">
-                    </div>
-                    <div class="form-group">
                       <label for="exampleFormControlSelect1">Ingredient Type</label>
                       <select class="form-control" name="ingredType" id="exampleFormControlSelect1">
                         <option value="vegetable"${ingredient.type === 'vegetable' ? ' selected' : ''}>Vegetable</option>
                         <option value="fruit"${ingredient.type === 'fruit' ? ' selected' : ''}>Fruit</option>
                         <option value="protein"${ingredient.type === 'protein' ? ' selected' : ''}>Protein</option>
                       </select>
+                      <label for="ingredQuantity">Quantity</label>
+                      <input type="text" class="form-control" name="ingredQuantity" value="${ingredient.quantity}">
                     </div>
                     <div class="form-group">
                       <input type="hidden" name="ingredientId" value="${ingredient.id}">
