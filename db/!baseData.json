@@ -4,5 +4,8 @@
   "ingredients": "ingredients",
   "menuIngredient": "menuIngredient",
   "seating": "tables",
-  "reservations": "reserve"
+  "reservations": "reserve",
+  "order": "order",
+  "staffReservation": "staffReservation",
+  "reservationSeating": "reservationSeating"
 }
