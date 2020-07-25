@@ -3,24 +3,28 @@
     "name": "Amy",
     "partySize": 6,
     "date": "2020-08-01",
-    "time": 1900
+    "time": 1900,
+    "totalCost": 0.00
   },
   "reservation2": {
     "name": "John",
     "partySize": 2,
     "date": "2020-08-01",
-    "time": 2000
+    "time": 2000,
+    "totalCost": 0.00
   },
   "reservation3": {
     "name": "Laura",
     "partySize": 8,
     "date": "2020-08-02",
-    "time": 1700
+    "time": 1700,
+    "totalCost": 0.00
   },
   "reservation4": {
     "name": "Kristin",
     "partySize": 4,
     "date": "2020-08-01",
-    "time": 1800
+    "time": 1800,
+    "totalCost": 0.00
   }
 }
