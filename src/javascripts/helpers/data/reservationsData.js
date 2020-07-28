@@ -17,6 +17,18 @@ const getReservations = (date) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getReservationsByDateCost = (date) => new Promise((resolve, reject) => {
+  axios.get(date ? `${baseUrl}/reservations.json?orderBy="date"&equalTo="${date}"` : `${baseUrl}/reservations.json`)
+    .then(({ data }) => {
+      const reservations = utils.firebaseArray(data);
+      // const resCost00 = reservations.filter((cost) => cost.totalCost === 0);
+      // console.warn('check if I can get the object with cost == 0', resCost00);
+      reservations.sort((a, b) => ((timestamp(a) > timestamp(b)) ? 1 : -1));
+      resolve(reservations);
+    })
+    .catch((err) => reject(err));
+});
+
 const getReservationById = (id) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/reservations/${id}.json`)
     .then((result) => resolve(result.data))
@@ -33,6 +45,14 @@ const updateReservation = (reservationId, newResObject) => new Promise((resolve,
     .catch((err) => reject(err));
 });
 
+const updateReservationCost = (reservationId, editReservationCost) => axios.put(`${baseUrl}/reservations/${reservationId}.json`, editReservationCost);
+
 export default {
-  getReservations, getReservationById, addReservation, deleteReservation, updateReservation,
+  getReservations,
+  getReservationById,
+  addReservation,
+  deleteReservation,
+  updateReservation,
+  getReservationsByDateCost,
+  updateReservationCost,
 };

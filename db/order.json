@@ -1,47 +1,58 @@
 {
   "order1": {
-    "reservationsId": "reservations7",
-    "menuId": "menuItem1"
+    "reservationsId": "reservation7",
+    "menuId": "menuItem1",
+    "price": 42
   },
   "order2": {
-    "reservationsId": "reservations4",
-    "menuId": "menuItem1"
+    "reservationsId": "reservation4",
+    "menuId": "menuItem1",
+    "price": 32
   },
   "order3": {
-    "reservationsId": "reservations6",
-    "menuId": "menuItem2"
+    "reservationsId": "reservation6",
+    "menuId": "menuItem2",
+    "price": 42
   },
   "order4": {
-    "reservationsId": "reservations3",
-    "menuId": "menuItem2"
+    "reservationsId": "reservation3",
+    "menuId": "menuItem2",
+    "price": 552
   },
   "order5": {
-    "reservationsId": "reservations2",
-    "menuId": "menuItem3"
+    "reservationsId": "reservation2",
+    "menuId": "menuItem3",
+    "price": 420
   },
   "order6": {
-    "reservationsId": "reservations7",
-    "menuId": "menuItem3"
+    "reservationsId": "reservation7",
+    "menuId": "menuItem3",
+    "price": 42
   },
   "order7": {
-    "reservationsId": "reservations1",
-    "menuId": "menuItem4"
+    "reservationsId": "reservation1",
+    "menuId": "menuItem4",
+    "price": 42
   },
   "order8": {
-    "reservationsId": "reservations8",
-    "menuId": "menuItem4"
+    "reservationsId": "reservation2",
+    "menuId": "menuItem4",
+    "price": 442
   },
   "order9": {
-    "reservationsId": "reservations9",
-    "menuId": "menuItem5"
+    "reservationsId": "reservation4",
+    "menuId": "menuItem5",
+    "price": 77
   },
   "order10": {
-    "reservationsId": "reservations6",
-    "menuId": "menuItem5"
+    "reservationsId": "reservation4",
+    "menuId": "menuItem5",
+    "price": 88
   },
   "order11": {
-    "reservationsId": "reservations5",
-    "menuId": "menueItem6"
+    "reservationsId": "reservation3",
+    "menuId": "menueItem6",
+    "price": 12
   }
 
 }
