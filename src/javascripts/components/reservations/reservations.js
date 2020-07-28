@@ -143,9 +143,9 @@ const displayReservationForm = (reservation, reservationId) => {
       domString += ` 
             </select>  
           </div> 
-          <label for="buss_Boy" class="col-sm-1 col-form-label res-form-col">Select Buss Boy:</label>
+          <label for="busser" class="col-sm-1 col-form-label res-form-col">Select Buss Boy:</label>
           <div class="col-sm-3 res-form-col">
-            <select class="form-control" id="buss_Boy">`;
+            <select class="form-control" id="busser">`;
       busserList.forEach((busser) => {
         domString += `<option>${busser.name}</option>`;
       });
@@ -288,6 +288,9 @@ const addReservationEvent = (e) => {
     name: $('#name').val(),
     partySize: Number($('#size').val()),
     date: $('#date').val(),
+    chef: $('#chef').val(),
+    bussBoy: $('#busser').val(),
+    server: $('#server').val(),
     time,
   };
   reservationsData.addReservation(newResObj)
@@ -317,6 +320,9 @@ const updateReservationEvent = (e) => {
     name: $('#name').val(),
     partySize: $('#size').val(),
     date: $('#date').val(),
+    chef: $('#chef').val(),
+    bussBoy: $('#busser').val(),
+    server: $('#server').val(),
     time,
   };
   reservationsData.updateReservation(reservationId, newReservationInfo)

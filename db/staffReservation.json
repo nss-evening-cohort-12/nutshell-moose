@@ -1,47 +1,47 @@
 {
   "staffReservation1": {
     "reservationsId": "reservations7",
-    "staffId": "staffItem1"
+    "staffId": "staff1"
   },
   "staffReservation2": {
     "reservationsId": "reservations4",
-    "staffId": "staffItem1"
+    "staffId": "staff1"
   },
   "staffReservation3": {
     "reservationsId": "reservations6",
-    "staffId": "staffItem2"
+    "staffId": "staff2"
   },
   "staffReservation4": {
     "reservationsId": "reservations3",
-    "staffId": "staffItem2"
+    "staffId": "staff2"
   },
   "staffReservation5": {
     "reservationsId": "reservations2",
-    "staffId": "staffItem3"
+    "staffId": "staff3"
   },
   "staffReservation6": {
     "reservationsId": "reservations7",
-    "staffId": "staffItem3"
+    "staffId": "staff3"
   },
   "staffReservation7": {
     "reservationsId": "reservations1",
-    "staffId": "staffItem4"
+    "staffId": "staff4"
   },
   "staffReservation8": {
     "reservationsId": "reservations8",
-    "staffId": "staffItem4"
+    "staffId": "staff4"
   },
   "staffReservation9": {
     "reservationsId": "reservations9",
-    "staffId": "staffItem5"
+    "staffId": "staff5"
   },
   "staffReservation10": {
     "reservationsId": "reservations6",
-    "staffId": "staffItem5"
+    "staffId": "staff5"
   },
   "staffReservation11": {
     "reservationsId": "reservations5",
-    "staffId": "staffItem6"
+    "staffId": "staff6"
   }
 
 }
