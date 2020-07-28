@@ -80,6 +80,7 @@ const clickEvents = () => {
       $('body').on('click', '#edit-table', seating.editTableForm);
       $('body').on('click', '#edit-current-table', seating.editTableEvent);
       $('body').on('click', '#delete-table', seating.deleteTableEvent);
+      $('body').on('click', '#submitTotal', displayOrder.addTotalToRes);
     }
     if (!user) {
       $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);

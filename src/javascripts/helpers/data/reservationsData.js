@@ -45,6 +45,8 @@ const updateReservation = (reservationId, newResObject) => new Promise((resolve,
     .catch((err) => reject(err));
 });
 
+const updateReservationCost = (reservationId, editReservationCost) => axios.put(`${baseUrl}/reservations/${reservationId}.json`, editReservationCost);
+
 export default {
   getReservations,
   getReservationById,
@@ -52,4 +54,5 @@ export default {
   deleteReservation,
   updateReservation,
   getReservationsByDateCost,
+  updateReservationCost,
 };

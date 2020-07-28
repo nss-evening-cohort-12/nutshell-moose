@@ -4,7 +4,7 @@ import apiKeys from '../apiKeys.json';
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
 const getMenuIngByMenuId = (menuId) => new Promise((resolve, reject) => {
-  console.warn('inside getMenuIngByMenuId before call the db axios');
+  // console.warn('inside getMenuIngByMenuId before call the db axios');
   axios.get(`${baseUrl}/menuIngredient.json?orderBy="menuId"&equalTo="${menuId}"`)
     .then((response) => {
       const menuIngObjects = response.data;
