@@ -45,7 +45,7 @@ const clickEvents = () => {
     $(e.currentTarget).closest('.flip-container').toggleClass('flipped');
   });
   $('body').on('change', '#filter-date', reservations.filterEvent);
-  $('body').on('change', '#filter-date', displayOrder.filterEventOrder);
+  // $('body').on('change', '#filter-date', displayOrder.filterEventOrder);
   $('body').on('change', '#myDate', displayOrder.checkFilterDate);
   $('body').on('click', '#all-reservations', reservations.reservationsPage);
   $('body').on('change', '.filter-menu', filterMenuItems.filterMenu);
@@ -81,6 +81,9 @@ const clickEvents = () => {
       $('body').on('click', '#edit-current-table', seating.editTableEvent);
       $('body').on('click', '#delete-table', seating.deleteTableEvent);
       $('body').on('click', '#submitTotal', displayOrder.addTotalToRes);
+      $('body').on('change', '#resOrder', displayOrder.dropUpdate);
+      $('body').on('change', '#personOrder', displayOrder.personDropUpdate);
+      $('body').on('change', '#menuOrder', displayOrder.menuDropUpdate);
     }
     if (!user) {
       $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);

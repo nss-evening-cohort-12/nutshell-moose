@@ -21,8 +21,8 @@ const getReservationsByDateCost = (date) => new Promise((resolve, reject) => {
   axios.get(date ? `${baseUrl}/reservations.json?orderBy="date"&equalTo="${date}"` : `${baseUrl}/reservations.json`)
     .then(({ data }) => {
       const reservations = utils.firebaseArray(data);
-      const resCost00 = reservations.filter((cost) => cost.totalCost === 0);
-      console.warn('check if I can get the object with cost == 0', resCost00);
+      // const resCost00 = reservations.filter((cost) => cost.totalCost === 0);
+      // console.warn('check if I can get the object with cost == 0', resCost00);
       reservations.sort((a, b) => ((timestamp(a) > timestamp(b)) ? 1 : -1));
       resolve(reservations);
     })
