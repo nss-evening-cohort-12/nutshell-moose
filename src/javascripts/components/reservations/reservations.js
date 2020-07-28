@@ -3,7 +3,6 @@ import authData from '../../helpers/data/authData';
 import utils from '../../helpers/utils';
 import './reservations.scss';
 import reservationsData from '../../helpers/data/reservationsData';
-import getStaffData from '../../helpers/data/getStaffData';
 
 const updateAmPm = () => {
   const hour = $('#hour').val();
@@ -72,21 +71,14 @@ const displayReservationForm = (reservation, reservationId) => {
     existing.minutes = 0;
     existing.save = 'updated';
   }
-  getStaffData.getStaff()
-    .then((staff) => {
-      const busserList = staff.filter((person) => person.type === 'Busser');
-      const serverList = staff.filter((person) => person.type === 'Server');
-      const chefList = staff.filter((person) => person.type === 'Chef');
-
-      let domString = `
+  let domString = `
     <div id="add-edit-reservation-form">
       <div class="row reservation-header justify-content-between px-3">
         <div></div>
         <h3>${formType} Reservation</h3>
         <div class="cancel-area mx-2"><i class="far fa-2x fa-times-circle text-dark hide" id="cancel-res-edit"></i></div>
       </div>`;
-
-      domString += `
+  domString += `
     <div id="reservation-form">
       <form>
         <div class="form-group row">
@@ -132,47 +124,15 @@ const displayReservationForm = (reservation, reservationId) => {
               <span id="ampm">AM</span>
             </div>
           </div>
-        </div>
-          <div class="form-group row">
-          <label for="chef" class="col-sm-1 col-form-label res-form-col">Select Chef:</label>
-          <div class="col-sm-3 res-form-col">
-            <select class="form-control" id="chef">`;
-      chefList.forEach((chef) => {
-        domString += `<option>${chef.name}</option>`;
-      });
-      domString += ` 
-            </select>  
-          </div> 
-          <label for="buss_Boy" class="col-sm-1 col-form-label res-form-col">Select Buss Boy:</label>
-          <div class="col-sm-3 res-form-col">
-            <select class="form-control" id="buss_Boy">`;
-      busserList.forEach((busser) => {
-        domString += `<option>${busser.name}</option>`;
-      });
-      domString += `   
-            </select>  
-          </div> 
-          <label for="server" class="col-sm-1 col-form-label res-form-col">Select Server:</label>
-          <div class="col-sm-3 res-form-col">
-            <select class="form-control" id="server">`;
-      serverList.forEach((server) => {
-        domString += `<option>${server.name}</option>`;
-      });
-      domString += `
-            </select>  
-          </div>
-          </div> 
           <div class="col-sm-3 res-form-btns res-form-col">
           <button type="submit" class="btn btn-primary mt-2" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save</button>
           <button type="submit" class="btn btn-danger mt-2 ml-2 hide" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
           </div>
-        
+        </div>
       </form>
     </div>
   </div>`;
-      utils.printToDom('#edit-reservation', domString);
-    })
-    .catch((err) => console.warn(err));
+  utils.printToDom('#edit-reservation', domString);
   let select = existing.hour - 10;
   if (select < 0 || select > 11) { select = 0; }
   setSelectedIndex(document.getElementById('hour'), select);
