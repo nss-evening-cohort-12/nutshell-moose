@@ -524,6 +524,7 @@ const addTotalToRes = () => {
     reservationsId: $('#resOrder option:selected').val(),
   };
   */
+  buildOrderConsole2();
 };
 
 export default {
