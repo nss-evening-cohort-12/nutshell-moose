@@ -34,67 +34,7 @@ const filterEventOrder = () => {
   // eslint-disable-next-line no-use-before-define
   // buildOrderConsole(date);
 };
-/*
-const buildOrderConsole = (filterDate) => {
-  let currentFilter = 'All';
-  if (filterDate) {
-    currentFilter = moment(filterDate).format('M/D/YYYY');
-    // document.getElementById('myDate').value = moment(filterDate).format('M/D/YYYY');
-  }
-  console.warn('print to dom here to show the order page');
-  const today = moment(Date.now()).format('YYYY-MM-DD');
-  const tomorrow = moment(today).add(1, 'd').format('YYYY-MM-DD');
-  const displayTime = moment(today).add(1, 'd').format('M/D/YYYY');
-  console.warn(displayTime);
-  console.warn('tomorow: ', tomorrow);
-  let domString = '';
-  domString = reservationsFilter();
-  domString = `
-    <div class="container">
-      <div class="card">
-        <h5 class="card-header">Featured</h5>
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>  <div class="row justify-content-center">
-          <div class="filter-buttons d-flex align-items-center">
-            <div class="mr-2">Current view:</div>
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              ${currentFilter}
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-              <button type="button" class="dropdown-item" id="all-reservations">Show All</button>
-              <div class="dropdown-divider"></div>
-              <div class="dropdown-header">or select date:</div>
-              ${reservationsFilter()}
-            </div>
-          </div>
-          <input type="date" id="myDate" value="${today}">
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-      <div class="card">
-        <h5 class="card-header">Featured</h5>
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-  `;
-  utils.printToDom('#console', domString);
 
-  console.warn(document.getElementById('myDate').value);
-  // selectMyDate = document.getElementById('myDate').value;
-
-  menuIngrediantData.getMenuIngByMenuId('menuItem5')
-    .then((response) => {
-      const testData = response;
-      console.warn(testData);
-    })
-    .catch((err) => console.warn('not working somthing wrong:', err));
-};
-*/
 const buildOrderConsole2 = (filterDate) => {
   let currentFilter = 'All';
   if (filterDate) {
@@ -341,42 +281,7 @@ const dropUpdate = () => {
       // console.warn('this is the array of order length ', orderArr.length);
     })
     .catch((err) => console.warn('can not get the data for order ', err));
-  /*
-  domString = `
-  <select  class="mt-3" id="personOrder">
-    <option value="" selected disabled> select person: </option>
-  `;
-  for (let i = 0; i < partySize; i += 1) {
-    domString += `
-      <option value="${i + 1}">person ${i + 1}</option>
-    `;
-  }
-  domString += '</select>';
-  domString += `
-  <select  class="mt-3 float-right" id="menuOrder">
-    <option value="" selected disabled> select menu: </option>
-  </select>
-  `;
-  utils.printToDom('#orderMenu-person', domString);
 
-  domString = '';
-
-  for (let i = 0; i < partySize; i += 1) {
-    domString += `
-    <div id = "p${i + 1}" class="form-group">
-      <label for="person ${i + 1}">Person ${i + 1}</label>
-      <input type="text" class="form-control" id="person ${i + 1}" aria-describedby="menu price" placeholder="0" value="0">
-    </div>
-    `;
-  }
-  domString += `
-    <div id="submitBtn">
-      <button type="submit" class="btn btn-primary" disabled>Submit</button>
-    </div>
-  `;
-
-  utils.printToDom('#submitTotal', domString);
-  */
   menuData.getMenuItems(menu)
     .then((response) => {
       // menuItemsStoreObject = response;
@@ -509,21 +414,11 @@ const addTotalToRes = () => {
     totalCost: parseFloat($('#totalCostValue').val()),
   };
   const reservationId = $('#resOrder option:selected').val();
-  // console.warn('reser ID ', reservationId);
-  // console.warn('reser obj ', reservationStoreObject[0].date);
-  // console.warn(resObj);
 
   reservationsData.updateReservationCost(reservationId, resObj)
     .then()
     .catch((err) => console.warn('could not update or add totoal cost ', err));
-  /*
-  console.warn(totalitem);
-  const newOrderMenu = {
-    menuId: $('#menuOrder option:selected', this).data('value'),
-    price: parseFloat($('#menuOrder option:selected').val()),
-    reservationsId: $('#resOrder option:selected').val(),
-  };
-  */
+
   buildOrderConsole2();
 };
 
