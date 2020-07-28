@@ -18,6 +18,7 @@ import filterMenuItems from '../components/filterMenuItems/filterMenuItems';
 import addIngredient from '../components/addIngredient/addIngredient';
 import editIngredient from '../components/editIngredient/editIngredient';
 import deleteIngredient from '../components/deleteIngredient/deleteIngredient';
+import displayOrder from '../components/orders/displayOrder';
 import reports from '../components/reports/reports';
 
 const clickEvents = () => {
@@ -46,13 +47,18 @@ const clickEvents = () => {
     $(e.currentTarget).closest('.flip-container').toggleClass('flipped');
   });
   $('body').on('change', '#filter-date', reservations.filterEvent);
+  // $('body').on('change', '#filter-date', displayOrder.filterEventOrder);
+  $('body').on('change', '#myDate', displayOrder.checkFilterDate);
   $('body').on('click', '#all-reservations', reservations.reservationsPage);
   $('body').on('change', '.filter-menu', filterMenuItems.filterMenu);
+  // $('#addToTotalCost').click(addToForm(person, price));
+  $('body').on('click', '#addToTotalCost', displayOrder.addToForm);
 
   // AUTHORIZED USER ONLY CLICK EVENTS (add in both sections so it removes click event on logout):
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       $('body').on('click', '#staff-link', displayStaff.buildStaffConsole);
+      $('body').on('click', '#orders-link', displayOrder.buildOrderConsole2);
       $('body').on('click', '.stopProp', ((e) => {
         e.stopPropagation();
       }));
@@ -76,6 +82,10 @@ const clickEvents = () => {
       $('body').on('click', '#edit-table', seating.editTableForm);
       $('body').on('click', '#edit-current-table', seating.editTableEvent);
       $('body').on('click', '#delete-table', seating.deleteTableEvent);
+      $('body').on('click', '#submitTotal', displayOrder.addTotalToRes);
+      $('body').on('change', '#resOrder', displayOrder.dropUpdate);
+      $('body').on('change', '#personOrder', displayOrder.personDropUpdate);
+      $('body').on('change', '#menuOrder', displayOrder.menuDropUpdate);
     }
     if (!user) {
       $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);

@@ -249,6 +249,7 @@ const addReservationEvent = (e) => {
     partySize: Number($('#size').val()),
     date: $('#date').val(),
     time,
+    totalCost: 0.0,
   };
   reservationsData.addReservation(newResObj)
     .then(() => {
@@ -278,6 +279,7 @@ const updateReservationEvent = (e) => {
     partySize: $('#size').val(),
     date: $('#date').val(),
     time,
+    totalCost: 0.0,
   };
   reservationsData.updateReservation(reservationId, newReservationInfo)
     .then(() => {
