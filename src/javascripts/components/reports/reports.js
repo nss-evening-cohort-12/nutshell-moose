@@ -1,4 +1,7 @@
 import utils from '../../helpers/utils';
+import reportsRevenue from './reportsRevenue';
+import reportsIngredients from './reportsIngredients';
+import reportsMenuItems from './reportsMenuItems';
 
 const drawReports = (e) => {
   e.preventDefault();
@@ -18,20 +21,10 @@ const drawReports = (e) => {
   </div>
   `;
   utils.printToDom('#console', domString);
-  $('#nav-revenue-tab').click(drawRevenue);
+  reportsRevenue.drawRevenue();
+  $('#nav-revenue-tab').click(reportsRevenue.drawRevenue);
+  $('#nav-ingredients-tab').click(reportsIngredients.drawIngredients);
+  $('#nav-menuItems-tab').click(reportsMenuItems.drawMenuItems);
 };
-
-const drawRevenue = () =>
-  const domstring = ` <div class="d-flex flex-column">
-  <label class="btn btn-secondary active">
-  <input type="radio" name="options" id="1Day" checked> 1 Day
-</label>
-<label class="btn btn-secondary">
-<input type="radio" name="options" id="7Day"> 7 Day
-</label>
-<label class="btn btn-secondary">
-  <input type="radio" name="options" id="allDays"> All Days
-</label>`
-  utils.printToDom('#revenueDiv', domString);
 
 export default { drawReports };
