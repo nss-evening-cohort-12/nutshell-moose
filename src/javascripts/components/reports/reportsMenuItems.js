@@ -90,7 +90,7 @@ const drawMenuItems = () => {
       <input type="radio" name="options" id="leastPopular"> Least Popular
       </label>
     </div>
-    <div id="reportsDisplay">cards go here</div>`;
+    <div id="reportsDisplay"></div>`;
   utils.printToDom('#menuItemsDiv', domString);
   $('#mostPopular').click(drawCards);
   $('#leastPopular').click(drawCards);
