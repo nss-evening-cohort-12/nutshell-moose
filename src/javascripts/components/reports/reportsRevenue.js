@@ -26,4 +26,8 @@ const drawRevenue = () => {
   utils.printToDom('#revenueDiv', domString);
 };
 
-export default { drawRevenue };
+const getOneDayRevenue = () => {
+  console.warn('it is working');
+};
+
+export default { drawRevenue, getOneDayRevenue };

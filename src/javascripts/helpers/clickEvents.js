@@ -20,6 +20,7 @@ import editIngredient from '../components/editIngredient/editIngredient';
 import deleteIngredient from '../components/deleteIngredient/deleteIngredient';
 import displayOrder from '../components/orders/displayOrder';
 import reports from '../components/reports/reports';
+import reportsRevenue from '../components/reports/reportsRevenue';
 
 const clickEvents = () => {
   // BOTH AUTHORIZED AND NON-AUTHORIZED USER USER CLICK EVENTS:
@@ -86,6 +87,7 @@ const clickEvents = () => {
       $('body').on('change', '#resOrder', displayOrder.dropUpdate);
       $('body').on('change', '#personOrder', displayOrder.personDropUpdate);
       $('body').on('change', '#menuOrder', displayOrder.menuDropUpdate);
+      $('body').on('click', '#revenueSubmit', reportsRevenue.getOneDayRevenue);
     }
     if (!user) {
       $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);
