@@ -10,7 +10,7 @@ const drawMenuItems = () => {
       <input type="radio" name="options" id="LeastPopular"> Least Popular
       </label>
     </div>
-    <div id="reportsDisplay">cards go here</div>`;
+    <div id="reportsDisplay"></div>`;
   utils.printToDom('#menuItemsDiv', domString);
 };
 
