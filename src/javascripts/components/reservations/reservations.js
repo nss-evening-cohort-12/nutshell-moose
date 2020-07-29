@@ -292,6 +292,7 @@ const addReservationEvent = (e) => {
     bussBoy: $('#busser').val(),
     server: $('#server').val(),
     time,
+    totalCost: 0.0,
   };
   reservationsData.addReservation(newResObj)
     .then(() => {
@@ -324,6 +325,7 @@ const updateReservationEvent = (e) => {
     bussBoy: $('#busBoy').val(),
     server: $('#server').val(),
     time,
+    totalCost: 0.0,
   };
   reservationsData.updateReservation(reservationId, newReservationInfo)
     .then(() => {
