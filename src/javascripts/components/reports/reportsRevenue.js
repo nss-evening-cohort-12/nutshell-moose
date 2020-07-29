@@ -53,7 +53,34 @@ const get7DayRevenue = () => {
           </div>
           <div class="card-body">
             <h2 class="card-title">${pickDate1} to ${pickDate2}</h2>
-            <h3 class="card-text">Total revenue for that day : $${totalCost}.00</h3>
+            <h3 class="card-text">Total revenue for those days : $${totalCost}.00</h3>
+          </div>
+          <div class="card-footer text-muted">
+          </div>
+        </div>
+      `;
+      utils.printToDom('#reportsDisplay', domString);
+    })
+    .catch((err) => console.warn('did not bring the reservation ', err));
+};
+
+const getAllRevenue = () => {
+  let domString = '';
+  let totalCost = 0;
+  reservationsData.getReservations()
+    .then((response) => {
+      const resObj = response;
+      resObj.forEach((res) => {
+        totalCost += res.totalCost;
+      });
+      domString += `
+        <div class="mt-3 card text-center">
+          <div class="card-header">
+            All Revenue
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">All Revenue</h2>
+            <h3 class="card-text">Total revenue : $${totalCost}.00</h3>
           </div>
           <div class="card-footer text-muted">
           </div>
@@ -68,13 +95,11 @@ const pickReport = () => {
   const radioVal = $('input[name="options"]:checked').val();
   let pickDate1;
   let pickDate2;
-  let valid = false;
   switch (radioVal) {
     case '1Day':
       // console.warn('this is one day report', valid);
       pickDate1 = $('#1date').val();
       if (pickDate1) {
-        valid = true;
         // eslint-disable-next-line no-use-before-define
         getOneDayRevenue();
         // console.warn('there is date selected', pickDate1, valid);
@@ -87,15 +112,13 @@ const pickReport = () => {
       pickDate2 = $('#7date').val();
       pickDate1 = $('#1date').val();
       if (pickDate1 && pickDate2) {
-        valid = true;
         get7DayRevenue();
         // console.warn('there is date selected', pickDate1, pickDate2, valid);
       }
       break;
     case 'allDays':
       // console.warn('this is all days report');
-      valid = true;
-      console.warn('there is status', valid);
+      getAllRevenue();
       break;
     default:
       // do nothing
