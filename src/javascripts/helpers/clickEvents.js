@@ -87,7 +87,7 @@ const clickEvents = () => {
       $('body').on('change', '#resOrder', displayOrder.dropUpdate);
       $('body').on('change', '#personOrder', displayOrder.personDropUpdate);
       $('body').on('change', '#menuOrder', displayOrder.menuDropUpdate);
-      $('body').on('click', '#revenueSubmit', reportsRevenue.getOneDayRevenue);
+      $('body').on('click', '#revenueSubmit', reportsRevenue.pickReport);
     }
     if (!user) {
       $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);
