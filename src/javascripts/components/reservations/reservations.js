@@ -321,7 +321,7 @@ const updateReservationEvent = (e) => {
     partySize: $('#size').val(),
     date: $('#date').val(),
     chef: $('#chef').val(),
-    bussBoy: $('#busser').val(),
+    bussBoy: $('#busBoy').val(),
     server: $('#server').val(),
     time,
   };

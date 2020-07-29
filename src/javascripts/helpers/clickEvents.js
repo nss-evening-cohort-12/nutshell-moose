@@ -18,6 +18,7 @@ import filterMenuItems from '../components/filterMenuItems/filterMenuItems';
 import addIngredient from '../components/addIngredient/addIngredient';
 import editIngredient from '../components/editIngredient/editIngredient';
 import deleteIngredient from '../components/deleteIngredient/deleteIngredient';
+import reports from '../components/reports/reports';
 
 const clickEvents = () => {
   // BOTH AUTHORIZED AND NON-AUTHORIZED USER USER CLICK EVENTS:
@@ -35,6 +36,7 @@ const clickEvents = () => {
   $('body').on('click', '#orders-link', navbar.activeNavLinks);
   $('body').on('click', '#reports-link', navbar.activeNavLinks);
 
+  $('body').on('click', '#reports-link', reports.drawReports);
   $('body').on('click', '#menu-link', menu.menuItems);
   $('body').on('click', '#ingredient-link', ingredients.ingredients);
   $('body').on('click', '.menu-cards', (e) => {
