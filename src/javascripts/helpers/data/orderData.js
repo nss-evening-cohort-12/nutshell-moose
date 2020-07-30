@@ -3,6 +3,8 @@ import apiKeys from '../apiKeys.json';
 
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
+const getAllOrders = () => axios.get(`${baseUrl}/order.json`);
+
 const getOrderByReserveId = (reservationsId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/order.json?orderBy="reservationsId"&equalTo="${reservationsId}"`)
     .then((response) => {
@@ -20,4 +22,4 @@ const getOrderByReserveId = (reservationsId) => new Promise((resolve, reject) =>
 
 const addorder = (newOrder) => axios.post(`${baseUrl}/order.json`, newOrder);
 
-export default { getOrderByReserveId, addorder };
+export default { getOrderByReserveId, addorder, getAllOrders };

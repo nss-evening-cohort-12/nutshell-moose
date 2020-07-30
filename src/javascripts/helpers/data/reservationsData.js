@@ -47,28 +47,7 @@ const updateReservation = (reservationId, newResObject) => new Promise((resolve,
 
 const updateReservationCost = (reservationId, editReservationCost) => axios.put(`${baseUrl}/reservations/${reservationId}.json`, editReservationCost);
 
-// const getSingleResWithStaff = (resId) => new Promise((resolve, reject) => {
-// // 1. get the mycologist who's id is mycologistId
-// sta.getMycologistById(mycologistId)
-// .then((response) => {
-//   const mycologist = response.data;
-//   mycologist.id = mycologistId;
-//   mycologist.mushrooms = [];
-//   // 2. get all of their mycologistMushrooms using the mycologist.uid
-//   mycologistMushroomData.getMycoShroomsByMycoUid(mycologist.uid).then((mycoShrooms) => {
-//     // 3. get ALL of the mushrooms
-//     mushroomData.getMushrooms().then((allMushrooms) => {
-//       // 4. add the mycologists owned mushrooms to mycologist.mushrooms[]
-//       mycoShrooms.forEach((mycoShroom) => {
-//         const mushroom = allMushrooms.find((m) => m.id === mycoShroom.mushroomId);
-//         mycologist.mushrooms.push(mushroom);
-//       });
-//       resolve(mycologist);
-//     });
-//   });
-// })
-// .catch((err) => reject(err));
-// });
+const getReservationsByDateRange = (date1, date2) => axios.get(`${baseUrl}/reservations.json?orderBy="date"&startAt="${date2}"&endAt="${date1}"`);
 
 export default {
   getReservations,
@@ -78,4 +57,5 @@ export default {
   updateReservation,
   getReservationsByDateCost,
   updateReservationCost,
+  getReservationsByDateRange,
 };
