@@ -10,6 +10,12 @@ const getStaffReservations = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getStaffResByResId = (resId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/StaffReservation.json?orderBy="reservationsId"&equalTo="${resId}"`)
+    .then(({ data }) => resolve(utils.firebaseArray(data)))
+    .catch((err) => reject(err));
+});
+
 const getStaffReservationById = (StaffReservationId) => axios.get(`${baseUrl}/StaffReservation/${StaffReservationId}.json`);
 
 const deleteStaffReservationById = (StaffReservationId) => axios.delete(`${baseUrl}/StaffReservation/${StaffReservationId}.json`);
@@ -24,4 +30,5 @@ export default {
   deleteStaffReservationById,
   addStaffReservation,
   updateStaffReservation,
+  getStaffResByResId,
 };

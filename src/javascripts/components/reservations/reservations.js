@@ -131,8 +131,8 @@ const displayReservationForm = (reservation, reservationId) => {
               </select>
               <span id="ampm">AM</span>
             </div>
-          </div>
-        </div>
+          </div> 
+        </div>        
           <div class="form-group row">
           <label for="chef" class="col-sm-1 col-form-label res-form-col">Select Chef:</label>
           <div class="col-sm-3 res-form-col">
@@ -160,25 +160,24 @@ const displayReservationForm = (reservation, reservationId) => {
       });
       domString += `
             </select>  
-          </div>
-          </div> 
+          </div>           
           <div class="col-sm-3 res-form-btns res-form-col">
           <button type="submit" class="btn btn-primary mt-2" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save</button>
           <button type="submit" class="btn btn-danger mt-2 ml-2 hide" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
           </div>
-        
+          </div>
       </form>
     </div>
   </div>`;
       utils.printToDom('#edit-reservation', domString);
+      let select = existing.hour - 10;
+      if (select < 0 || select > 11) { select = 0; }
+      setSelectedIndex(document.getElementById('hour'), select);
+      if (reservation) { setSelectedIndex(document.getElementById('minutes'), ((reservation.time % 100) / 15) + 1); }
+
+      updateAmPmEvent();
     })
     .catch((err) => console.warn(err));
-  let select = existing.hour - 10;
-  if (select < 0 || select > 11) { select = 0; }
-  setSelectedIndex(document.getElementById('hour'), select);
-  if (reservation) { setSelectedIndex(document.getElementById('minutes'), ((reservation.time % 100) / 15) + 1); }
-
-  updateAmPmEvent();
 };
 
 const displayReservations = (filterDate) => new Promise((resolve, reject) => {
@@ -288,9 +287,6 @@ const addReservationEvent = (e) => {
     name: $('#name').val(),
     partySize: Number($('#size').val()),
     date: $('#date').val(),
-    chef: $('#chef').val(),
-    bussBoy: $('#busser').val(),
-    server: $('#server').val(),
     time,
     totalCost: 0.0,
   };
@@ -321,9 +317,6 @@ const updateReservationEvent = (e) => {
     name: $('#name').val(),
     partySize: $('#size').val(),
     date: $('#date').val(),
-    chef: $('#chef').val(),
-    bussBoy: $('#busBoy').val(),
-    server: $('#server').val(),
     time,
     totalCost: 0.0,
   };
