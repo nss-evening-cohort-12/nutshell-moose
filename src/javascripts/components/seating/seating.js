@@ -143,6 +143,15 @@ const checkAvailability = () => {
     .catch((err) => console.error('getting seat data for availability did not work -> ', err));
 };
 
+const optionBuilder = (tableId) => {
+  let domString = `<select  class="mt-3 res-order">
+  <option value="" selected disabled> reservation: </option>
+  <option value="1">c1</option>
+  <option value="2">c2</option>`
+  domString +=  '<option value="${reservation.id}" id=${reservation.id}>${reservation.name}</option></select>'
+  return domString
+}
+
 const buildSeating = () => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
   getSeatingData.getSeating()
@@ -193,6 +202,7 @@ const buildSeating = () => {
         domString += `
           <div class="table-container" id="${table.id}">
             <h1 class="table-number"><span style="font-size: .6em;">Table</span> ${table.tableNum}</h1>
+            <div class="res-selector">${optionBuilder(table.id)}</div>
             <h3 class="table-delete auth-only" id="delete-table" data-delete-table-id=${table.id}><i class="fas fa-trash-alt"></i></h3>
             <h2 class="table-capacity"><i class="fas fa-users"></i> <span style="font-size: 1.3em;">${table.capacity}</span></h2>
             <div class="dropdown new-table">

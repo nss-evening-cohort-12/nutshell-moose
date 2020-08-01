@@ -174,4 +174,17 @@
 
     cursor: pointer;
   }
+
+  .res-selector {
+    justify-self: center;
+    align-self: center;
+    position: relative;
+    left: 35px;
+    bottom: 135px;
+    
+
+    .res-order {
+      width: 125px;
+    }
+  }
 }
