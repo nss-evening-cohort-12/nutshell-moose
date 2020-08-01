@@ -1,3 +1,4 @@
+import moment from 'moment';
 import './seating.scss';
 import getSeatingData from '../../helpers/data/getSeatingData';
 import utils from '../../helpers/utils';
@@ -143,13 +144,14 @@ const checkAvailability = () => {
 };
 
 const buildSeating = () => {
+  const today = moment(Date.now()).format('YYYY-MM-DD');
   getSeatingData.getSeating()
     .then((seating) => {
       let domString = `
         <div class="container">
           <div class="progress-grid">
-            <div class="progress-title">
-              <h2>Current Availability:</h2>
+            <div class="progress-title d-flex">
+              <div class="m-2"><h2>Current Availability:</h2></div><div class="m-2"> <input type="date" class="m-1 form-control" id="1date" value="${today}"></div>
             </div>
             <div class="progress" style="height: 25px;">
               <div class="progress-bar available-bar" role="progressbar" style="width: 20%;" aria-valuemin="0" aria-valuemax="100">Available</div>
