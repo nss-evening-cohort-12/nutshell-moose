@@ -1,9 +1,6 @@
 import moment from 'moment';
 import utils from '../../helpers/utils';
-import reservationsData from '../../helpers/data/reservationsData';
-import orderData from '../../helpers/data/orderData';
-import menuIngrediantData from '../../helpers/data/menuIngrediantData';
-import ingredData from '../../helpers/data/ingredData';
+import ingredientsSmash from '../../helpers/data/ingredientsSmash';
 
 const drawIngredients = () => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
@@ -41,114 +38,12 @@ const drawIngredients = () => {
 const get7DayIngredients = () => {
   const pickDate1 = $('#1date').val();
   const pickDate2 = $('#7date').val();
-  let domString = '';
   // get reservations in the range of these dates
-  reservationsData.getReservationsByDateRange(pickDate2, pickDate1)
-    .then((response) => {
-      const reservationsList = utils.firebaseArray(response.data);
-      // get all the orders
-      orderData.getAllOrders()
-        .then((orders) => {
-          const ordersList = utils.firebaseArray(orders.data);
-          console.warn(ordersList);
-          const filterdOrdersList = [];
-          // filter orders list by reservations in the date ranges
-          reservationsList.forEach((reservations) => {
-            const filteredList = ordersList.filter((p) => p.reservationsId === reservations.id);
-            filterdOrdersList.push(...filteredList);
-          });
-          console.warn(filterdOrdersList);
-          // Get all menungredients
-          menuIngrediantData.getAllMenuIngredients()
-            .then((menuIngredients) => {
-              const menuIngredientsList = utils.firebaseArray(menuIngredients.data);
-              console.warn(menuIngredientsList);
-              const selectedIngredientList = [];
-              // filter only menuingredients that were ordered by menuId
-              filterdOrdersList.forEach((menuItem) => {
-                const filteredMeuIngredientList = menuIngredientsList.filter((m) => m.menuId === menuItem.menuId);
-                selectedIngredientList.push(...filteredMeuIngredientList);
-              });
-              console.warn(selectedIngredientList);
-              // just get the clean list of ingredients used in those orders or menu items
-              const cleanIngredientsList = selectedIngredientList.map((x) => x.ingredientId);
-              console.warn(cleanIngredientsList);
-              // const uniqueNamesList = [];
-              // cleanIngredientsList.forEach((ingredient) => {
-              //   ingredData.getIngredientById(ingredient)
-              //     .then((ingredObj) => {
-              //       const singleIngredObj = ingredObj.data;
-              //       uniqueNamesList.push(singleIngredObj.name);
-              //     });
-              // });
-              // console.warn(uniqueNamesList);
-
-              const uniqueValueAndCount = {};
-              cleanIngredientsList.forEach((ingredient) => {
-                if (ingredient in uniqueValueAndCount) {
-                  uniqueValueAndCount[ingredient] += 1;
-                } else {
-                  uniqueValueAndCount[ingredient] = 1;
-                }
-              });
-              console.warn(uniqueValueAndCount);
-              const ingredientsUsed = Object.keys(uniqueValueAndCount);
-              domString += `
-              <div class="mt-3 card text-center">
-                <div class="card-header">
-                  Multi-Day Range Revenue
-                </div>
-                <div class="card-body">
-                  <h2 class="card-title">${pickDate1} to ${pickDate2}</h2>`;
-              console.warn('test');
-              ingredientsUsed.forEach((ingredient) => {
-                ingredData.getIngredientById(ingredient)
-                  .then((ingredObj) => {
-                    const singleIngredObj = ingredObj.data;
-                    domString += `<h3 class="card-text">Total quantity of ingredients used : ${singleIngredObj} </h3>`;
-                  });
-              });
-              domString += `
-                  
-                </div>
-                <div class="card-footer text-muted">
-                </div>
-              </div>
-            `;
-              utils.printToDom('div #reportsDisplay', domString);
-              console.warn(domString);
-            });
-        });
-    })
-    .catch((err) => console.warn('did not bring the reservation ', err));
+  ingredientsSmash.get7DayIngredAmount(pickDate2, pickDate1)
+    .then((rawIngredients) => {
+      console.warn(rawIngredients);
+    });
 };
-
-// const getAllIngredients = () => {
-//   let domString = '';
-//   let totalCost = 0;
-//   reservationsData.getReservations()
-//     .then((response) => {
-//       const resObj = response;
-//       resObj.forEach((res) => {
-//         totalCost += res.totalCost;
-//       });
-//       domString += `
-//         <div class="mt-3 card text-center">
-//           <div class="card-header">
-//             All Revenue
-//           </div>
-//           <div class="card-body">
-//             <h2 class="card-title">All Revenue</h2>
-//             <h3 class="card-text">Total revenue : $${totalCost}.00</h3>
-//           </div>
-//           <div class="card-footer text-muted">
-//           </div>
-//         </div>
-//       `;
-//       utils.printToDom('#reportsDisplay', domString);
-//     })
-//     .catch((err) => console.warn('did not bring the reservation ', err));
-// };
 
 const pickReport = () => {
   const radioVal = $('input[name="options"]:checked').val();
@@ -183,33 +78,5 @@ const pickReport = () => {
       // do nothing
   }
 };
-
-// const getOneDayRevenue = () => {
-//   const pickDate1 = $('#1date').val();
-//   let domString = '';
-//   let totalCost = 0;
-//   reservationsData.getReservations(pickDate1)
-//     .then((response) => {
-//       const resObj = response;
-//       resObj.forEach((res) => {
-//         totalCost += res.totalCost;
-//       });
-//       domString += `
-//         <div class="mt-3 card text-center">
-//           <div class="card-header">
-//             One Day Revenue
-//           </div>
-//           <div class="card-body">
-//             <h2 class="card-title">${pickDate1}</h2>
-//             <h3 class="card-text">Total revenue for that day : $${totalCost}.00</h3>
-//           </div>
-//           <div class="card-footer text-muted">
-//           </div>
-//         </div>
-//       `;
-//       utils.printToDom('#reportsDisplay', domString);
-//     })
-//     .catch((err) => console.warn('did not bring the reservation ', err));
-// };
 
 export default { drawIngredients, pickReport };
