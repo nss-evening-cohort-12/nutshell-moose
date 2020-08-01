@@ -84,7 +84,7 @@ const clickEvents = () => {
       $('body').on('click', '#edit-table', seating.editTableForm);
       $('body').on('click', '#edit-current-table', seating.editTableEvent);
       $('body').on('click', '#delete-table', seating.deleteTableEvent);
-      $('body').on('click', '#submitTotal', displayOrder.addTotalToRes);
+      $('body').on('click', '#submitBtn', displayOrder.addTotalToRes);
       $('body').on('change', '#resOrder', displayOrder.dropUpdate);
       $('body').on('change', '#personOrder', displayOrder.personDropUpdate);
       $('body').on('change', '#menuOrder', displayOrder.menuDropUpdate);
