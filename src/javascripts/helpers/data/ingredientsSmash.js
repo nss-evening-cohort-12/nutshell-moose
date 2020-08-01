@@ -33,18 +33,12 @@ const get7DayIngredAmount = (pickDate2, pickDate1) => new Promise((resolve, reje
               });
               console.warn(selectedIngredientList);
               // just get the clean list of ingredients used in those orders or menu items
+              // ["ingredient9", "ingredient2", "ingredient7", "ingredient1", ....]
               const cleanIngredientsList = selectedIngredientList.map((x) => x.ingredientId);
               console.warn(cleanIngredientsList);
-              // const uniqueNamesList = [];
-              // cleanIngredientsList.forEach((ingredient) => {
-              //   ingredData.getIngredientById(ingredient)
-              //     .then((ingredObj) => {
-              //       const singleIngredObj = ingredObj.data;
-              //       uniqueNamesList.push(singleIngredObj.name);
-              //     });
-              // });
-              // console.warn(uniqueNamesList);
 
+              // get the distinct values of ingredient and their count
+              // { ingredient7: 25, ingredient4: 15, ingredient2: 10, ingredient1: 5, ingredient8: 5, ...}
               const uniqueValueAndCount = {};
               cleanIngredientsList.forEach((ingredient) => {
                 if (ingredient in uniqueValueAndCount) {
@@ -53,19 +47,22 @@ const get7DayIngredAmount = (pickDate2, pickDate1) => new Promise((resolve, reje
                   uniqueValueAndCount[ingredient] = 1;
                 }
               });
+
               console.warn(uniqueValueAndCount);
               const ingredientsUsed = Object.keys(uniqueValueAndCount);
               console.warn('test');
               const uniqueNameAndCount = {};
+              // get all the raw ingredients
               ingredData.getIngredients()
                 .then((ingredients) => {
-                  const ingredientsArray = [];
+                  // filter the raw ingredients based on the ingredients used in the orders
                   ingredientsUsed.forEach((ingredient) => {
                     const filteredIngredients = ingredients.filter((m) => m.id === ingredient);
-                    ingredientsArray.push(...filteredIngredients);
-                    uniqueNameAndCount[filteredIngredients[ingredient].name] = uniqueValueAndCount[ingredient];
+                    // insert the items in the uniqueNameAndCount object
+                    uniqueNameAndCount[filteredIngredients[0].name] = uniqueValueAndCount[ingredient];
                   });
                   console.warn(uniqueNameAndCount);
+                  // prints {Beef: 25, Potato: 15, Spinach: 10, Rice: 5, Chicken: 5, ...}
                   resolve(uniqueNameAndCount);
                 });
             });

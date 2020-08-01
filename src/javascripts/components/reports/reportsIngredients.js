@@ -39,10 +39,30 @@ const get7DayIngredients = () => {
   const pickDate1 = $('#1date').val();
   const pickDate2 = $('#7date').val();
   // get reservations in the range of these dates
+  let domString = '';
   ingredientsSmash.get7DayIngredAmount(pickDate2, pickDate1)
     .then((rawIngredients) => {
-      console.warn(rawIngredients);
-    });
+      domString += `
+        <div class="mt-3 card text-center">
+          <div class="card-header">
+            All Revenue
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Amount of Ingredients Used</h2>`;
+      const keys = Object.keys(rawIngredients);
+      keys.forEach((key) => {
+        domString += `
+            <h3 class="card-text"> ${key}: ${rawIngredients[key]}</h3>`;
+      });
+      domString += `
+          </div>
+          <div class="card-footer text-muted">
+          </div>
+        </div>
+      `;
+      utils.printToDom('div #reportsDisplay', domString);
+    })
+    .catch((err) => console.warn('did not bring the reservation ', err));
 };
 
 const pickReport = () => {
