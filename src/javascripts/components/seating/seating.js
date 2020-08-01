@@ -4,6 +4,7 @@ import getSeatingData from '../../helpers/data/getSeatingData';
 import utils from '../../helpers/utils';
 import authData from '../../helpers/data/authData';
 import reservationsData from '../../helpers/data/reservationsData';
+import seatingReservations from './seatingReservations';
 
 const sliderChange = (valueId) => {
   $(document).ready(() => {
@@ -165,11 +166,12 @@ const optionBuilder = () => new Promise((resolve, reject) => {
       getSeatingData.getSeating()
         .then((tables) => {
           tables.forEach((table) => {
-            let domString = '<select  class="mt-3 res-order">';
+            let domString = `<select id="${table.id}-selector" data-add-reservation-id="${table.id}" class="mt-3 res-order">`;
             domString += '<option value="" selected>Pick Reservation</option>';
             domString += filterRes(reservations, table);
             domString += '</select>';
             utils.printToDom(`#${table.id}-select`, domString);
+            $(`#${table.id}-selector`).change(seatingReservations.assignTable);
           });
         });
       resolve();
