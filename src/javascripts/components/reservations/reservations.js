@@ -163,7 +163,7 @@ const displayReservationForm = (reservation, reservationId) => {
           </div>
           </div> 
           <div class="col-sm-3 res-form-btns res-form-col">
-          <button type="submit" class="btn btn-primary mt-2" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save</button>
+          <button type="submit" class="btn btn-primary my-2" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save</button>
           </div>
         
       </form>
@@ -312,8 +312,8 @@ const editReservationForm = (reservation, reservationId) => {
                 </div>
                 </div> 
                 <div class="col-sm-3 res-form-btns res-form-col">
-                <button type="submit" class="btn btn-primary mt-2" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save Changes</button>
-                <button type="submit" class="btn btn-danger mt-2 ml-2" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
+                <button type="submit" class="btn btn-primary my-2" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save Changes</button>
+                <button type="submit" class="btn btn-danger my-2 ml-2" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
                 </div>
         
       </form>
@@ -508,8 +508,17 @@ const deleteReservationEvent = (e) => {
   const reservationId = e.target.dataset.reservationid;
   reservationsData.deleteReservation(reservationId)
     .then(() => {
-      displayReservations();
-      displayReservationForm();
+      staffReservationData.getStaffResByResId(reservationId)
+        .then((staffRes) => {
+          staffRes.forEach((staffReservation) => {
+            staffReservationData.deleteStaffReservationById(staffReservation.id)
+              .then(() => {
+                console.warn('deleted');
+                displayReservations();
+                displayReservationForm();
+              });
+          });
+        });
     })
     .catch((err) => console.error('could not delete reservation', err));
 };
