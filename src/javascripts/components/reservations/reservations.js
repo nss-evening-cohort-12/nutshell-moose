@@ -82,10 +82,8 @@ const displayReservationForm = (reservation, reservationId) => {
 
       let domString = `
     <div id="add-edit-reservation-form">
-      <div class="row reservation-header justify-content-between px-3">
-        <div></div>
+      <div class="row reservation-header justify-content-center px-3">        
         <h3>${formType} Reservation</h3>
-        <div class="cancel-area mx-2"><i class="far fa-2x fa-times-circle text-dark hide" id="cancel-res-edit"></i></div>
       </div>`;
 
       domString += `
@@ -166,21 +164,21 @@ const displayReservationForm = (reservation, reservationId) => {
           </div> 
           <div class="col-sm-3 res-form-btns res-form-col">
           <button type="submit" class="btn btn-primary mt-2" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save</button>
-          <button type="submit" class="btn btn-danger mt-2 ml-2" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
           </div>
         
       </form>
     </div>
   </div>`;
       utils.printToDom('#edit-reservation', domString);
+
+      let select = existing.hour - 10;
+      if (select < 0 || select > 11) { select = 0; }
+      setSelectedIndex(document.getElementById('hour'), select);
+      if (reservation) { setSelectedIndex(document.getElementById('minutes'), ((reservation.time % 100) / 15) + 1); }
+
+      updateAmPmEvent();
     })
     .catch((err) => console.warn(err));
-  let select = existing.hour - 10;
-  if (select < 0 || select > 11) { select = 0; }
-  setSelectedIndex(document.getElementById('hour'), select);
-  if (reservation) { setSelectedIndex(document.getElementById('minutes'), ((reservation.time % 100) / 15) + 1); }
-
-  updateAmPmEvent();
 };
 
 // this is when user clicks the edit icon on reservations card
@@ -314,22 +312,23 @@ const editReservationForm = (reservation, reservationId) => {
                 </div>
                 </div> 
                 <div class="col-sm-3 res-form-btns res-form-col">
-                <button type="submit" class="btn btn-primary mt-2" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save</button>
-                <button type="submit" class="btn btn-danger mt-2 ml-2 hide" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
+                <button type="submit" class="btn btn-primary mt-2" id="edit-${existing.save}-res" data-reservationid="${reservationId}">Save Changes</button>
+                <button type="submit" class="btn btn-danger mt-2 ml-2" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
                 </div>
         
       </form>
     </div>
   </div>`;
       utils.printToDom('#edit-reservation', domString);
+
+      let select = existing.hour - 10;
+      if (select < 0 || select > 11) { select = 0; }
+      setSelectedIndex(document.getElementById('hour'), select);
+      if (reservation) { setSelectedIndex(document.getElementById('minutes'), ((reservation.time % 100) / 15) + 1); }
+
+      updateAmPmEvent();
     })
     .catch((err) => console.warn(err));
-  let select = existing.hour - 10;
-  if (select < 0 || select > 11) { select = 0; }
-  setSelectedIndex(document.getElementById('hour'), select);
-  if (reservation) { setSelectedIndex(document.getElementById('minutes'), ((reservation.time % 100) / 15) + 1); }
-
-  updateAmPmEvent();
 };
 
 const displayReservations = (filterDate) => new Promise((resolve, reject) => {
