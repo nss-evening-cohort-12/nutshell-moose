@@ -22,7 +22,6 @@ import displayOrder from '../components/orders/displayOrder';
 import reports from '../components/reports/reports';
 import reportsRevenue from '../components/reports/reportsRevenue';
 import reportsIngredients from '../components/reports/reportsIngredients';
-import updateReservations from '../components/reservations/updateReservations';
 
 const clickEvents = () => {
   // BOTH AUTHORIZED AND NON-AUTHORIZED USER USER CLICK EVENTS:
@@ -76,10 +75,10 @@ const clickEvents = () => {
       $('body').on('click', '.delete-ingredient', deleteIngredient.deleteIngredsAndJoins);
       $('body').on('click', '#filterStaffType', filterStaff.filterStaffEvent);
       $('body').on('click', '.editStaffSubmit', editStaff.editStaffEvent);
-      $('body').on('click', '.edit-reservation-btn', updateReservations.editReservationEvent);
+      $('body').on('click', '.edit-reservation-btn', reservations.editReservationEvent);
       $('body').on('click', '#cancel-res-edit', reservations.reservationsPage);
       $('body').on('click', '#save-new-res', reservations.addReservationEvent);
-      $('body').on('click', '#save-updated-res', updateReservations.updateReservationEvent);
+      $('body').on('click', '#save-updated-res', reservations.updateReservationEvent);
       $('body').on('click', '#delete-reservation', reservations.deleteReservationEvent);
       $('body').on('click', '#add-new-table', seating.numberValidation);
       $('body').on('click', '#edit-table', seating.editTableForm);
@@ -108,10 +107,10 @@ const clickEvents = () => {
       $('body').off('click', '.delete-menu-item', deleteMenuItem.deleteMenuItemAndJoins);
       $('body').off('click', '#filterStaffType', filterStaff.filterStaffEvent);
       $('body').off('click', '.editStaffSubmit', editStaff.editStaffEvent);
-      $('body').off('click', '.edit-reservation-btn', updateReservations.editReservationEvent);
+      $('body').off('click', '.edit-reservation-btn', reservations.editReservationEvent);
       $('body').off('click', '#cancel-res-edit', reservations.reservationsPage);
       $('body').off('click', '#save-new-res', reservations.addReservationEvent);
-      $('body').off('click', '#save-updated-res', updateReservations.updateReservationEvent);
+      $('body').off('click', '#save-updated-res', reservations.updateReservationEvent);
       $('body').off('click', '#delete-reservation', reservations.deleteReservationEvent);
       $('body').off('click', '#add-new-table', seating.numberValidation);
       $('body').off('click', '#edit-table', seating.editTableEvent);
