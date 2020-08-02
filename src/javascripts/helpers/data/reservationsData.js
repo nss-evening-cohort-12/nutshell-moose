@@ -45,11 +45,14 @@ const updateReservation = (reservationId, newResObject) => new Promise((resolve,
     .catch((err) => reject(err));
 });
 
+const getAllReservations = () => axios.get(`${baseUrl}/reservations.json`);
+
 const updateReservationCost = (reservationId, editReservationCost) => axios.put(`${baseUrl}/reservations/${reservationId}.json`, editReservationCost);
 
 const getReservationsByDateRange = (date1, date2) => axios.get(`${baseUrl}/reservations.json?orderBy="date"&startAt="${date2}"&endAt="${date1}"`);
 
 export default {
+  getAllReservations,
   getReservations,
   getReservationById,
   addReservation,

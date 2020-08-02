@@ -18,4 +18,6 @@ const getMenuIngByMenuId = (menuId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default { getMenuIngByMenuId };
+const getAllMenuIngredients = () => axios.get(`${baseUrl}/menuIngredient.json`);
+
+export default { getMenuIngByMenuId, getAllMenuIngredients };
