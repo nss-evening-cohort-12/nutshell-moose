@@ -312,7 +312,7 @@ const editReservationForm = (reservation, reservationId) => {
                 </div>
                 </div> 
                 <div class="col-sm-3 res-form-btns res-form-col">
-                <button type="submit" class="btn btn-primary mt-2" id="edit-${existing.save}-res" data-reservationid="${reservationId}">Save Changes</button>
+                <button type="submit" class="btn btn-primary mt-2" id="save-${existing.save}-res" data-reservationid="${reservationId}">Save Changes</button>
                 <button type="submit" class="btn btn-danger mt-2 ml-2" id="delete-reservation" data-reservationid="${reservationId}">Delete</button>
                 </div>
         
@@ -443,6 +443,38 @@ const addStaffToStaffRes = (newReservationId, newStaffData) => new Promise((reso
   });
 });
 
+const zip = (a, b) => {
+  const arr = [];
+  for (let i = 0; i < a.length; i += 1) {
+    arr.push([a[i], b[i]]);
+  }
+  return arr;
+};
+
+// Updates the eservation staffs in to the staffReservation table for each chef, busser and server with same resId)
+const updateStaffToStaffRes = (updatingReservationId, updatingStaffData) => new Promise((resolve, reject) => {
+  const updatingStaffList = [];
+  Object.values(updatingStaffData).forEach((value) => {
+    updatingStaffList.push(value);
+  });
+  staffReservationData.getStaffResByResId(updatingReservationId)
+    .then((staffRes) => {
+      const zippedList = zip(staffRes, updatingStaffList);
+      zippedList.forEach((staffReservation) => {
+        const updatingStaffObj = {
+          reservationsId: `${updatingReservationId}`,
+          staffId: `${staffReservation[1]}`,
+        };
+        const staffResId = staffReservation[0].id;
+        staffReservationData.updateStaffReservation(staffResId, updatingStaffObj)
+          .then(() => {
+            resolve();
+          });
+      });
+    })
+    .catch((err) => reject(err));
+});
+
 const addReservationEvent = (e) => {
   e.preventDefault();
   const time = Number($('#hour').val() + $('#minutes').val());
@@ -493,10 +525,18 @@ const updateReservationEvent = (e) => {
     time,
     totalCost: 0.0,
   };
+  const newStaffData = {
+    chef: $('#chef').val(),
+    busser: $('#busser').val(),
+    server: $('#server').val(),
+  };
   reservationsData.updateReservation(reservationId, newReservationInfo)
     .then(() => {
-      displayReservations();
-      displayReservationForm();
+      updateStaffToStaffRes(reservationId, newStaffData)
+        .then(() => {
+          displayReservations();
+          displayReservationForm();
+        });
     })
     .catch((err) => console.error('could not update reservation', err));
 };
