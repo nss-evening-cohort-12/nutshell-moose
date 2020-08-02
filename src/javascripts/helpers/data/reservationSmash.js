@@ -11,10 +11,8 @@ const getSingleResWithStaff = (resId) => new Promise((resolve, reject) => {
       reservation.staff = [];
       // 2. get all of their staffReservations using the resId
       staffReservationData.getStaffResByResId(resId).then((resStaff) => {
-        console.warn(resStaff);
         // 3. get ALL of the staffs
         getStaffData.getStaff().then((allStaff) => {
-          console.warn(allStaff);
           // 4. add the staffs linked staffRes to reservation.staff[]
           resStaff.forEach((staffRes) => {
             const staff = allStaff.find((m) => m.id === staffRes.staffId);
@@ -36,7 +34,6 @@ const getSingleResWithStaff = (resId) => new Promise((resolve, reject) => {
          *   ],
          * }
          */
-          console.warn(reservation);
           resolve(reservation);
         });
       });
