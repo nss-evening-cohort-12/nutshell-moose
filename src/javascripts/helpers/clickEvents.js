@@ -90,6 +90,9 @@ const clickEvents = () => {
       $('body').on('change', '#menuOrder', displayOrder.menuDropUpdate);
       $('body').on('click', '#revenueSubmit', reportsRevenue.pickReport);
       $('body').on('click', '#ingredientsSubmit', reportsIngredients.pickReport);
+      $('body').on('click', '#1IngredDay', reportsIngredients.toggleDatePicker);
+      $('body').on('click', '#7IngredDay', reportsIngredients.toggleDatePicker);
+      $('body').on('click', '#allIngredDays', reportsIngredients.toggleDatePicker);
     }
     if (!user) {
       $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);
