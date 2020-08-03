@@ -31,7 +31,7 @@ const drawIngredients = () => {
     <button id="ingredientsSubmit" class="m5 btn btn-secondary submit">Submit</button>
     </div>
     </div>
-    <div id="reportsIngredDisplay">cards go here</div>`;
+    <div id="reportsIngredDisplay"></div>`;
   utils.printToDom('#ingredientsDiv', domString);
 };
 

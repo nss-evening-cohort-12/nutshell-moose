@@ -82,7 +82,7 @@ const displayReservationForm = (reservation, reservationId) => {
 
       let domString = `
     <div id="add-edit-reservation-form">
-      <div class="row reservation-header justify-content-center px-3">        
+          <div class="row reservation-header justify-content-center px-3">        
         <h3>${formType} Reservation</h3>
       </div>`;
 
@@ -477,6 +477,7 @@ const updateReservationEvent = (e) => {
         .then(() => {
           displayReservations();
           displayReservationForm();
+          utils.showFlashMessage('success', 'The requested reservation has been updated');
         });
     })
     .catch((err) => console.error('could not update reservation', err));
@@ -528,6 +529,7 @@ const addReservationEvent = (e) => {
         .then(() => {
           displayReservations();
           displayReservationForm();
+          utils.showFlashMessage('success', 'New reservation has been added succesfully');
         });
     })
     .catch((err) => console.error('could not create reservation', err));
@@ -546,6 +548,7 @@ const deleteReservationEvent = (e) => {
                 console.warn('deleted');
                 displayReservations();
                 displayReservationForm();
+                utils.showFlashMessage('success', 'The requested reservation has been deleted');
               });
           });
         });
