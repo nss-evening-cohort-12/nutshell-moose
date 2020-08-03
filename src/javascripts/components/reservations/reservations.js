@@ -205,9 +205,11 @@ const editReservationForm = (reservation, reservationId) => {
     existing.hour = Math.floor(existing.time / 100);
     existing.minutes = 0;
     existing.save = 'updated';
-    existing.chef = reservation.staff.find((m) => m.type === 'Chef');
-    existing.busser = reservation.staff.find((m) => m.type === 'Busser');
-    existing.server = reservation.staff.find((m) => m.type === 'Server');
+    if (reservation.staff) {
+      existing.chef = reservation.staff.find((m) => m.type === 'Chef');
+      existing.busser = reservation.staff.find((m) => m.type === 'Busser');
+      existing.server = reservation.staff.find((m) => m.type === 'Server');
+    }
   }
   getStaffData.getStaff()
     .then((staff) => {
@@ -275,7 +277,7 @@ const editReservationForm = (reservation, reservationId) => {
           <div class="col-sm-3 res-form-col">
             <select class="form-control" id="chef">`;
       chefList.forEach((chef) => {
-        if (chef.id === existing.chef.id) {
+        if (existing.chef && chef.id === existing.chef.id) {
           domString += `<option value=${chef.id} selected="selected">${chef.name}</option>`;
         } else {
           domString += `<option value=${chef.id}>${chef.name}</option>`;
@@ -288,7 +290,7 @@ const editReservationForm = (reservation, reservationId) => {
                 <div class="col-sm-3 res-form-col">
                   <select class="form-control" id="busser">`;
       busserList.forEach((busser) => {
-        if (busser.id === existing.busser.id) {
+        if (existing.busser && busser.id === existing.busser.id) {
           domString += `<option value=${busser.id} selected="selected">${busser.name}</option>`;
         } else {
           domString += `<option value=${busser.id}>${busser.name}</option>`;
@@ -301,7 +303,7 @@ const editReservationForm = (reservation, reservationId) => {
                 <div class="col-sm-3 res-form-col">
                   <select class="form-control" id="server">`;
       serverList.forEach((server) => {
-        if (server.id === existing.server.id) {
+        if (existing.server && server.id === existing.server.id) {
           domString += `<option value=${server.id} selected="selected">${server.name}</option>`;
         } else {
           domString += `<option value=${server.id}>${server.name}</option>`;
