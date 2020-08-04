@@ -1,7 +1,7 @@
 const buildOrderForm = (currentFilter) => {
   let domString = `
     <div class="container mt-2">
-      <div class="card">
+      <div class="card" id="firstCard">
         <h5 class="card-header">Reservation</h5>
         <div class="card-body">
           <div class=float-right>
@@ -18,7 +18,7 @@ const buildOrderForm = (currentFilter) => {
       </div>
   `;
   domString += `
-      <div id="clearByDate" class="card">
+      <div id="clearByDate" class="card mt-2">
         <h5 class="card-header">Menu Order</h5>
         <div class="card-body">
           <h5 class="card-title"></h5>
@@ -32,18 +32,23 @@ const buildOrderForm = (currentFilter) => {
           </div>
         </div>
       </div>
-      <form id="submitTotal">
-        <div class="form-group">
-          <label for=""></label>
+      <div class="card mt-2 mb-5" id="summary">
+        <h5 class="card-header">Summary</h5>
+        <div class="p-2 ">
+          <form id="submitTotal">
+            <div class="form-group">
+              <label for=""></label>
+            </div>
+            <div class="form-group">
+            </div>
+            <div class="form-check">
+            </div>
+            <div id="submitBtn">
+              <button type="submit" class="btn btn-primary" disabled>Submit</button>
+            </div>
+          </form>
         </div>
-        <div class="form-group">
-        </div>
-        <div class="form-check">
-        </div>
-        <div id="submitBtn">
-          <button type="submit" class="btn btn-primary" disabled>Submit</button>
-        </div>
-      </form>    
+      </div>
     </div>
   `;
   return domString;
