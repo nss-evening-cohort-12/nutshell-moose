@@ -1,7 +1,11 @@
+import moment from 'moment';
 import './seating.scss';
 import getSeatingData from '../../helpers/data/getSeatingData';
 import utils from '../../helpers/utils';
 import authData from '../../helpers/data/authData';
+import reservationsData from '../../helpers/data/reservationsData';
+import seatingReservations from './seatingReservations';
+import reservationSeatingData from '../../helpers/data/reservationSeatingData';
 
 const sliderChange = (valueId) => {
   $(document).ready(() => {
@@ -16,6 +20,7 @@ const sliderChange = (valueId) => {
 
 const numberValidation = (e) => {
   e.preventDefault();
+  const datePicked = $('#1date').val();
   const tableNum = $('#input-table-number').val() * 1;
   const capacity = $('#capacity-range').val() * 1;
   let occupied = '';
@@ -27,17 +32,25 @@ const numberValidation = (e) => {
   }
 
   const newSeatingObj = {
+    date: datePicked,
     capacity,
     occupied,
     tableNum,
   };
 
-  if ((tableNum >= 7 && tableNum <= 30) && ($('#available-radio').is(':checked') || $('#unavailable-radio').is(':checked'))) {
+  if ((tableNum >= 1 && tableNum <= 30) && ($('#available-radio').is(':checked') || $('#unavailable-radio').is(':checked'))) {
     $('.alert').remove('.alert');
     getSeatingData.addTable(newSeatingObj)
-      .then(() => {
-        // eslint-disable-next-line no-use-before-define
-        buildSeating();
+      .then((newtable) => {
+        const tempObject = {
+          reservationId: 'tempres',
+          tableId: newtable.data.name,
+        };
+        reservationSeatingData.addReservationSeating(tempObject)
+          .then(() => {
+            // eslint-disable-next-line no-use-before-define
+            buildSeating();
+          });
       })
       .catch((err) => console.error('adding to the table did not work -> ', err));
   } else {
@@ -89,6 +102,7 @@ const editTableEvent = (e) => {
   }
 
   const editedTable = {
+    date: $('#1date').val(),
     capacity: $(`#input-capacity-${tableId}`).val() * 1,
     occupied,
     tableNum: $(`#input-table-${tableId}`).val() * 1,
@@ -104,11 +118,17 @@ const editTableEvent = (e) => {
 
 const deleteTableEvent = (e) => {
   const tableId = e.currentTarget.dataset.deleteTableId;
+  const RStoDel = $(`#${tableId}-selector`).data('resSeatId');
+  console.warn(RStoDel);
+  console.warn(tableId);
 
   getSeatingData.deleteTable(tableId)
     .then(() => {
-      // eslint-disable-next-line no-use-before-define
-      buildSeating();
+      reservationSeatingData.delRS(RStoDel)
+        .then(() => {
+        // eslint-disable-next-line no-use-before-define
+          buildSeating();
+        });
     })
     .catch((err) => console.error('could not delete table -> ', err));
 };
@@ -142,14 +162,57 @@ const checkAvailability = () => {
     .catch((err) => console.error('getting seat data for availability did not work -> ', err));
 };
 
+const filterRes = (reservations, table) => {
+  const resToPrint = [];
+  let domString = '';
+  reservations.forEach((res) => {
+    if (res.partySize <= table.capacity) {
+      resToPrint.push(res);
+    }
+  });
+  resToPrint.forEach((res2) => {
+    domString += `<option value="${res2.id}">${res2.name} - ${res2.partySize}</>`;
+  });
+  return domString;
+};
+
+const optionBuilder = () => new Promise((resolve, reject) => {
+  const datePicked = $('#1date').val();
+  const promises = [reservationsData.getReservations(datePicked), getSeatingData.getSeating(), reservationSeatingData.getAllRS()];
+  Promise.all(promises)
+    .then(([reservations, tables, resSeatResp]) => {
+      const resSeats = utils.firebaseArray(resSeatResp.data);
+      console.warn(resSeats);
+      tables.forEach((table) => {
+        const currentResSeat = resSeats.find((rs) => rs.tableId === table.id);
+        let domString = `<select id="${table.id}-selector" data-res-seat-id="${currentResSeat.id}" data-add-reservation-table-id="${table.id}" class="mt-3 res-order">`;
+        domString += '<option value="" selected>Pick Reservation</option>';
+        domString += filterRes(reservations, table);
+        domString += '</select>';
+        utils.printToDom(`#${table.id}-select`, domString);
+        resSeats.forEach((rs) => {
+          if (rs.tableId === table.id) {
+            $(`#${table.id}-selector`).val(rs.reservationId);
+          }
+        });
+        $(`#${table.id}-selector`).change(seatingReservations.assignTable);
+      });
+      resolve();
+    })
+    .catch((err) => reject(err));
+});
+
 const buildSeating = () => {
-  getSeatingData.getSeating()
-    .then((seating) => {
+  const datePicked = $('#1date').val();
+  const today = moment(Date.now()).format('YYYY-MM-DD');
+  getSeatingData.getTableByDate(!datePicked ? today : datePicked)
+    .then((res) => {
+      const seating = utils.firebaseArray(res.data);
       let domString = `
         <div class="container">
           <div class="progress-grid">
-            <div class="progress-title">
-              <h2>Current Availability:</h2>
+            <div class="progress-title d-flex">
+              <div class="m-2"><h2>Current Availability:</h2></div><div class="m-2"> <input type="date" class="m-1 form-control" id="1date" value="${!datePicked ? today : datePicked}"></div>
             </div>
             <div class="progress" style="height: 25px;">
               <div class="progress-bar available-bar" role="progressbar" style="width: 20%;" aria-valuemin="0" aria-valuemax="100">Available</div>
@@ -163,12 +226,12 @@ const buildSeating = () => {
                 <form>
                   <div class="form-group">
                     <label for="input-table-number">Table Number</label>
-                    <input type="number" max="30" min="7" class="form-control" id="input-table-number" placeholder="12" required>
+                    <input type="number" max="30" min="1" class="form-control" id="input-table-number" placeholder="12" required>
                   </div>
                   <div class="form-group mb-1">
                     <label for="capacity-range">Capacity:</label>
                     <span class="font-weight-bold ml-2 value-span"></span>
-                    <input type="range" class="custom-range" min="1" max="6" id="capacity-range">
+                    <input type="range" class="custom-range" min="1" max="12" id="capacity-range">
                   </div>
                   <div class="form-group">
                     <div class="custom-control custom-radio">
@@ -191,6 +254,7 @@ const buildSeating = () => {
         domString += `
           <div class="table-container" id="${table.id}">
             <h1 class="table-number"><span style="font-size: .6em;">Table</span> ${table.tableNum}</h1>
+            <div class="res-selector" id="${table.id}-select"></div>
             <h3 class="table-delete auth-only" id="delete-table" data-delete-table-id=${table.id}><i class="fas fa-trash-alt"></i></h3>
             <h2 class="table-capacity"><i class="fas fa-users"></i> <span style="font-size: 1.3em;">${table.capacity}</span></h2>
             <div class="dropdown new-table">
@@ -201,12 +265,12 @@ const buildSeating = () => {
                 <form>
                   <div class="form-group">
                     <label for="input-table-number">Table Number</label>
-                    <input type="number" max="30" min="7" class="form-control edit-table-form" id="input-table-${table.id}" placeholder="12" required>
+                    <input type="number" max="30" min="1" class="form-control edit-table-form" id="input-table-${table.id}" placeholder="12" required>
                   </div>
                   <div class="form-group mb-1">
                     <label for="input-capacity-${table.id}">Capacity:</label>
                     <span class="font-weight-bold ml-2 value-span"></span>
-                    <input type="range" class="custom-range edit-capacity-form" min="1" max="6" id="input-capacity-${table.id}">
+                    <input type="range" class="custom-range edit-capacity-form" min="1" max="12" id="input-capacity-${table.id}">
                   </div>
                   <div class="form-group">
                     <div class="custom-control custom-radio">
@@ -218,7 +282,7 @@ const buildSeating = () => {
                       <label class="custom-control-label" for="input-unavailable-${table.id}">Unavailable</label>
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-secondary" id="edit-current-table" data-edit-id-event=${table.id}>Update</button>
+                  <button type="submit" class="btn btn-secondary editTable" id="edit-${table.id}" data-edit-id-event=${table.id}>Update</button>
                 </form>
               </div>
             </div>
@@ -233,6 +297,8 @@ const buildSeating = () => {
       checkAvailability();
       sliderChange('capacity-range');
       authData.secureButtons();
+      optionBuilder();
+      $('#1date').change(buildSeating);
     })
     .catch((err) => console.error('getting the seating did not work -> ', err));
 };

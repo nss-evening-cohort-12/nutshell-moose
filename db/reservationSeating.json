@@ -1,47 +1,27 @@
 {
   "reservationSeating1": {
-    "reservationsId": "reservations7",
-    "seatId": "seatItem1"
+    "reservationId": "tempres",
+    "tableId": "table1"
   },
   "reservationSeating2": {
-    "reservationsId": "reservations4",
-    "seatId": "seatItem1"
+    "reservationId": "tempres",
+    "tableId": "table2"
   },
   "reservationSeating3": {
-    "reservationsId": "reservations6",
-    "seatId": "seatItem2"
+    "reservationId": "tempres",
+    "tableId": "table3"
   },
   "reservationSeating4": {
-    "reservationsId": "reservations3",
-    "seatId": "seatItem2"
+    "reservationId": "tempres",
+    "tableId": "table4"
   },
   "reservationSeating5": {
-    "reservationsId": "reservations2",
-    "seatId": "seatItem3"
+    "reservationId": "tempres",
+    "tableId": "table5"
   },
   "reservationSeating6": {
-    "reservationsId": "reservations7",
-    "seatId": "seatItem3"
-  },
-  "reservationSeating7": {
-    "reservationsId": "reservations1",
-    "seatId": "seatItem4"
-  },
-  "reservationSeating8": {
-    "reservationsId": "reservations8",
-    "seatId": "seatItem4"
-  },
-  "reservationSeating9": {
-    "reservationsId": "reservations9",
-    "seatId": "seatItem5"
-  },
-  "reservationSeating10": {
-    "reservationsId": "reservations6",
-    "seatId": "seatItem5"
-  },
-  "reservationSeating11": {
-    "reservationsId": "reservations5",
-    "seatId": "seateItem6"
+    "reservationId": "tempres",
+    "tableId": "table6"
   }
 
 }

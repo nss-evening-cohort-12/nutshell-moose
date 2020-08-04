@@ -16,6 +16,8 @@ const updateTable = (tableId, editedTable) => axios.put(`${baseUrl}/seating/${ta
 
 const deleteTable = (tableId) => axios.delete(`${baseUrl}/seating/${tableId}.json`);
 
+const getTableByDate = (date) => axios.get(`${baseUrl}/seating.json?orderBy="date"&equalTo="${date}"`);
+
 // WIP: this function was to check existing table numbers and return the one table if it matched, and return null if not
 
 // const getTableById = (tableNumber) => new Promise((resolve, reject) => {
@@ -29,4 +31,5 @@ export default {
   addTable,
   updateTable,
   deleteTable,
+  getTableByDate,
 };
