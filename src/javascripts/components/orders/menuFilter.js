@@ -3,8 +3,28 @@
 import menuIngrediantData from '../../helpers/data/menuIngrediantData';
 import ingredData from '../../helpers/data/ingredData';
 import menuData from '../../helpers/data/menuData';
+import utils from '../../helpers/utils';
 
 // let menuStatus = true;
+
+const buildMenu = () => {
+  menuData.getMenuItems()
+    .then((responseMenu) => {
+      let domString = `
+      <select  class="mt-3 float-right" id="menuOrder">
+      <option value="mainMenu" id="mainMen" selected disabled> select menu: </option>
+      `;
+      const menuArr = responseMenu;
+      menuArr.forEach((item) => {
+        domString += `<div><option value="${item.price}" id="${item.name}" class="${item.id}" data-value=${item.id}>${item.name} - Price $${item.price}.00</option>`;
+      });
+      domString += '</select>';
+      utils.printToDom('#menuOrder', domString);
+    })
+  // console.warn('this is the array of order length ', orderArr.length);
+    .catch((err) => console.warn('can not get the data for order ', err));
+};
+
 const menuFilter = () => {
   menuData.getMenuItems()
     .then((responseMenu) => {
@@ -62,4 +82,4 @@ const decIng = (menuId) => {
     .catch((err) => console.warn('could not get the list menuIng ', err));
 };
 
-export default { menuFilter, decIng };
+export default { menuFilter, decIng, buildMenu };
