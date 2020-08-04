@@ -10,6 +10,8 @@ import reservationsData from '../../helpers/data/reservationsData';
 import menuData from '../../helpers/data/menuData';
 import menuFilter from './menuFilter';
 
+import './displayOrder.scss';
+
 // import refreshOrderMenu from './refreshOrderMenu';
 
 // call later
