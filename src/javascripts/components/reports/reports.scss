@@ -1,0 +1,23 @@
+@import '../../../styles/styles';
+
+.reports-area {
+  background-image: linear-gradient(0deg, #bf9632, $secondary-color);
+  border-radius: 10px;
+}
+
+.reports-section{
+  font-size: 1.25rem;
+}
+
+.reportsSelection {
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background-color: $primary-color !important;
+  border-color: $primary-color !important;
+}
+.btn-primary:hover {
+  background-color: $primary-hover !important;
+  border-color: $primary-hover !important;
+}
