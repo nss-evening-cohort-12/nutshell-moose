@@ -19,6 +19,7 @@ const sliderChange = (valueId) => {
 
 const numberValidation = (e) => {
   e.preventDefault();
+  const datePicked = $('#1date').val();
   const tableNum = $('#input-table-number').val() * 1;
   const capacity = $('#capacity-range').val() * 1;
   let occupied = '';
@@ -30,12 +31,13 @@ const numberValidation = (e) => {
   }
 
   const newSeatingObj = {
+    date: datePicked,
     capacity,
     occupied,
     tableNum,
   };
 
-  if ((tableNum >= 7 && tableNum <= 30) && ($('#available-radio').is(':checked') || $('#unavailable-radio').is(':checked'))) {
+  if ((tableNum >= 1 && tableNum <= 30) && ($('#available-radio').is(':checked') || $('#unavailable-radio').is(':checked'))) {
     $('.alert').remove('.alert');
     getSeatingData.addTable(newSeatingObj)
       .then(() => {
@@ -92,6 +94,7 @@ const editTableEvent = (e) => {
   }
 
   const editedTable = {
+    date: $('#1date').val(),
     capacity: $(`#input-capacity-${tableId}`).val() * 1,
     occupied,
     tableNum: $(`#input-table-${tableId}`).val() * 1,
@@ -183,8 +186,9 @@ const optionBuilder = () => new Promise((resolve, reject) => {
 const buildSeating = () => {
   const datePicked = $('#1date').val();
   const today = moment(Date.now()).format('YYYY-MM-DD');
-  getSeatingData.getSeating()
-    .then((seating) => {
+  getSeatingData.getTableByDate(!datePicked ? today : datePicked)
+    .then((res) => {
+      const seating = utils.firebaseArray(res.data);
       let domString = `
         <div class="container">
           <div class="progress-grid">
@@ -203,7 +207,7 @@ const buildSeating = () => {
                 <form>
                   <div class="form-group">
                     <label for="input-table-number">Table Number</label>
-                    <input type="number" max="30" min="7" class="form-control" id="input-table-number" placeholder="12" required>
+                    <input type="number" max="30" min="1" class="form-control" id="input-table-number" placeholder="12" required>
                   </div>
                   <div class="form-group mb-1">
                     <label for="capacity-range">Capacity:</label>
@@ -242,7 +246,7 @@ const buildSeating = () => {
                 <form>
                   <div class="form-group">
                     <label for="input-table-number">Table Number</label>
-                    <input type="number" max="30" min="7" class="form-control edit-table-form" id="input-table-${table.id}" placeholder="12" required>
+                    <input type="number" max="30" min="1" class="form-control edit-table-form" id="input-table-${table.id}" placeholder="12" required>
                   </div>
                   <div class="form-group mb-1">
                     <label for="input-capacity-${table.id}">Capacity:</label>
@@ -259,7 +263,7 @@ const buildSeating = () => {
                       <label class="custom-control-label" for="input-unavailable-${table.id}">Unavailable</label>
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-secondary" id="edit-${table.id}" data-edit-id-event=${table.id}>Update</button>
+                  <button type="submit" class="btn btn-secondary editTable" id="edit-${table.id}" data-edit-id-event=${table.id}>Update</button>
                 </form>
               </div>
             </div>
