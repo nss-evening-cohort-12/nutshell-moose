@@ -1,3 +1,4 @@
+import './reports.scss';
 import moment from 'moment';
 import utils from '../../helpers/utils';
 import ingredientsSmash from '../../helpers/data/ingredientsSmash';
@@ -5,19 +6,20 @@ import ingredientsSmash from '../../helpers/data/ingredientsSmash';
 const drawIngredients = () => {
   const today = moment(Date.now()).format('YYYY-MM-DD');
   const domString = ` 
-    <div class="row d-flex justify-content-center">
-    <div class="col-6 d-flex flex-column">
-      <label class="btn btn-secondary active">
+    <div class="row d-flex justify-content-center reportsSelection">
+    <div class="col-8 d-flex justify-content-center flex-column">
+      <label class="btn btn-primary active">
       <input type="radio" name="options" id="1IngredDay" value="1IngredDay"> 1 Day
       </label>
-      <label class="btn btn-secondary">
+      <label class="btn btn-primary">
       <input type="radio" name="options" id="7IngredDay" value="7IngredDay" checked> Date Range
       </label>
-      <label class="btn btn-secondary">
+      <label class="btn btn-primary">
         <input type="radio" name="options" id="allIngredDays" value="allIngredDays"> All Days
       </label>
     </div>
-    <div id="dateContainer" class="col-6 d-flex flex-row inline-block">
+    <div class="row col-8 justify-content-center">
+    <div id="dateContainer" class="col-6 justify-content-center">
     <div id='datePicker1' class="m-1">
     <label for="1date">1 Day/Start Date</label>
     <input type="date" class="m-1 form-control" id="1IngredDate" value="${today}">
@@ -27,8 +29,9 @@ const drawIngredients = () => {
     <input type="date" class="m-1 form-control" id="7IngredDate" value="${today}">
     </div>
     </div>
-    <div>
-    <button id="ingredientsSubmit" class="m5 btn btn-secondary submit">Submit</button>
+    </div>
+    <div class="row col-8 flex-column">
+    <button id="ingredientsSubmit" class="mt-3 btn btn-primary submit">Submit</button>
     </div>
     </div>
     <div id="reportsIngredDisplay"></div>`;

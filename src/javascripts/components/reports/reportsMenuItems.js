@@ -1,3 +1,4 @@
+import './reports.scss';
 import utils from '../../helpers/utils';
 import orderData from '../../helpers/data/orderData';
 import menuData from '../../helpers/data/menuData';
@@ -83,10 +84,10 @@ const drawCards = (e) => {
 const drawMenuItems = () => {
   const domString = `
     <div class="d-flex flex-row justify-content-center">
-      <label class="m-3 btn btn-secondary active">
+      <label class="m-3 btn btn-primary active">
       <input type="radio" name="options" id="mostPopular" checked> Most Popular
       </label>
-      <label class="m-3 btn btn-secondary">
+      <label class="m-3 btn btn-primary">
       <input type="radio" name="options" id="leastPopular"> Least Popular
       </label>
     </div>
