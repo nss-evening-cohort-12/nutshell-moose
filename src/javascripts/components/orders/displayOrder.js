@@ -256,7 +256,7 @@ const addToForm = () => {
 
   domString += `
     <label for="person ${$('#personOrder option:selected').val()}">Person ${$('#personOrder option:selected').val()}</label>
-    <input type="text" class="form-control" id="person${selectedPerson}" aria-describedby="menu price" placeholder="${selectedMenuPrice}" value="${selectedMenuPrice}" disabled>
+    <input type="text" class="form-control" id="person${selectedPerson}" aria-describedby="menu price" placeholder="${selectedMenuPrice}" value="$${selectedMenuPrice}.00" disabled>
     <small id="emailHelp" class="form-text text-muted">you can add food name</small>
   `;
   utils.printToDom(`#${idToGo}`, domString);
@@ -301,6 +301,8 @@ const addToForm = () => {
   utils.printToDom('#addTotalBtn-rePrint', '<a href="#" id="addToTotalCost" class="btn btn-primary disabled">Add to total cost</a>');
   $('#personOrder').val('mainPerson');
   menuFilter.decIng(newOrderMenu.menuId);
+  menuFilter.menuFilter();
+  menuFilter.buildMenu();
   menuFilter.menuFilter();
 };
 
