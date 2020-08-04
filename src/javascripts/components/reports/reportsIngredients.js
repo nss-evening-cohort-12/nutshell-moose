@@ -8,21 +8,21 @@ const drawIngredients = () => {
     <div class="row d-flex justify-content-center">
     <div class="col-6 d-flex flex-column">
       <label class="btn btn-secondary active">
-      <input type="radio" name="options" id="1IngredDay" value="1IngredDay" checked> 1 Day
+      <input type="radio" name="options" id="1IngredDay" value="1IngredDay"> 1 Day
       </label>
       <label class="btn btn-secondary">
-      <input type="radio" name="options" id="7IngredDay" value="7IngredDay"> Date Range
+      <input type="radio" name="options" id="7IngredDay" value="7IngredDay" checked> Date Range
       </label>
       <label class="btn btn-secondary">
         <input type="radio" name="options" id="allIngredDays" value="allIngredDays"> All Days
       </label>
     </div>
     <div id="dateContainer" class="col-6 d-flex flex-row inline-block">
-    <div class="m-1">
+    <div id='datePicker1' class="m-1">
     <label for="1date">1 Day/Start Date</label>
     <input type="date" class="m-1 form-control" id="1IngredDate" value="${today}">
     </div>
-    <div class="m-1">
+    <div id='datePicker2' class="m-1">
     <label for="7date">End Date</label>
     <input type="date" class="m-1 form-control" id="7IngredDate" value="${today}">
     </div>
@@ -31,7 +31,7 @@ const drawIngredients = () => {
     <button id="ingredientsSubmit" class="m5 btn btn-secondary submit">Submit</button>
     </div>
     </div>
-    <div id="reportsIngredDisplay">cards go here</div>`;
+    <div id="reportsIngredDisplay"></div>`;
   utils.printToDom('#ingredientsDiv', domString);
 };
 
@@ -48,7 +48,8 @@ const get7DayIngredients = () => {
             Ingredients Used
           </div>
           <div class="card-body">
-            <h2 class="card-title">Amount of Ingredients Used</h2>`;
+            <h2 class="card-title">Amount of Ingredients Used</h2>
+            <h2 class="card-text">From ${pickDate1} to ${pickDate2}</h2>`;
       const keys = Object.keys(rawIngredients);
       keys.forEach((key) => {
         domString += `
@@ -77,7 +78,8 @@ const getOneDayIngredients = () => {
             Ingredients Used
           </div>
           <div class="card-body">
-            <h2 class="card-title">Amount of Ingredients Used</h2>`;
+            <h2 class="card-title">Amount of Ingredients Used</h2>
+            <h2 class="card-text">on ${pickDate1}</h2>`;
       const keys = Object.keys(rawIngredients);
       keys.forEach((key) => {
         domString += `
@@ -105,7 +107,8 @@ const getAllDayIngredients = () => {
             Ingredients Used
           </div>
           <div class="card-body">
-            <h2 class="card-title">Amount of Ingredients Used</h2>`;
+            <h2 class="card-title">Amount of Ingredients Used </h2>
+            <h2 class="card-text">since La Baguette opened</h2>`;
       const keys = Object.keys(rawIngredients);
       keys.forEach((key) => {
         domString += `
@@ -156,4 +159,17 @@ const pickReport = () => {
   }
 };
 
-export default { drawIngredients, pickReport };
+const toggleDatePicker = (e) => {
+  if (e.target.value === '1IngredDay') {
+    $('#datePicker1').show();
+    $('#datePicker2').hide();
+  } else if (e.target.value === 'allIngredDays') {
+    $('#datePicker1').hide();
+    $('#datePicker2').hide();
+  } else if (e.target.value === '7IngredDay') {
+    $('#datePicker1').show();
+    $('#datePicker2').show();
+  }
+};
+
+export default { drawIngredients, pickReport, toggleDatePicker };
