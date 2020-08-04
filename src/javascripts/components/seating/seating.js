@@ -5,6 +5,7 @@ import utils from '../../helpers/utils';
 import authData from '../../helpers/data/authData';
 import reservationsData from '../../helpers/data/reservationsData';
 import seatingReservations from './seatingReservations';
+import reservationSeatingData from '../../helpers/data/reservationSeatingData';
 
 const sliderChange = (valueId) => {
   $(document).ready(() => {
@@ -40,9 +41,16 @@ const numberValidation = (e) => {
   if ((tableNum >= 1 && tableNum <= 30) && ($('#available-radio').is(':checked') || $('#unavailable-radio').is(':checked'))) {
     $('.alert').remove('.alert');
     getSeatingData.addTable(newSeatingObj)
-      .then(() => {
-        // eslint-disable-next-line no-use-before-define
-        buildSeating();
+      .then((newtable) => {
+        const tempObject = {
+          reservationId: 'tempres',
+          tableId: newtable.data.name,
+        };
+        reservationSeatingData.addReservationSeating(tempObject)
+          .then(() => {
+            // eslint-disable-next-line no-use-before-define
+            buildSeating();
+          });
       })
       .catch((err) => console.error('adding to the table did not work -> ', err));
   } else {
@@ -110,11 +118,17 @@ const editTableEvent = (e) => {
 
 const deleteTableEvent = (e) => {
   const tableId = e.currentTarget.dataset.deleteTableId;
+  const RStoDel = $(`#${tableId}-selector`).data('resSeatId');
+  console.warn(RStoDel);
+  console.warn(tableId);
 
   getSeatingData.deleteTable(tableId)
     .then(() => {
-      // eslint-disable-next-line no-use-before-define
-      buildSeating();
+      reservationSeatingData.delRS(RStoDel)
+        .then(() => {
+        // eslint-disable-next-line no-use-before-define
+          buildSeating();
+        });
     })
     .catch((err) => console.error('could not delete table -> ', err));
 };
@@ -157,30 +171,35 @@ const filterRes = (reservations, table) => {
     }
   });
   resToPrint.forEach((res2) => {
-    domString += `<option value="${res2.id}">${res2.name} - ${res2.partySize}</option>`;
+    domString += `<option value="${res2.id}">${res2.name} - ${res2.partySize}</>`;
   });
   return domString;
 };
 
 const optionBuilder = () => new Promise((resolve, reject) => {
   const datePicked = $('#1date').val();
-  reservationsData.getReservations(datePicked)
-    .then((reservations) => {
-      getSeatingData.getSeating()
-        .then((tables) => {
-          tables.forEach((table) => {
-            let domString = `<select id="${table.id}-selector" data-add-reservation-id="${table.id}" class="mt-3 res-order">`;
-            domString += '<option value="" selected>Pick Reservation</option>';
-            domString += filterRes(reservations, table);
-            domString += '</select>';
-            utils.printToDom(`#${table.id}-select`, domString);
-            $(`#${table.id}-selector`).change(seatingReservations.assignTable);
-          });
+  const promises = [reservationsData.getReservations(datePicked), getSeatingData.getSeating(), reservationSeatingData.getAllRS()];
+  Promise.all(promises)
+    .then(([reservations, tables, resSeatResp]) => {
+      const resSeats = utils.firebaseArray(resSeatResp.data);
+      console.warn(resSeats);
+      tables.forEach((table) => {
+        const currentResSeat = resSeats.find((rs) => rs.tableId === table.id);
+        let domString = `<select id="${table.id}-selector" data-res-seat-id="${currentResSeat.id}" data-add-reservation-table-id="${table.id}" class="mt-3 res-order">`;
+        domString += '<option value="" selected>Pick Reservation</option>';
+        domString += filterRes(reservations, table);
+        domString += '</select>';
+        utils.printToDom(`#${table.id}-select`, domString);
+        resSeats.forEach((rs) => {
+          if (rs.tableId === table.id) {
+            $(`#${table.id}-selector`).val(rs.reservationId);
+          }
         });
+        $(`#${table.id}-selector`).change(seatingReservations.assignTable);
+      });
       resolve();
     })
     .catch((err) => reject(err));
-  // return domString;
 });
 
 const buildSeating = () => {
