@@ -32,9 +32,16 @@ const ddlReservations = (currentFilter) => {
       let domString = '<option value="" selected disabled> select reservation: </option>';
       reservationObj.forEach((reservation) => {
         reservationStoreObject.push(reservation);
-        domString += `
-        <option value="${reservation.id}" id=${reservation.id}>${reservation.name}</option>
-        `;
+        console.warn(reservation.totalCost);
+        if (reservation.totalCost > 0) {
+          domString += `
+            <option style="color:red;"value="${reservation.id}" id=${reservation.id}>${reservation.name}</option>
+          `;
+        } else {
+          domString += `
+            <option value="${reservation.id}" id=${reservation.id}>${reservation.name}</option>
+          `;
+        }
       });
       utils.printToDom('#resOrder', domString);
     })
@@ -67,6 +74,7 @@ const updateMenuOnChange = () => {
     domString = '<a href="#" id="addToTotalCost" class="btn btn-primary disabled">Add to total cost</a>';
     utils.printToDom('#addTotalBtn-rePrint', domString);
   }
+  console.warn('want to see the menu id ', $('#menuOrder option:selected').attr('id'));
 };
 
 const personDropUpdate = () => {
@@ -144,6 +152,7 @@ const dropUpdate = () => {
           <div id = "p${i + 1}" class="form-group">
             <label for="person ${i + 1}">Person ${i + 1}</label>
             <input type="text" class="form-control" id="person ${i + 1}" aria-describedby="menu price" placeholder="0" value="$${orderArr[i].price}.00" disabled>
+            <small id="emailHelp" class="form-text text-muted">${orderArr[i].name}</small>
           </div>
           `;
           totalCost += orderArr[i].price;
@@ -257,7 +266,7 @@ const addToForm = () => {
   domString += `
     <label for="person ${$('#personOrder option:selected').val()}">Person ${$('#personOrder option:selected').val()}</label>
     <input type="text" class="form-control" id="person${selectedPerson}" aria-describedby="menu price" placeholder="${selectedMenuPrice}" value="$${selectedMenuPrice}.00" disabled>
-    <small id="emailHelp" class="form-text text-muted">you can add food name</small>
+    <small id="emailHelp" class="form-text text-muted">${$('#menuOrder option:selected').attr('id')}</small>
   `;
   utils.printToDom(`#${idToGo}`, domString);
   totalCost += parseFloat(selectedMenuPrice);
@@ -290,6 +299,7 @@ const addToForm = () => {
   const newOrderMenu = {
     menuId: $('#menuOrder option:selected', this).data('value'),
     price: parseFloat($('#menuOrder option:selected').val()),
+    name: $('#menuOrder option:selected').attr('id'),
     reservationsId: $('#resOrder option:selected').val(),
   };
   orderData.addorder(newOrderMenu)
@@ -365,6 +375,7 @@ const addTotalToRes = () => {
   // utils.printToDom('#console', '');
   // buildOrderConsole2(resObj.date);
   utils.printToDom('#submitBtn', domString);
+  // utils.showFlashMessage('order complete', 'order complete!');
 };
 
 export default {
