@@ -1,47 +1,51 @@
 {
   "staffReservation1": {
-    "reservationsId": "reservations7",
-    "staffId": "staffItem1"
+    "reservationsId": "reservation1",
+    "staffId": "staff1"
   },
   "staffReservation2": {
-    "reservationsId": "reservations4",
-    "staffId": "staffItem1"
+    "reservationsId": "reservation1",
+    "staffId": "staff3"
   },
   "staffReservation3": {
-    "reservationsId": "reservations6",
-    "staffId": "staffItem2"
+    "reservationsId": "reservation1",
+    "staffId": "staff5"
   },
   "staffReservation4": {
-    "reservationsId": "reservations3",
-    "staffId": "staffItem2"
+    "reservationsId": "reservation2",
+    "staffId": "staff2"
   },
   "staffReservation5": {
-    "reservationsId": "reservations2",
-    "staffId": "staffItem3"
+    "reservationsId": "reservation2",
+    "staffId": "staff4"
   },
   "staffReservation6": {
-    "reservationsId": "reservations7",
-    "staffId": "staffItem3"
+    "reservationsId": "reservation2",
+    "staffId": "staff6"
   },
   "staffReservation7": {
-    "reservationsId": "reservations1",
-    "staffId": "staffItem4"
+    "reservationsId": "reservation3",
+    "staffId": "staff2"
   },
   "staffReservation8": {
-    "reservationsId": "reservations8",
-    "staffId": "staffItem4"
+    "reservationsId": "reservation3",
+    "staffId": "staff3"
   },
   "staffReservation9": {
-    "reservationsId": "reservations9",
-    "staffId": "staffItem5"
+    "reservationsId": "reservation3",
+    "staffId": "staff5"
   },
   "staffReservation10": {
-    "reservationsId": "reservations6",
-    "staffId": "staffItem5"
+    "reservationsId": "reservation4",
+    "staffId": "staff1"
   },
   "staffReservation11": {
-    "reservationsId": "reservations5",
-    "staffId": "staffItem6"
+    "reservationsId": "reservation4",
+    "staffId": "staff4"
+  },
+  "staffReservation12": {
+    "reservationsId": "reservation4",
+    "staffId": "staff6"
   }
 
 }

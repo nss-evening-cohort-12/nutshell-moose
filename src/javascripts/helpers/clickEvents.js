@@ -21,6 +21,7 @@ import deleteIngredient from '../components/deleteIngredient/deleteIngredient';
 import displayOrder from '../components/orders/displayOrder';
 import reports from '../components/reports/reports';
 import reportsRevenue from '../components/reports/reportsRevenue';
+import reportsIngredients from '../components/reports/reportsIngredients';
 
 const clickEvents = () => {
   // BOTH AUTHORIZED AND NON-AUTHORIZED USER USER CLICK EVENTS:
@@ -88,6 +89,10 @@ const clickEvents = () => {
       $('body').on('change', '#personOrder', displayOrder.personDropUpdate);
       $('body').on('change', '#menuOrder', displayOrder.menuDropUpdate);
       $('body').on('click', '#revenueSubmit', reportsRevenue.pickReport);
+      $('body').on('click', '#ingredientsSubmit', reportsIngredients.pickReport);
+      $('body').on('click', '#1IngredDay', reportsIngredients.toggleDatePicker);
+      $('body').on('click', '#7IngredDay', reportsIngredients.toggleDatePicker);
+      $('body').on('click', '#allIngredDays', reportsIngredients.toggleDatePicker);
     }
     if (!user) {
       $('body').off('click', '#staff-link', displayStaff.buildStaffConsole);

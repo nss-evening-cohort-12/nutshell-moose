@@ -16,4 +16,14 @@ const firebaseArray = (data) => {
   return arrayCollection;
 };
 
-export default { printToDom, firebaseArray };
+const showFlashMessage = (messageType, messageBody) => {
+  const domString = `<div class="alert alert-${messageType} alert-dismissible fade show" role="alert">
+            <h4 class="text-center"> ${messageBody}</h4>
+            </div>`;
+  document.getElementById('message').innerHTML = domString;
+  setTimeout(() => {
+    document.getElementById('message').innerHTML = '';
+  }, 4000);
+};
+
+export default { printToDom, firebaseArray, showFlashMessage };
