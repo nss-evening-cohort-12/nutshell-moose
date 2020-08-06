@@ -16,6 +16,10 @@ This project utilizes the DOM with Jquery as well as Axios Promises to retrieve 
 #### Preview For Authorized Users
 ![Le Baguette Site Demo Unauthorized Users](./screenshots/le-baguette-site-demo-2.gif)
 
+#### Preview For Reprot With Chart Options
+https://media3.giphy.com/media/d8PoH9cuMNa8BaSMKb/giphy.gif
+
+
 ## Deployed Project
 
 https://nutshell-moose.web.app/
