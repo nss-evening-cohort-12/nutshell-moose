@@ -29,6 +29,8 @@ https://nutshell-moose.web.app/
 
 - Install the dependencies 👉🏼 `$ npm install`
 
+- Install the dependencies 👉🏼 `$ npm install chart.js`
+
 - Run `$ npm start`
 
 ## Technologies Used
