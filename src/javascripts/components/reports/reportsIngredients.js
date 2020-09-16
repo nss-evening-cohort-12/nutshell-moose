@@ -1,4 +1,5 @@
 import './reports.scss';
+import Chart from 'chart.js';
 import moment from 'moment';
 import utils from '../../helpers/utils';
 import ingredientsSmash from '../../helpers/data/ingredientsSmash';
@@ -34,7 +35,15 @@ const drawIngredients = () => {
     <button id="ingredientsSubmit" class="mt-3 btn btn-primary submit">Submit</button>
     </div>
     </div>
-    <div id="reportsIngredDisplay"></div>`;
+    <div id="reportsIngredDisplay"></div>
+    <div id="buildChart" class="col-md-6 offset-md-3 hide">
+      <div class="card">
+        <div class="card-body card-header1">
+          <canvas id="myChart" width="100" height="100"></canvas>
+        </div>
+      </div>
+    </div>
+    `;
   utils.printToDom('#ingredientsDiv', domString);
 };
 
@@ -83,20 +92,106 @@ const getOneDayIngredients = () => {
           <div class="card-body">
             <h2 class="card-title">Amount of Ingredients Used</h2>
             <h2 class="card-text">on ${pickDate1}</h2>`;
+      const labels = [];
+      const dataSets = [];
+      const cTitle = `Amount of Ingredients Used on ${pickDate1}`;
       const keys = Object.keys(rawIngredients);
       keys.forEach((key) => {
         domString += `
             <h3 class="card-text"> ${key}: ${rawIngredients[key]}</h3>`;
+        // console.warn(key);
+        labels.push(key);
+        dataSets.push(rawIngredients[key]);
       });
       domString += `
           </div>
           <div class="card-footer text-muted">
           </div>
+        </div>        
+      `;
+      const buildTextCard = domString;
+      const domChart = `
+        <div id="buildChart" class="mb-3 col-md-6 offset-md-3 hide">
+          <div class="card">
+            <div class="card-body card-header1">
+              <canvas id="myChart" width="70" height="70"></canvas>
+            </div>
+          </div>
+        </div>      
+      `;
+      domString = '';
+      domString += `
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ingredients Used Report</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Chart</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">${buildTextCard}</div>
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">${domChart}</div>
         </div>
       `;
       utils.printToDom('div #reportsIngredDisplay', domString);
+      $('#buildChart').removeClass('hide');
+      $('buildChart').css('background-color', 'red');
+      // eslint-disable-next-line no-use-before-define
+      drowChart(labels, dataSets, cTitle);
     })
     .catch((err) => console.warn('did not bring the reservation ', err));
+};
+
+const drowChart = (labelArr, dataArr, cTitle) => {
+  const ctx = document.getElementById('myChart').getContext('2d');
+  const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: labelArr,
+      datasets: [{
+        data: dataArr,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'red',
+          'orange',
+          'yellow',
+          'green',
+          'blue',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'red',
+          'orange',
+          'yellow',
+          'green',
+          'blue',
+        ],
+        borderWidth: 1,
+      }],
+    },
+    options: {
+      title: {
+        text: cTitle,
+        display: true,
+      },
+      legend: {
+        display: true,
+        position: 'right',
+      },
+    },
+  });
+  console.warn(myChart);
+  // const domString = myChart;
+  // utils.printToDom('#myChart', domString);
 };
 
 const getAllDayIngredients = () => {
@@ -139,6 +234,7 @@ const pickReport = () => {
       if (pickDate1) {
         // eslint-disable-next-line no-use-before-define
         getOneDayIngredients();
+        // drowChart();
         // console.warn('there is date selected', pickDate1, valid);
       } else {
         utils.printToDom('div #reportsIngredDisplay', 'Please select the date to get the report for it!!');
