@@ -98,7 +98,7 @@ const dropUpdate = () => {
   let haveTotalCheck = false;
   reservationStoreObject.forEach((res) => {
     if (res.id === myVal) {
-      partySize = res.partySize;
+      partySize = parseFloat(res.partySize);
       // resPartySize = res.partySize;
       domString = res.name;
       resId = res.id;
